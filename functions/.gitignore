@@ -6,3 +6,8 @@
 typings/
 
 node_modules/
+
+.idea
+.vscode
+*.log
+.DS_Store
