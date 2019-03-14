@@ -3,6 +3,8 @@ export interface IMapper {
     score(): Promise<IScore[]>
     fetchProvince(): Promise<IProvince[]>
     province(): Promise<IProvince[]>
+    fetchParties(): Promise<IParty[]>
+    parties(): Promise<IParty[]>
 }
 
 export interface IScore {
@@ -31,4 +33,13 @@ export interface IProvince {
     goodVotes: any
     badVotes: any
     noVotes: any
+}
+export interface IParty {
+    id: number
+    name: string
+    codeTH: string
+    codeEN: string
+    logoUrl: string
+    votesTotal: number
+    colorCode: any
 }
