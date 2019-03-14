@@ -1,16 +1,23 @@
 import axios from 'axios'
-import { IMapper, IScore } from './IMapper'
+import { IMapper, IProvince, IScore } from './IMapper'
 
 interface IScoreResponse {
     total: number
     items: IScore[]
 }
 
+interface IProvinceResponse {
+    total: number
+    items: IProvince[]
+}
+
 class FakeMapper implements IMapper {
     private cache: IScore[] | null
+    private provinceData: IProvince[] | null
 
     constructor() {
         this.cache = null
+        this.provinceData = null
     }
 
     public async fetchScore(): Promise<IScore[]> {
@@ -27,6 +34,21 @@ class FakeMapper implements IMapper {
             this.cache = await this.fetchScore()
         }
         return this.cache
+    }
+
+    public async fetchProvince(): Promise<IProvince[]> {
+        const response = await axios.get(
+            'https://election.dttpool.com/api/province?format=json&fields=all&p=all'
+        )
+        const data = response.data as IProvinceResponse
+        return data.items
+    }
+
+    public async province(): Promise<IProvince[]> {
+        if (!this.provinceData) {
+            this.provinceData = await this.fetchProvince()
+        }
+        return this.provinceData
     }
 }
 
