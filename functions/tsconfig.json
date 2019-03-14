@@ -3,7 +3,7 @@
         "module": "commonjs",
         "noImplicitReturns": true,
         "noUnusedLocals": true,
-        "outDir": "lib",
+        "outDir": "build",
         "sourceMap": true,
         "strict": true,
         "target": "es2015",

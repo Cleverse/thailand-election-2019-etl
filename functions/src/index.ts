@@ -1,17 +1,12 @@
 import { https } from 'firebase-functions'
-import * as mapData from './map.json'
-import * as partyListData from './partyList.json'
 
-export const map = https.onRequest((_, res) => {
+import { newFakeMapper } from './mapper/fakeMapper'
+
+export const main = https.onRequest(async (_, res) => {
+    const mapper = newFakeMapper()
+    const score = await mapper.score()
     res.status(200)
     res.type('application/json')
-    res.write(JSON.stringify(mapData))
-    res.end()
-})
-
-export const partyList = https.onRequest((_, res) => {
-    res.status(200)
-    res.type('application/json')
-    res.write(JSON.stringify(partyListData))
+    res.write(JSON.stringify(score))
     res.end()
 })

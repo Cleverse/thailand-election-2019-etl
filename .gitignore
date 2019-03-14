@@ -64,5 +64,5 @@ node_modules/
 # dotenv environment variables file
 .env
 
-functions/lib
+functions/build
 \.DS_Store

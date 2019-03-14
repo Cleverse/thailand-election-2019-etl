@@ -9,8 +9,9 @@
         "deploy": "firebase deploy --only functions",
         "logs": "firebase functions:log"
     },
-    "main": "lib/index.js",
+    "main": "build/index.js",
     "dependencies": {
+        "axios": "^0.18.0",
         "firebase-admin": "~7.0.0",
         "firebase-functions": "^2.2.0",
         "fs": "^0.0.1-security",
