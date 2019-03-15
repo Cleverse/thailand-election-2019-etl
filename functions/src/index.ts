@@ -13,7 +13,7 @@ export const main = https.onRequest(async (__, res) => {
     const mapper = newFakeMapper()
     const score = await mapper.score()
 
-    const zoneMap = score.reduce(
+    const provinceMap = score.reduce(
         (map, s) => {
             const provinceId = `${s.provinceId}`
             const zoneNo = `${s.zone}`
@@ -26,13 +26,13 @@ export const main = https.onRequest(async (__, res) => {
         {} as any
     )
 
-    const provinces = Object.keys(zoneMap).map(id => {
+    const provinces = Object.keys(provinceMap).map(id => {
         const province = provinceData[id]
         return {
             provinceCode: province.code,
             provinceName: province.name,
-            zones: Object.keys(zoneMap[id]).map(zoneNo => {
-                const items: IScore[] = zoneMap[id][zoneNo]
+            zones: Object.keys(provinceMap[id]).map(zoneNo => {
+                const items: IScore[] = provinceMap[id][zoneNo]
                 items.sort((a, b) => (a.score > b.score ? -1 : 1))
 
                 const candidates = items.slice(0, 3).map(mapCandidate)
