@@ -91,7 +91,7 @@ function mapCandidate(item: IScore) {
     }
 }
 
-function sortScores(scores: IScore[]) {
+export function sortScores(scores: IScore[]) {
     const zoneMap = scores.reduce(
         (map, s) => {
             const key = `${s.provinceId}:${s.zone}`
@@ -113,14 +113,14 @@ function sortScores(scores: IScore[]) {
 export function calculateSeats(zoneMap: any) {
     return Object.keys(zoneMap).reduce(
         (map, zone) => {
-            const candidate: IScore = zoneMap[zone][0]
+            const winner: IScore = zoneMap[zone][0]
 
             // ID is null !?
-            if (!candidate.partyId) {
+            if (!winner.partyId) {
                 return map
             }
 
-            const partyId = `${candidate.partyId}`
+            const partyId = `${winner.partyId}`
 
             map[partyId] = map[partyId] || 0
             map[partyId] += 1

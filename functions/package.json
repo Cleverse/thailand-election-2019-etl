@@ -16,7 +16,8 @@
         "firebase-admin": "~7.0.0",
         "firebase-functions": "^2.2.0",
         "fs": "^0.0.1-security",
-        "lodash": "^4.17.11"
+        "lodash": "^4.17.11",
+        "partylist-calculator": "https://github.com/Cleverse/thailand-party-list-calculator"
     },
     "devDependencies": {
         "@types/node": "^11.11.3",
