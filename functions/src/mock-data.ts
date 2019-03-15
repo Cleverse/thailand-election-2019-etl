@@ -18,7 +18,9 @@ const provinces = _.range(77).map(i => ({
 }))
 
 const ranking = _.range(12).map(i => ({
-    party: '' + i,
+    partyName: '' + i,
+    partyCode: '',
+    partyPic: '',
     seats: 0,
 }))
 

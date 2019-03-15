@@ -9,6 +9,10 @@ import * as tempProvinces from './masterData/provinceMap.json'
 const partyData: any = tempParties
 const provinceData: any = tempProvinces
 
+// remove key `default` from importing using *
+delete partyData.default
+delete provinceData.default
+
 export const main = https.onRequest(async (__, res) => {
     const mapper = newFakeMapper()
     const score = await mapper.score()
@@ -26,6 +30,20 @@ export const main = https.onRequest(async (__, res) => {
         {} as any
     )
 
+    const partyMap = Object.keys(partyData).reduce(
+        (map, id) => {
+            const { name, codeEN, logoUrl } = partyData[id]
+            map[id] = {
+                partyName: name,
+                partyCode: codeEN,
+                partyPic: logoUrl,
+                seats: 0,
+            }
+            return map
+        },
+        {} as any
+    )
+
     const provinces = Object.keys(provinceMap).map(id => {
         const province = provinceData[id]
         return {
@@ -34,6 +52,12 @@ export const main = https.onRequest(async (__, res) => {
             zones: Object.keys(provinceMap[id]).map(zoneNo => {
                 const items: IScore[] = provinceMap[id][zoneNo]
                 items.sort((a, b) => (a.score > b.score ? -1 : 1))
+
+                const winningPartyId = items[0].partyId
+                // ID is null!?
+                if (winningPartyId) {
+                    partyMap[winningPartyId].seats += 1
+                }
 
                 const candidates = items.slice(0, 3).map(mapCandidate)
                 return {
@@ -44,14 +68,24 @@ export const main = https.onRequest(async (__, res) => {
         }
     })
 
+    const parties = Object.keys(partyMap).map(id => partyMap[id])
+    parties.sort((a, b) => (a.seats > b.seats ? -1 : 1))
+
+    const overview = {
+        counted: 0,
+        totalVotes: 0,
+        ranking: parties,
+    }
+
     res.status(200)
     res.type('application/json')
-    res.write(JSON.stringify(provinces))
+    res.write(JSON.stringify({ provinces, overview }))
     res.end()
 })
 
 function mapCandidate(item: IScore) {
-    const party = item.partyId
+    // ID is null!?
+    const { name, codeEN, logoUrl } = item.partyId
         ? partyData[item.partyId]
         : {
               name: '???',
@@ -60,9 +94,9 @@ function mapCandidate(item: IScore) {
           }
 
     return {
-        partyName: party.name,
-        partyCode: party.codeEN,
-        partyPic: party.logoUrl,
+        partyName: name,
+        partyCode: codeEN,
+        partyPic: logoUrl,
         candidate: `${item.title} ${item.firstName} ${item.lastName}`,
         score: item.score,
         picture: '',
