@@ -14,50 +14,27 @@ delete provinceData.default
 
 export async function etlMapData() {
     const mapper = newFakeMapper()
-    const score = await mapper.fetchScore()
+    const scores = await mapper.fetchScores()
 
-    const provinceMap = score.reduce(
-        (map, s) => {
-            const provinceId = `${s.provinceId}`
-            const zoneNo = `${s.zone}`
+    const zoneMap = sortScores(scores)
+    const provinceMap = Object.keys(zoneMap).reduce(
+        (map, zone) => {
+            const [provinceId, zoneNo] = zone.split(':')
 
             map[provinceId] = map[provinceId] || {}
-            map[provinceId][zoneNo] = map[provinceId][zoneNo] || []
-            map[provinceId][zoneNo].push(s)
+            map[provinceId][zoneNo] = map[provinceId][zoneNo] || zoneMap[zone]
             return map
         },
         {} as any
     )
 
-    const partyMap = Object.keys(partyData).reduce(
-        (map, id) => {
-            const { name, codeEN, logoUrl } = partyData[id]
-            map[id] = {
-                partyName: name,
-                partyCode: codeEN,
-                partyPic: logoUrl,
-                seats: 0,
-            }
-            return map
-        },
-        {} as any
-    )
-
-    const provinces = Object.keys(provinceMap).map(id => {
-        const province = provinceData[id]
+    const provinces = Object.keys(provinceMap).map(provinceId => {
+        const { code, name } = provinceData[provinceId]
         return {
-            provinceCode: province.code,
-            provinceName: province.name,
-            zones: Object.keys(provinceMap[id]).map(zoneNo => {
-                const items: IScore[] = provinceMap[id][zoneNo]
-                items.sort((a, b) => (a.score > b.score ? -1 : 1))
-
-                const winningPartyId = items[0].partyId
-                // ID is null!?
-                if (winningPartyId) {
-                    partyMap[winningPartyId].seats += 1
-                }
-
+            provinceCode: code,
+            provinceName: name,
+            zones: Object.keys(provinceMap[provinceId]).map(zoneNo => {
+                const items: IScore[] = provinceMap[provinceId][zoneNo]
                 const candidates = items.slice(0, 3).map(mapCandidate)
                 return {
                     zoneNo,
@@ -77,11 +54,20 @@ export async function etlMapData() {
         { counted: 0, totalVotes: 0 } as any
     )
 
-    const parties = Object.keys(partyMap).map(id => partyMap[id])
+    const seats = calculateSeats(zoneMap)
+    const parties = Object.keys(seats).map(partyId => {
+        const { name, codeEN, logoUrl } = partyData[partyId]
+
+        return {
+            partyName: name,
+            partyCode: codeEN,
+            partyPic: logoUrl,
+            seats: seats[partyId],
+        }
+    })
+
     parties.sort((a, b) => (a.seats > b.seats ? -1 : 1))
-
     overview.ranking = parties
-
     return { provinces, overview }
 }
 
@@ -103,4 +89,43 @@ function mapCandidate(item: IScore) {
         score: item.score,
         picture: '',
     }
+}
+
+function sortScores(scores: IScore[]) {
+    const zoneMap = scores.reduce(
+        (map, s) => {
+            const key = `${s.provinceId}:${s.zone}`
+
+            map[key] = map[key] || []
+            map[key].push(s)
+            return map
+        },
+        {} as any
+    )
+
+    Object.keys(zoneMap).map(key => {
+        zoneMap[key].sort((a: any, b: any) => (a.score > b.score ? -1 : 1))
+    })
+
+    return zoneMap
+}
+
+export function calculateSeats(zoneMap: any) {
+    return Object.keys(zoneMap).reduce(
+        (map, zone) => {
+            const candidate: IScore = zoneMap[zone][0]
+
+            // ID is null !?
+            if (!candidate.partyId) {
+                return map
+            }
+
+            const partyId = `${candidate.partyId}`
+
+            map[partyId] = map[partyId] || 0
+            map[partyId] += 1
+            return map
+        },
+        {} as any
+    )
 }

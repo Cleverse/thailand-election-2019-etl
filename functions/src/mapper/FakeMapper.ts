@@ -19,30 +19,30 @@ interface IPartyResponse extends Response {
 }
 
 class FakeMapper implements IMapper {
-    private cachedScore: IScore[] | null
+    private cachedScores: IScore[] | null
     private cachedParties: IParty[] | null
     private cachedProvinces: IProvince[] | null
 
     constructor() {
-        this.cachedScore = null
+        this.cachedScores = null
         this.cachedParties = null
         this.cachedProvinces = null
     }
 
-    public async fetchScore(): Promise<IScore[]> {
+    public async fetchScores(): Promise<IScore[]> {
         const response = await axios.get(
             'https://election.dttpool.com/api/score?format=json&fields=all&p=all'
         )
         const data = response.data as IScoreResponse
-        this.cachedScore = data.items
-        return this.cachedScore
+        this.cachedScores = data.items
+        return this.cachedScores
     }
 
-    public async score(): Promise<IScore[]> {
-        if (!this.cachedScore) {
-            this.cachedScore = await this.fetchScore()
+    public async scores(): Promise<IScore[]> {
+        if (!this.cachedScores) {
+            this.cachedScores = await this.fetchScores()
         }
-        return this.cachedScore
+        return this.cachedScores
     }
 
     public async fetchParties(): Promise<IParty[]> {
