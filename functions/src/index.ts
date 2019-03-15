@@ -3,8 +3,8 @@ import { https } from 'firebase-functions'
 import { newFakeMapper } from './mapper/FakeMapper'
 import { IScore } from './mapper/IMapper'
 
-import * as tempParties from './masterData/parties.json'
-import * as tempProvinces from './masterData/provinces.json'
+import * as tempParties from './masterData/partyMap.json'
+import * as tempProvinces from './masterData/provinceMap.json'
 
 const partyData: any = tempParties
 const provinceData: any = tempProvinces
@@ -18,7 +18,7 @@ export const main = https.onRequest(async (__, res) => {
             const provinceId = `${s.provinceId}`
             const zoneNo = `${s.zone}`
 
-            map[provinceId] = map[provinceId] || []
+            map[provinceId] = map[provinceId] || {}
             map[provinceId][zoneNo] = map[provinceId][zoneNo] || []
             map[provinceId][zoneNo].push(s)
             return map

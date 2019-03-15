@@ -1,493 +1,541 @@
-{
-    "10": {
-        "id": 10,
-        "name": "กรุงเทพมหานคร",
-        "regionId": 3,
-        "zone": 30,
-        "code": "BKK"
-    },
-    "11": {
-        "id": 11,
-        "name": "สมุทรปราการ",
-        "regionId": 3,
-        "zone": 7,
-        "code": "SPK"
-    },
-    "12": {
-        "id": 12,
-        "name": "นนทบุรี",
-        "regionId": 3,
-        "zone": 6,
-        "code": "NBI"
-    },
-    "13": {
-        "id": 13,
-        "name": "ปทุมธานี",
-        "regionId": 3,
-        "zone": 6,
-        "code": "PTE"
-    },
-    "14": {
-        "id": 14,
-        "name": "พระนครศรีอยุธยา",
-        "regionId": 3,
-        "zone": 4,
-        "code": "AYA"
-    },
-    "15": {
-        "id": 15,
-        "name": "อ่างทอง",
-        "regionId": 3,
-        "zone": 1,
-        "code": "ATG"
-    },
-    "16": {
-        "id": 16,
-        "name": "ลพบุรี",
-        "regionId": 3,
-        "zone": 4,
-        "code": "LRI"
-    },
-    "17": {
-        "id": 17,
-        "name": "สิงห์บุรี",
-        "regionId": 3,
-        "zone": 1,
-        "code": "SBR"
-    },
-    "18": {
-        "id": 18,
-        "name": "ชัยนาท",
-        "regionId": 3,
-        "zone": 2,
-        "code": "CNT"
-    },
-    "19": {
-        "id": 19,
-        "name": "สระบุรี",
-        "regionId": 3,
-        "zone": 3,
-        "code": "SRI"
-    },
-    "20": {
-        "id": 20,
-        "name": "ชลบุรี",
-        "regionId": 3,
-        "zone": 8,
-        "code": "CBI"
-    },
-    "21": {
-        "id": 21,
-        "name": "ระยอง",
-        "regionId": 3,
-        "zone": 4,
-        "code": "RYG"
-    },
-    "22": {
-        "id": 22,
-        "name": "จันทบุรี",
-        "regionId": 3,
-        "zone": 3,
-        "code": "CTI"
-    },
-    "23": { "id": 23, "name": "ตราด", "regionId": 3, "zone": 1, "code": "TRT" },
-    "24": {
-        "id": 24,
-        "name": "ฉะเชิงเทรา",
-        "regionId": 3,
-        "zone": 4,
-        "code": "CCO"
-    },
-    "25": {
-        "id": 25,
-        "name": "ปราจีนบุรี",
-        "regionId": 3,
-        "zone": 3,
-        "code": "PRI"
-    },
-    "26": {
-        "id": 26,
-        "name": "นครนายก",
-        "regionId": 3,
-        "zone": 1,
-        "code": "NYK"
-    },
-    "27": {
-        "id": 27,
-        "name": "สระแก้ว",
-        "regionId": 3,
-        "zone": 3,
-        "code": "SKW"
-    },
-    "30": {
-        "id": 30,
-        "name": "นครราชสีมา",
-        "regionId": 2,
-        "zone": 14,
-        "code": "NMA"
-    },
-    "31": {
-        "id": 31,
-        "name": "บุรีรัมย์",
-        "regionId": 2,
-        "zone": 8,
-        "code": "BRM"
-    },
-    "32": {
-        "id": 32,
-        "name": "สุรินทร์",
-        "regionId": 2,
-        "zone": 7,
-        "code": "SRN"
-    },
-    "33": {
-        "id": 33,
-        "name": "ศรีสะเกษ",
-        "regionId": 2,
-        "zone": 8,
-        "code": "SSK"
-    },
-    "34": {
-        "id": 34,
-        "name": "อุบลราชธานี",
-        "regionId": 2,
-        "zone": 10,
-        "code": "UBN"
-    },
-    "35": {
-        "id": 35,
-        "name": "ยโสธร",
-        "regionId": 2,
-        "zone": 3,
-        "code": "YST"
-    },
-    "36": {
-        "id": 36,
-        "name": "ชัยภูมิ",
-        "regionId": 2,
-        "zone": 6,
-        "code": "CPM"
-    },
-    "37": {
-        "id": 37,
-        "name": "อำนาจเจริญ",
-        "regionId": 2,
-        "zone": 2,
-        "code": "ACR"
-    },
-    "38": {
-        "id": 38,
-        "name": "บึงกาฬ",
-        "regionId": 2,
-        "zone": 2,
-        "code": "BKN"
-    },
-    "39": {
-        "id": 39,
-        "name": "หนองบัวลำภู",
-        "regionId": 2,
-        "zone": 3,
-        "code": "NBP"
-    },
-    "40": {
-        "id": 40,
-        "name": "ขอนแก่น",
-        "regionId": 2,
-        "zone": 10,
-        "code": "KKN"
-    },
-    "41": {
-        "id": 41,
-        "name": "อุดรธานี",
-        "regionId": 2,
-        "zone": 8,
-        "code": "UTI"
-    },
-    "42": { "id": 42, "name": "เลย", "regionId": 2, "zone": 3, "code": "LEI" },
-    "43": {
-        "id": 43,
-        "name": "หนองคาย",
-        "regionId": 2,
-        "zone": 3,
-        "code": "NKI"
-    },
-    "44": {
-        "id": 44,
-        "name": "มหาสารคาม",
-        "regionId": 2,
-        "zone": 5,
-        "code": "MKM"
-    },
-    "45": {
-        "id": 45,
-        "name": "ร้อยเอ็ด",
-        "regionId": 2,
-        "zone": 7,
-        "code": "RET"
-    },
-    "46": {
-        "id": 46,
-        "name": "กาฬสินธุ์",
-        "regionId": 2,
-        "zone": 5,
-        "code": "KSN"
-    },
-    "47": {
-        "id": 47,
-        "name": "สกลนคร",
-        "regionId": 2,
-        "zone": 6,
-        "code": "SNK"
-    },
-    "48": {
-        "id": 48,
-        "name": "นครพนม",
-        "regionId": 2,
-        "zone": 4,
-        "code": "NPM"
-    },
-    "49": {
-        "id": 49,
-        "name": "มุกดาหาร",
-        "regionId": 2,
-        "zone": 2,
-        "code": "MDH"
-    },
-    "50": {
-        "id": 50,
-        "name": "เชียงใหม่",
-        "regionId": 1,
-        "zone": 9,
-        "code": "CMI"
-    },
-    "51": {
-        "id": 51,
-        "name": "ลำพูน",
-        "regionId": 1,
-        "zone": 2,
-        "code": "LPN"
-    },
-    "52": {
-        "id": 52,
-        "name": "ลำปาง",
-        "regionId": 1,
-        "zone": 4,
-        "code": "LPG"
-    },
-    "53": {
-        "id": 53,
-        "name": "อุตรดิตถ์",
-        "regionId": 1,
-        "zone": 2,
-        "code": "UTT"
-    },
-    "54": { "id": 54, "name": "แพร่", "regionId": 1, "zone": 2, "code": "PRE" },
-    "55": { "id": 55, "name": "น่าน", "regionId": 1, "zone": 3, "code": "NAN" },
-    "56": {
-        "id": 56,
-        "name": "พะเยา",
-        "regionId": 1,
-        "zone": 3,
-        "code": "PYO"
-    },
-    "57": {
-        "id": 57,
-        "name": "เชียงราย",
-        "regionId": 1,
-        "zone": 7,
-        "code": "CRI"
-    },
-    "58": {
-        "id": 58,
-        "name": "แม่ฮ่องสอน",
-        "regionId": 1,
-        "zone": 1,
-        "code": "MSN"
-    },
-    "60": {
-        "id": 60,
-        "name": "นครสวรรค์",
-        "regionId": 1,
-        "zone": 6,
-        "code": "NSN"
-    },
-    "61": {
-        "id": 61,
-        "name": "อุทัยธานี",
-        "regionId": 3,
-        "zone": 2,
-        "code": "UTI"
-    },
-    "62": {
-        "id": 62,
-        "name": "กำแพงเพชร",
-        "regionId": 1,
-        "zone": 4,
-        "code": "KPT"
-    },
-    "63": { "id": 63, "name": "ตาก", "regionId": 1, "zone": 3, "code": "TAK" },
-    "64": {
-        "id": 64,
-        "name": "สุโขทัย",
-        "regionId": 1,
-        "zone": 3,
-        "code": "STI"
-    },
-    "65": {
-        "id": 65,
-        "name": "พิษณุโลก",
-        "regionId": 1,
-        "zone": 5,
-        "code": "PLK"
-    },
-    "66": {
-        "id": 66,
-        "name": "พิจิตร",
-        "regionId": 1,
-        "zone": 3,
-        "code": "PCT"
-    },
-    "67": {
-        "id": 67,
-        "name": "เพชรบูรณ์",
-        "regionId": 1,
-        "zone": 5,
-        "code": "PNB"
-    },
-    "70": {
-        "id": 70,
-        "name": "ราชบุรี",
-        "regionId": 3,
-        "zone": 5,
-        "code": "RBR"
-    },
-    "71": {
-        "id": 71,
-        "name": "กาญจนบุรี",
-        "regionId": 3,
-        "zone": 5,
-        "code": "KRI"
-    },
-    "72": {
-        "id": 72,
-        "name": "สุพรรณบุรี",
-        "regionId": 3,
-        "zone": 4,
-        "code": "SPB"
-    },
-    "73": {
-        "id": 73,
-        "name": "นครปฐม",
-        "regionId": 3,
-        "zone": 5,
-        "code": "NPT"
-    },
-    "74": {
-        "id": 74,
-        "name": "สมุทรสาคร",
-        "regionId": 3,
-        "zone": 3,
-        "code": "SKN"
-    },
-    "75": {
-        "id": 75,
-        "name": "สมุทรสงคราม",
-        "regionId": 3,
-        "zone": 1,
-        "code": "SKM"
-    },
-    "76": {
-        "id": 76,
-        "name": "เพชรบุรี",
-        "regionId": 3,
-        "zone": 3,
-        "code": "PBI"
-    },
-    "77": {
-        "id": 77,
-        "name": "ประจวบคีรีขันธ์",
-        "regionId": 3,
-        "zone": 3,
-        "code": "PKN"
-    },
-    "80": {
-        "id": 80,
-        "name": "นครศรีธรรมราช",
-        "regionId": 4,
-        "zone": 8,
-        "code": "NST"
-    },
-    "81": {
-        "id": 81,
-        "name": "กระบี่",
-        "regionId": 4,
-        "zone": 2,
-        "code": "KBI"
-    },
-    "82": {
-        "id": 82,
-        "name": "พังงา",
-        "regionId": 4,
-        "zone": 1,
-        "code": "PNA"
-    },
-    "83": {
-        "id": 83,
-        "name": "ภูเก็ต",
-        "regionId": 4,
-        "zone": 2,
-        "code": "PKT"
-    },
-    "84": {
-        "id": 84,
-        "name": "สุราษฎร์ธานี",
-        "regionId": 4,
-        "zone": 6,
-        "code": "SNI"
-    },
-    "85": {
-        "id": 85,
-        "name": "ระนอง",
-        "regionId": 4,
-        "zone": 1,
-        "code": "RNG"
-    },
-    "86": {
-        "id": 86,
-        "name": "ชุมพร",
-        "regionId": 4,
-        "zone": 3,
-        "code": "CPN"
-    },
-    "90": {
-        "id": 90,
-        "name": "สงขลา",
-        "regionId": 4,
-        "zone": 8,
-        "code": "SKA"
-    },
-    "91": { "id": 91, "name": "สตูล", "regionId": 4, "zone": 2, "code": "STN" },
-    "92": { "id": 92, "name": "ตรัง", "regionId": 4, "zone": 3, "code": "TRG" },
-    "93": {
-        "id": 93,
-        "name": "พัทลุง",
-        "regionId": 4,
-        "zone": 3,
-        "code": "PLG"
-    },
-    "94": {
-        "id": 94,
-        "name": "ปัตตานี",
-        "regionId": 4,
-        "zone": 4,
-        "code": "PTN"
-    },
-    "95": { "id": 95, "name": "ยะลา", "regionId": 4, "zone": 3, "code": "YLA" },
-    "96": {
-        "id": 96,
-        "name": "นราธิวาส",
-        "regionId": 4,
-        "zone": 4,
-        "code": "NWT"
-    }
-}
+[
+  {
+    "id": 10,
+    "name": "กรุงเทพมหานคร",
+    "regionId": 3,
+    "zone": 30,
+    "code": "BKK"
+  },
+  {
+    "id": 11,
+    "name": "สมุทรปราการ",
+    "regionId": 3,
+    "zone": 7,
+    "code": "SPK"
+  },
+  {
+    "id": 12,
+    "name": "นนทบุรี",
+    "regionId": 3,
+    "zone": 6,
+    "code": "NBI"
+  },
+  {
+    "id": 13,
+    "name": "ปทุมธานี",
+    "regionId": 3,
+    "zone": 6,
+    "code": "PTE"
+  },
+  {
+    "id": 14,
+    "name": "พระนครศรีอยุธยา",
+    "regionId": 3,
+    "zone": 4,
+    "code": "AYA"
+  },
+  {
+    "id": 15,
+    "name": "อ่างทอง",
+    "regionId": 3,
+    "zone": 1,
+    "code": "ATG"
+  },
+  {
+    "id": 16,
+    "name": "ลพบุรี",
+    "regionId": 3,
+    "zone": 4,
+    "code": "LRI"
+  },
+  {
+    "id": 17,
+    "name": "สิงห์บุรี",
+    "regionId": 3,
+    "zone": 1,
+    "code": "SBR"
+  },
+  {
+    "id": 18,
+    "name": "ชัยนาท",
+    "regionId": 3,
+    "zone": 2,
+    "code": "CNT"
+  },
+  {
+    "id": 19,
+    "name": "สระบุรี",
+    "regionId": 3,
+    "zone": 3,
+    "code": "SRI"
+  },
+  {
+    "id": 20,
+    "name": "ชลบุรี",
+    "regionId": 3,
+    "zone": 8,
+    "code": "CBI"
+  },
+  {
+    "id": 21,
+    "name": "ระยอง",
+    "regionId": 3,
+    "zone": 4,
+    "code": "RYG"
+  },
+  {
+    "id": 22,
+    "name": "จันทบุรี",
+    "regionId": 3,
+    "zone": 3,
+    "code": "CTI"
+  },
+  {
+    "id": 23,
+    "name": "ตราด",
+    "regionId": 3,
+    "zone": 1,
+    "code": "TRT"
+  },
+  {
+    "id": 24,
+    "name": "ฉะเชิงเทรา",
+    "regionId": 3,
+    "zone": 4,
+    "code": "CCO"
+  },
+  {
+    "id": 25,
+    "name": "ปราจีนบุรี",
+    "regionId": 3,
+    "zone": 3,
+    "code": "PRI"
+  },
+  {
+    "id": 26,
+    "name": "นครนายก",
+    "regionId": 3,
+    "zone": 1,
+    "code": "NYK"
+  },
+  {
+    "id": 27,
+    "name": "สระแก้ว",
+    "regionId": 3,
+    "zone": 3,
+    "code": "SKW"
+  },
+  {
+    "id": 30,
+    "name": "นครราชสีมา",
+    "regionId": 2,
+    "zone": 14,
+    "code": "NMA"
+  },
+  {
+    "id": 31,
+    "name": "บุรีรัมย์",
+    "regionId": 2,
+    "zone": 8,
+    "code": "BRM"
+  },
+  {
+    "id": 32,
+    "name": "สุรินทร์",
+    "regionId": 2,
+    "zone": 7,
+    "code": "SRN"
+  },
+  {
+    "id": 33,
+    "name": "ศรีสะเกษ",
+    "regionId": 2,
+    "zone": 8,
+    "code": "SSK"
+  },
+  {
+    "id": 34,
+    "name": "อุบลราชธานี",
+    "regionId": 2,
+    "zone": 10,
+    "code": "UBN"
+  },
+  {
+    "id": 35,
+    "name": "ยโสธร",
+    "regionId": 2,
+    "zone": 3,
+    "code": "YST"
+  },
+  {
+    "id": 36,
+    "name": "ชัยภูมิ",
+    "regionId": 2,
+    "zone": 6,
+    "code": "CPM"
+  },
+  {
+    "id": 37,
+    "name": "อำนาจเจริญ",
+    "regionId": 2,
+    "zone": 2,
+    "code": "ACR"
+  },
+  {
+    "id": 38,
+    "name": "บึงกาฬ",
+    "regionId": 2,
+    "zone": 2,
+    "code": "BKN"
+  },
+  {
+    "id": 39,
+    "name": "หนองบัวลำภู",
+    "regionId": 2,
+    "zone": 3,
+    "code": "NBP"
+  },
+  {
+    "id": 40,
+    "name": "ขอนแก่น",
+    "regionId": 2,
+    "zone": 10,
+    "code": "KKN"
+  },
+  {
+    "id": 41,
+    "name": "อุดรธานี",
+    "regionId": 2,
+    "zone": 8,
+    "code": "UTI"
+  },
+  {
+    "id": 42,
+    "name": "เลย",
+    "regionId": 2,
+    "zone": 3,
+    "code": "LEI"
+  },
+  {
+    "id": 43,
+    "name": "หนองคาย",
+    "regionId": 2,
+    "zone": 3,
+    "code": "NKI"
+  },
+  {
+    "id": 44,
+    "name": "มหาสารคาม",
+    "regionId": 2,
+    "zone": 5,
+    "code": "MKM"
+  },
+  {
+    "id": 45,
+    "name": "ร้อยเอ็ด",
+    "regionId": 2,
+    "zone": 7,
+    "code": "RET"
+  },
+  {
+    "id": 46,
+    "name": "กาฬสินธุ์",
+    "regionId": 2,
+    "zone": 5,
+    "code": "KSN"
+  },
+  {
+    "id": 47,
+    "name": "สกลนคร",
+    "regionId": 2,
+    "zone": 6,
+    "code": "SNK"
+  },
+  {
+    "id": 48,
+    "name": "นครพนม",
+    "regionId": 2,
+    "zone": 4,
+    "code": "NPM"
+  },
+  {
+    "id": 49,
+    "name": "มุกดาหาร",
+    "regionId": 2,
+    "zone": 2,
+    "code": "MDH"
+  },
+  {
+    "id": 50,
+    "name": "เชียงใหม่",
+    "regionId": 1,
+    "zone": 9,
+    "code": "CMI"
+  },
+  {
+    "id": 51,
+    "name": "ลำพูน",
+    "regionId": 1,
+    "zone": 2,
+    "code": "LPN"
+  },
+  {
+    "id": 52,
+    "name": "ลำปาง",
+    "regionId": 1,
+    "zone": 4,
+    "code": "LPG"
+  },
+  {
+    "id": 53,
+    "name": "อุตรดิตถ์",
+    "regionId": 1,
+    "zone": 2,
+    "code": "UTT"
+  },
+  {
+    "id": 54,
+    "name": "แพร่",
+    "regionId": 1,
+    "zone": 2,
+    "code": "PRE"
+  },
+  {
+    "id": 55,
+    "name": "น่าน",
+    "regionId": 1,
+    "zone": 3,
+    "code": "NAN"
+  },
+  {
+    "id": 56,
+    "name": "พะเยา",
+    "regionId": 1,
+    "zone": 3,
+    "code": "PYO"
+  },
+  {
+    "id": 57,
+    "name": "เชียงราย",
+    "regionId": 1,
+    "zone": 7,
+    "code": "CRI"
+  },
+  {
+    "id": 58,
+    "name": "แม่ฮ่องสอน",
+    "regionId": 1,
+    "zone": 1,
+    "code": "MSN"
+  },
+  {
+    "id": 60,
+    "name": "นครสวรรค์",
+    "regionId": 1,
+    "zone": 6,
+    "code": "NSN"
+  },
+  {
+    "id": 61,
+    "name": "อุทัยธานี",
+    "regionId": 3,
+    "zone": 2,
+    "code": "UTI"
+  },
+  {
+    "id": 62,
+    "name": "กำแพงเพชร",
+    "regionId": 1,
+    "zone": 4,
+    "code": "KPT"
+  },
+  {
+    "id": 63,
+    "name": "ตาก",
+    "regionId": 1,
+    "zone": 3,
+    "code": "TAK"
+  },
+  {
+    "id": 64,
+    "name": "สุโขทัย",
+    "regionId": 1,
+    "zone": 3,
+    "code": "STI"
+  },
+  {
+    "id": 65,
+    "name": "พิษณุโลก",
+    "regionId": 1,
+    "zone": 5,
+    "code": "PLK"
+  },
+  {
+    "id": 66,
+    "name": "พิจิตร",
+    "regionId": 1,
+    "zone": 3,
+    "code": "PCT"
+  },
+  {
+    "id": 67,
+    "name": "เพชรบูรณ์",
+    "regionId": 1,
+    "zone": 5,
+    "code": "PNB"
+  },
+  {
+    "id": 70,
+    "name": "ราชบุรี",
+    "regionId": 3,
+    "zone": 5,
+    "code": "RBR"
+  },
+  {
+    "id": 71,
+    "name": "กาญจนบุรี",
+    "regionId": 3,
+    "zone": 5,
+    "code": "KRI"
+  },
+  {
+    "id": 72,
+    "name": "สุพรรณบุรี",
+    "regionId": 3,
+    "zone": 4,
+    "code": "SPB"
+  },
+  {
+    "id": 73,
+    "name": "นครปฐม",
+    "regionId": 3,
+    "zone": 5,
+    "code": "NPT"
+  },
+  {
+    "id": 74,
+    "name": "สมุทรสาคร",
+    "regionId": 3,
+    "zone": 3,
+    "code": "SKN"
+  },
+  {
+    "id": 75,
+    "name": "สมุทรสงคราม",
+    "regionId": 3,
+    "zone": 1,
+    "code": "SKM"
+  },
+  {
+    "id": 76,
+    "name": "เพชรบุรี",
+    "regionId": 3,
+    "zone": 3,
+    "code": "PBI"
+  },
+  {
+    "id": 77,
+    "name": "ประจวบคีรีขันธ์",
+    "regionId": 3,
+    "zone": 3,
+    "code": "PKN"
+  },
+  {
+    "id": 80,
+    "name": "นครศรีธรรมราช",
+    "regionId": 4,
+    "zone": 8,
+    "code": "NST"
+  },
+  {
+    "id": 81,
+    "name": "กระบี่",
+    "regionId": 4,
+    "zone": 2,
+    "code": "KBI"
+  },
+  {
+    "id": 82,
+    "name": "พังงา",
+    "regionId": 4,
+    "zone": 1,
+    "code": "PNA"
+  },
+  {
+    "id": 83,
+    "name": "ภูเก็ต",
+    "regionId": 4,
+    "zone": 2,
+    "code": "PKT"
+  },
+  {
+    "id": 84,
+    "name": "สุราษฎร์ธานี",
+    "regionId": 4,
+    "zone": 6,
+    "code": "SNI"
+  },
+  {
+    "id": 85,
+    "name": "ระนอง",
+    "regionId": 4,
+    "zone": 1,
+    "code": "RNG"
+  },
+  {
+    "id": 86,
+    "name": "ชุมพร",
+    "regionId": 4,
+    "zone": 3,
+    "code": "CPN"
+  },
+  {
+    "id": 90,
+    "name": "สงขลา",
+    "regionId": 4,
+    "zone": 8,
+    "code": "SKA"
+  },
+  {
+    "id": 91,
+    "name": "สตูล",
+    "regionId": 4,
+    "zone": 2,
+    "code": "STN"
+  },
+  {
+    "id": 92,
+    "name": "ตรัง",
+    "regionId": 4,
+    "zone": 3,
+    "code": "TRG"
+  },
+  {
+    "id": 93,
+    "name": "พัทลุง",
+    "regionId": 4,
+    "zone": 3,
+    "code": "PLG"
+  },
+  {
+    "id": 94,
+    "name": "ปัตตานี",
+    "regionId": 4,
+    "zone": 4,
+    "code": "PTN"
+  },
+  {
+    "id": 95,
+    "name": "ยะลา",
+    "regionId": 4,
+    "zone": 3,
+    "code": "YLA"
+  },
+  {
+    "id": 96,
+    "name": "นราธิวาส",
+    "regionId": 4,
+    "zone": 4,
+    "code": "NWT"
+  }
+]
