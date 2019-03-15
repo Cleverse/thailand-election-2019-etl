@@ -1,5 +1,4 @@
 import { newFakeMapper } from '../mapper/FakeMapper'
-
 import { IScore } from '../mapper/IMapper'
 
 import * as tempParties from '../masterData/partyMap.json'
@@ -62,11 +61,11 @@ export async function etlMapData() {
             partyName: name,
             partyCode: codeEN,
             partyPic: logoUrl,
-            seats: seats[partyId],
+            seats: seats[partyId].length,
         }
     })
 
-    parties.sort((a, b) => (a.seats > b.seats ? -1 : 1))
+    parties.sort((a, b) => (a.seats.length > b.seats.length ? -1 : 1))
     overview.ranking = parties
     return { provinces, overview }
 }
@@ -113,17 +112,18 @@ export function sortScores(scores: IScore[]) {
 export function calculateSeats(zoneMap: any) {
     return Object.keys(zoneMap).reduce(
         (map, zone) => {
-            const winner: IScore = zoneMap[zone][0]
+            const winner = zoneMap[zone][0]
 
             // ID is null !?
             if (!winner.partyId) {
                 return map
             }
 
-            const partyId = `${winner.partyId}`
+            winner.zone = zone
 
-            map[partyId] = map[partyId] || 0
-            map[partyId] += 1
+            const partyId = `${winner.partyId}`
+            map[partyId] = map[partyId] || []
+            map[partyId].push(winner)
             return map
         },
         {} as any

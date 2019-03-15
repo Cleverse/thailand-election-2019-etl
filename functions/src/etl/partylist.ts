@@ -2,6 +2,7 @@ import { calculatePartyList, Party } from 'partylist-calculator'
 
 import { calculateSeats, sortScores } from './map'
 import { newFakeMapper } from '../mapper/FakeMapper'
+
 import * as tempPartyList from '../masterData/partylistMap.json'
 import * as tempParties from '../masterData/partyMap.json'
 
@@ -15,8 +16,7 @@ delete partyData.default
 export async function etlPartylistData() {
     const mapper = newFakeMapper()
     const scores = await mapper.fetchScores()
-    const zoneMap = sortScores(scores)
-    const seats = calculateSeats(zoneMap)
+    const seats = calculateSeats(sortScores(scores))
     const provinces = await mapper.fetchProvinces()
 
     const parties = await mapper.fetchParties()
@@ -26,7 +26,7 @@ export async function etlPartylistData() {
             const partyId = `${id}`
 
             const partylist = partylistData[name]
-            const numSeats = seats[partyId]
+            const numSeats = seats[partyId] && seats[partyId].length
             if (!partylist || !numSeats) {
                 return null
             }
