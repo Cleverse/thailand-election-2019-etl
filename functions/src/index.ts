@@ -68,14 +68,20 @@ export const main = https.onRequest(async (__, res) => {
         }
     })
 
+    const fetchedProvinces = await mapper.provinces()
+    const overview = fetchedProvinces.reduce(
+        (ov, p) => {
+            ov.counted += p.badVotes + p.goodVotes + p.noVotes
+            ov.totalVotes += p.votesTotal
+            return ov
+        },
+        { counted: 0, totalVotes: 0 } as any
+    )
+
     const parties = Object.keys(partyMap).map(id => partyMap[id])
     parties.sort((a, b) => (a.seats > b.seats ? -1 : 1))
 
-    const overview = {
-        counted: 0,
-        totalVotes: 0,
-        ranking: parties,
-    }
+    overview.ranking = parties
 
     res.status(200)
     res.type('application/json')
