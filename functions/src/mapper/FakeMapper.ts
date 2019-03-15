@@ -61,7 +61,7 @@ class FakeMapper implements IMapper {
         return this.cachedParties
     }
 
-    public async fetchProvince(): Promise<IProvince[]> {
+    public async fetchProvinces(): Promise<IProvince[]> {
         const response = await axios.get(
             'https://election.dttpool.com/api/province?format=json&fields=all&p=all'
         )
@@ -69,9 +69,9 @@ class FakeMapper implements IMapper {
         return data.items
     }
 
-    public async province(): Promise<IProvince[]> {
+    public async provinces(): Promise<IProvince[]> {
         if (!this.cachedProvinces) {
-            this.cachedProvinces = await this.fetchProvince()
+            this.cachedProvinces = await this.fetchProvinces()
         }
         return this.cachedProvinces
     }

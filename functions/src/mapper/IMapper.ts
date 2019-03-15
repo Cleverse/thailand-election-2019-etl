@@ -1,8 +1,8 @@
 export interface IMapper {
     fetchScore(): Promise<IScore[]>
     score(): Promise<IScore[]>
-    fetchProvince(): Promise<IProvince[]>
-    province(): Promise<IProvince[]>
+    fetchProvinces(): Promise<IProvince[]>
+    provinces(): Promise<IProvince[]>
     fetchParties(): Promise<IParty[]>
     parties(): Promise<IParty[]>
 }
