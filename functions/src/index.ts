@@ -14,6 +14,22 @@ delete partyData.default
 delete provinceData.default
 
 export const main = https.onRequest(async (__, res) => {
+    res.status(200)
+    res.type('application/json')
+    res.write('Hello, world!')
+    res.end()
+})
+
+export const map = https.onRequest(async (__, res) => {
+    const mapData = await etlMapData()
+
+    res.status(200)
+    res.type('application/json')
+    res.write(JSON.stringify(mapData))
+    res.end()
+})
+
+async function etlMapData() {
     const mapper = newFakeMapper()
     const score = await mapper.score()
 
@@ -83,11 +99,8 @@ export const main = https.onRequest(async (__, res) => {
 
     overview.ranking = parties
 
-    res.status(200)
-    res.type('application/json')
-    res.write(JSON.stringify({ provinces, overview }))
-    res.end()
-})
+    return { provinces, overview }
+}
 
 function mapCandidate(item: IScore) {
     // ID is null!?
