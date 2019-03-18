@@ -8,7 +8,7 @@ export interface IMapper {
 }
 
 export interface IScore {
-    id: number
+    id: string
     score: number
     provinceId: number
     zone: number

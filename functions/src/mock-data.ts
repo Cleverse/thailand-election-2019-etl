@@ -12,7 +12,8 @@ const provinces = _.range(77).map(i => ({
             partyPic: '',
             candidate: '',
             score: 0,
-            picture: '',
+            picture:
+                'https://cdn.vote.phantompage.com/images/partylist/000b0a48-f1fc-46df-8a59-71c4764df406.jpg',
         })),
     })),
 }))
