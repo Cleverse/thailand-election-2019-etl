@@ -47,8 +47,7 @@ export async function etlOverallData() {
             (a, b) =>
                 b.constituencySeats +
                 b.partylistSeats -
-                a.constituencySeats -
-                a.partylistSeats
+                (a.constituencySeats + a.partylistSeats)
         )
 }
 

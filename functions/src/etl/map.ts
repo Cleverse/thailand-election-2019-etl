@@ -103,15 +103,15 @@ export function sortScores(scores: IScore[]) {
     )
 
     return Object.values(zoneMap).map((zone: any) =>
-        zone.sort((a: any, b: any) => (a.score > b.score ? -1 : 1))
+        zone.sort((a: any, b: any) => b.score - a.score)
     ) as Array<IScore[]>
 }
 
 export function calculateSeats(zones: Array<IScore[]>) {
     const seatMap = calculateSeatMap(zones)
 
-    return Object.values(seatMap).sort((a: any, b: any) =>
-        a.length > b.length ? -1 : 1
+    return Object.values(seatMap).sort(
+        (a: any, b: any) => b.length - a.length
     ) as Array<IScore[]>
 }
 

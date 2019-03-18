@@ -63,5 +63,5 @@ export async function etlPartylistData() {
                 seats: partylist.partyListMemberCount as number,
             }
         })
-        .sort((a, b) => (a.seats > b.seats ? -1 : 1))
+        .sort((a, b) => b.seats - a.seats)
 }
