@@ -2,8 +2,8 @@ import { newFakeMapper } from '../mapper/FakeMapper'
 import { sortScores, calculateSeats } from './map'
 import { etlPartylistData } from './partylist'
 
-import * as tempParties from '../masterData/partyMap.json'
-import * as tempProvinces from '../masterData/provinceMap.json'
+import * as tempParties from '../masterData/idToPartyMap.json'
+import * as tempProvinces from '../masterData/idToProvinceMap.json'
 
 const provinceData: any = tempProvinces
 const partyData: any = tempParties

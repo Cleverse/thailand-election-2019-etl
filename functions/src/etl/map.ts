@@ -1,8 +1,8 @@
 import { newFakeMapper } from '../mapper/FakeMapper'
 import { IScore } from '../mapper/IMapper'
 
-import * as tempParties from '../masterData/partyMap.json'
-import * as tempProvinces from '../masterData/provinceMap.json'
+import * as tempParties from '../masterData/idToPartyMap.json'
+import * as tempProvinces from '../masterData/idToProvinceMap.json'
 
 const partyData: any = tempParties
 const provinceData: any = tempProvinces

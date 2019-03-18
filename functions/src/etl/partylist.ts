@@ -3,8 +3,8 @@ import { calculatePartyList, Party } from 'partylist-calculator'
 import { sortScores, calculateSeatMap } from './map'
 import { newFakeMapper } from '../mapper/FakeMapper'
 
-import * as tempPartyList from '../masterData/partylistMap.json'
-import * as tempParties from '../masterData/partyMap.json'
+import * as tempPartyList from '../masterData/partyToPartylistMembersMap.json'
+import * as tempParties from '../masterData/idToPartyMap.json'
 
 const partylistData: any = tempPartyList
 const partyData: any = tempParties
