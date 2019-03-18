@@ -15,22 +15,22 @@ delete provinceData.default
 export async function etlOverallData() {
     const mapper = newFakeMapper()
     const scores = await mapper.fetchScores()
-    const seats = calculateSeats(sortScores(scores))
+    const partySeats = calculateSeats(sortScores(scores))
 
-    const partylistData = await etlPartylistData()
-    const partylistMap = listToMap(partylistData, 'partyName')
+    const partylistMap = await etlPartylistData().then(list =>
+        listToMap(list, 'partyName')
+    )
 
-    return Object.keys(seats)
-        .map(partyId => {
-            const { codeEN, name, logoUrl } = partyData[partyId]
+    return partySeats
+        .map(seats => {
+            const { codeEN, name, logoUrl } = partyData[`${seats[0].partyId}`]
             const partylist = partylistMap[name]
-            const constituencyCandidates = seats[partyId].map((c: any) => {
-                const { title, firstName, lastName, zone } = c
-                const [provinceId, zoneNo] = zone.split(':')
+            const constituencyCandidates = seats.map(seat => {
+                const { title, firstName, lastName, zone, provinceId } = seat
                 return {
                     candidate: `${title} ${firstName} ${lastName}`,
                     picture: '',
-                    zone: `${provinceData[provinceId].code}:${zoneNo}`,
+                    zone: `${provinceData[`${provinceId}`].code}:${zone}`,
                 }
             })
 

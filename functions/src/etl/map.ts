@@ -13,33 +13,25 @@ delete provinceData.default
 
 export async function etlMapData() {
     const mapper = newFakeMapper()
-    const scores = await mapper.fetchScores()
-
-    const zoneMap = sortScores(scores)
-    const provinceMap = Object.keys(zoneMap).reduce(
-        (map, zone) => {
-            const [provinceId, zoneNo] = zone.split(':')
-
-            map[provinceId] = map[provinceId] || {}
-            map[provinceId][zoneNo] = map[provinceId][zoneNo] || zoneMap[zone]
+    const scoresByZone = await mapper.fetchScores().then(sortScores)
+    const provinceMap = scoresByZone.reduce(
+        (map, scores) => {
+            const { provinceId, zone } = scores[0]
+            map[provinceId] = map[`${provinceId}`] || {}
+            map[provinceId][`${zone}`] = scores
             return map
         },
         {} as any
     )
 
-    const provinces = Object.keys(provinceMap).map(provinceId => {
-        const { code, name } = provinceData[provinceId]
+    const provinces = Object.values(provinceMap).map((province: any) => {
+        const zones: Array<IScore[]> = Object.values(province)
+        const { code, name } = provinceData[`${zones[0][0].provinceId}`]
+
         return {
             provinceCode: code,
             provinceName: name,
-            zones: Object.keys(provinceMap[provinceId]).map(zoneNo => {
-                const items: IScore[] = provinceMap[provinceId][zoneNo]
-                const candidates = items.slice(0, 3).map(mapCandidate)
-                return {
-                    zoneNo,
-                    first3Candidates: candidates,
-                }
-            }),
+            zones: Object.values(province).map(mapZone),
         }
     })
 
@@ -53,19 +45,18 @@ export async function etlMapData() {
         { counted: 0, totalVotes: 0 } as any
     )
 
-    const seats = calculateSeats(zoneMap)
-    const parties = Object.keys(seats).map(partyId => {
-        const { name, codeEN, logoUrl } = partyData[partyId]
+    const partySeats = calculateSeats(scoresByZone)
+    const parties = partySeats.map(seats => {
+        const { name, codeEN, logoUrl } = partyData[`${seats[0].partyId}`]
 
         return {
             partyName: name,
             partyCode: codeEN,
             partyPic: logoUrl,
-            seats: seats[partyId].length,
+            seats: seats.length,
         }
     })
 
-    parties.sort((a, b) => (a.seats.length > b.seats.length ? -1 : 1))
     overview.ranking = parties
     return { provinces, overview }
 }
@@ -73,7 +64,7 @@ export async function etlMapData() {
 function mapCandidate(item: IScore) {
     // ID is null!?
     const { name, codeEN, logoUrl } = item.partyId
-        ? partyData[item.partyId]
+        ? partyData[`${item.partyId}`]
         : {
               name: '???',
               codeEN: '???',
@@ -90,6 +81,15 @@ function mapCandidate(item: IScore) {
     }
 }
 
+function mapZone(zone: any) {
+    const items: IScore[] = zone
+    const candidates = items.slice(0, 3).map(mapCandidate)
+    return {
+        zoneNo: items[0].zone,
+        first3Candidates: candidates,
+    }
+}
+
 export function sortScores(scores: IScore[]) {
     const zoneMap = scores.reduce(
         (map, s) => {
@@ -102,24 +102,28 @@ export function sortScores(scores: IScore[]) {
         {} as any
     )
 
-    Object.keys(zoneMap).map(key => {
-        zoneMap[key].sort((a: any, b: any) => (a.score > b.score ? -1 : 1))
-    })
-
-    return zoneMap
+    return Object.values(zoneMap).map((zone: any) =>
+        zone.sort((a: any, b: any) => (a.score > b.score ? -1 : 1))
+    ) as Array<IScore[]>
 }
 
-export function calculateSeats(zoneMap: any) {
-    return Object.keys(zoneMap).reduce(
+export function calculateSeats(zones: Array<IScore[]>) {
+    const seatMap = calculateSeatMap(zones)
+
+    return Object.values(seatMap).sort((a: any, b: any) =>
+        a.length > b.length ? -1 : 1
+    ) as Array<IScore[]>
+}
+
+export function calculateSeatMap(zones: Array<IScore[]>) {
+    return zones.reduce(
         (map, zone) => {
-            const winner = zoneMap[zone][0]
+            const winner = zone[0]
 
             // ID is null !?
             if (!winner.partyId) {
                 return map
             }
-
-            winner.zone = zone
 
             const partyId = `${winner.partyId}`
             map[partyId] = map[partyId] || []

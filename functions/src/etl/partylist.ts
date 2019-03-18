@@ -1,6 +1,6 @@
 import { calculatePartyList, Party } from 'partylist-calculator'
 
-import { calculateSeats, sortScores } from './map'
+import { sortScores, calculateSeatMap } from './map'
 import { newFakeMapper } from '../mapper/FakeMapper'
 
 import * as tempPartyList from '../masterData/partylistMap.json'
@@ -16,31 +16,27 @@ delete partyData.default
 export async function etlPartylistData() {
     const mapper = newFakeMapper()
     const scores = await mapper.fetchScores()
-    const seats = calculateSeats(sortScores(scores))
+    const seats = calculateSeatMap(sortScores(scores))
     const provinces = await mapper.fetchProvinces()
 
     const parties = await mapper.fetchParties()
-    const partylists = parties
-        .map(party => {
-            const { id, votesTotal, name } = party
-            const partyId = `${id}`
+    const partylists = parties.map(party => {
+        const { id, votesTotal, name } = party
+        const partyId = `${id}`
 
-            const partylist = partylistData[name]
-            const numSeats = seats[partyId] && seats[partyId].length
-            if (!partylist || !numSeats) {
-                return null
-            }
+        const partylist = partylistData[name]
+        const numSeats = seats[partyId] ? seats[partyId].length : 0
+        const numCandidates: number = partylist
+            ? partylist.candidates.length
+            : 0
 
-            const numCandidates: number = partylist.candidates.length
-
-            return new Party({
-                id: partyId,
-                electedMemberCount: numSeats as number,
-                voteCount: votesTotal,
-                partyListCandidateCount: numCandidates,
-            })
+        return new Party({
+            id: partyId,
+            electedMemberCount: numSeats as number,
+            voteCount: votesTotal,
+            partyListCandidateCount: numCandidates,
         })
-        .filter(p => p !== null)
+    })
 
     const remainingVotes = provinces.reduce((remaining, province) => {
         const { goodVotes, badVotes, noVotes, votesTotal } = province
@@ -56,7 +52,7 @@ export async function etlPartylistData() {
         })
     )
 
-    return calculatePartyList(partylists as Party[])
+    return calculatePartyList(partylists)
         .filter(p => p.id !== 'dummy')
         .map(partylist => {
             const { codeEN, name, logoUrl } = partyData[partylist.id]

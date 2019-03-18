@@ -17,6 +17,9 @@ export interface IScore {
     title: string
     firstName: string
     lastName: string
+    age: number
+    education: string
+    occupation: string
     rank: any
 }
 
