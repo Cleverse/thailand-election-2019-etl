@@ -77,7 +77,7 @@ function mapCandidate(item: IScore) {
         partyPic: logoUrl,
         candidate: `${item.title} ${item.firstName} ${item.lastName}`,
         score: item.score,
-        picture: '',
+        picture: `https://cdn.vote.phantompage.com/images/partylist/${item.id.toLowerCase()}.jpg`,
     }
 }
 

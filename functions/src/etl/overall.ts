@@ -26,10 +26,17 @@ export async function etlOverallData() {
             const { codeEN, name, logoUrl } = partyData[`${seats[0].partyId}`]
             const partylist = partylistMap[name]
             const constituencyCandidates = seats.map(seat => {
-                const { title, firstName, lastName, zone, provinceId } = seat
+                const {
+                    title,
+                    firstName,
+                    lastName,
+                    zone,
+                    provinceId,
+                    id,
+                } = seat
                 return {
                     candidate: `${title} ${firstName} ${lastName}`,
-                    picture: '',
+                    picture: `https://cdn.vote.phantompage.com/images/partylist/${id.toLowerCase()}.jpg`,
                     zone: `${provinceData[`${provinceId}`].code}:${zone}`,
                 }
             })
