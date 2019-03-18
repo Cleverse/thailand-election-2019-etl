@@ -43,11 +43,12 @@ export async function etlOverallData() {
                 constituencyCandidates,
             }
         })
-        .sort((a, b) =>
-            a.constituencySeats + a.partylistSeats >
-            b.constituencyCandidates + b.partylistSeats
-                ? -1
-                : 1
+        .sort(
+            (a, b) =>
+                b.constituencySeats +
+                b.partylistSeats -
+                a.constituencySeats -
+                a.partylistSeats
         )
 }
 
