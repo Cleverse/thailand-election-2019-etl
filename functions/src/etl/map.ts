@@ -67,8 +67,8 @@ export async function etlMapData() {
             counted,
             totalVotes,
             percentage: (counted / totalVotes) * 100,
+            ranking: parties,
         },
-        ranking: parties,
     }
 }
 
