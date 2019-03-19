@@ -12,6 +12,7 @@
     "main": "build/index.js",
     "dependencies": {
         "axios": "^0.18.0",
+        "axios-https-proxy-fix": "^0.17.1",
         "csv-parse": "^4.3.4",
         "firebase-admin": "~7.0.0",
         "firebase-functions": "^2.2.0",
