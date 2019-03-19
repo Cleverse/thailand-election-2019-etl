@@ -37,7 +37,7 @@ export const main = https.onRequest(async (_, res) => {
         map: mapData,
         partylist: partylistData,
         overall: overallData,
-        timestamp: Date.now,
+        timestamp: now,
     })
 
     await Promise.all([
