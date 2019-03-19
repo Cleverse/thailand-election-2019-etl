@@ -5,9 +5,21 @@ import { etlPartylistData } from './etl/partylist'
 import { etlOverallData } from './etl/overall'
 
 export const main = https.onRequest(async (_, res) => {
+    const [mapData, partylistData, overallData] = await Promise.all([
+        etlMapData(),
+        etlPartylistData(),
+        etlOverallData(),
+    ])
+
     res.status(200)
     res.type('application/json')
-    res.write('Hello, world!')
+    res.write(
+        JSON.stringify({
+            map: mapData,
+            partylist: partylistData,
+            overall: overallData,
+        })
+    )
     res.end()
 })
 
