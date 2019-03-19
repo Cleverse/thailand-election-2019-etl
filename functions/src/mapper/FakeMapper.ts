@@ -44,7 +44,7 @@ class FakeMapper implements IMapper {
     }
 
     public async fetchParties(): Promise<IParty[]> {
-        const response = await axios.get('/party?format=json&fields=all&p=all')
+        const response = await client.get('/party?format=json&fields=all&p=all')
         const data = response.data as IPartyResponse
         this.cachedParties = data.items
         return this.cachedParties
@@ -58,7 +58,7 @@ class FakeMapper implements IMapper {
     }
 
     public async fetchProvinces(): Promise<IProvince[]> {
-        const response = await axios.get(
+        const response = await client.get(
             '/province?format=json&fields=all&p=all'
         )
         const data = response.data as IProvinceResponse

@@ -34,12 +34,12 @@ export async function etlOverallData() {
                 const { code, name: provinceName } = provinceData[
                     `${provinceId}`
                 ]
-                const guid =
+                const guid: string =
                     constituencyData[`${provinceName}:${zone}:${name}`].GUID
 
                 return {
                     candidate: `${title} ${firstName} ${lastName}`,
-                    picture: `${CDN_IMGURL}/candidates/${guid}.jpg`,
+                    picture: `${CDN_IMGURL}/candidates/${guid.toLowerCase()}.jpg`,
                     zone: `${code}:${zone}`,
                 }
             })

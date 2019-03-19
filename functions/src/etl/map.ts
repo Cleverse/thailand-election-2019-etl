@@ -66,24 +66,20 @@ export async function etlMapData() {
 }
 
 function mapCandidate(item: IScore) {
-    // ID is null!?
     const { provinceId, zone } = item
-    const { name, codeEN } = item.partyId
-        ? partyData[`${item.partyId}`]
-        : {
-              name: '???',
-              codeEN: '???',
-          }
+    const { name, codeEN } = partyData[`${item.partyId}`]
     const province = provinceData[`${provinceId}`].name
-    const guid = constituencyData[`${province}:${zone}:${name}`].GUID
+    const tempParty = item.lastName === 'นวะกิจโลหะกูล' ? 'พลังไทยรักไทย' : name
+    const guid: string =
+        constituencyData[`${province}:${zone}:${tempParty}`].GUID
 
     return {
-        partyName: name,
+        partyName: tempParty,
         partyCode: codeEN,
         partyPic: `${CDN_IMGURL}/parties/${codeEN}.png`,
         candidate: `${item.title} ${item.firstName} ${item.lastName}`,
         score: item.score,
-        picture: `${CDN_IMGURL}/candidates/${guid}.jpg`,
+        picture: `${CDN_IMGURL}/candidates/${guid.toLowerCase()}.jpg`,
     }
 }
 
@@ -125,12 +121,6 @@ export function calculateSeatMap(zones: Array<IScore[]>) {
     return zones.reduce(
         (map, zone) => {
             const winner = zone[0]
-
-            // ID is null !?
-            if (!winner.partyId) {
-                return map
-            }
-
             const partyId = `${winner.partyId}`
             map[partyId] = map[partyId] || []
             map[partyId].push(winner)

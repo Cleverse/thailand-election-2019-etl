@@ -952,5 +952,15 @@
         "logoUrl": "/images/party/109.png",
         "votesTotal": 24834,
         "colorCode": null
+    },
+    "110": {
+        "id": 110,
+        "name": "ผึ้งหลวง",
+        "codeTH": "ผล",
+        "codeEN": "PL",
+        "logoUrl": "/images/party/110.png",
+        "votesTotal": 0,
+        "colorCode": "f27407",
+        "partylist": 18
     }
 }
