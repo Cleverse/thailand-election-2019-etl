@@ -27,19 +27,22 @@ export async function etlOverallData() {
 
     return partySeats
         .map(seats => {
-            const { codeEN, name } = partyData[`${seats[0].partyId}`]
+            const { codeEN, name, colorCode } = partyData[`${seats[0].partyId}`]
             const partylist = partylistMap[name]
             const constituencyCandidates = seats.map(seat => {
                 const { title, firstName, lastName, zone, provinceId } = seat
                 const { code, name: provinceName } = provinceData[
                     `${provinceId}`
                 ]
-                const guid: string =
-                    constituencyData[`${provinceName}:${zone}:${name}`].GUID
+                const constituency =
+                    constituencyData[`${provinceName}:${zone}:${name}`]
+                const imgName: string = constituency
+                    ? `${constituency.GUID}.jpg`
+                    : 'placeholder.png'
 
                 return {
                     candidate: `${title} ${firstName} ${lastName}`,
-                    picture: `${CDN_IMGURL}/candidates/${guid.toLowerCase()}.jpg`,
+                    picture: `${CDN_IMGURL}/candidates/${imgName.toLowerCase()}`,
                     zone: `${code}:${zone}`,
                 }
             })
@@ -47,6 +50,7 @@ export async function etlOverallData() {
             return {
                 partyCode: codeEN,
                 partyName: name,
+                color: `#${colorCode}`,
                 picture: `${CDN_IMGURL}/parties/${codeEN}.png`,
                 partylistSeats: partylist ? partylist.seats : 0,
                 constituencySeats: constituencyCandidates.length,
@@ -77,10 +81,11 @@ export async function roughlyEstimateOverall() {
 
     return parties
         .map(party => {
-            const { codeEN, name, votesTotal } = party
+            const { codeEN, name, votesTotal, colorCode } = party
             return {
                 partyCode: codeEN,
                 partyName: name,
+                color: `#${colorCode}`,
                 picture: `${CDN_IMGURL}/parties/${codeEN}.png`,
                 seats: Math.floor(
                     votesTotal /

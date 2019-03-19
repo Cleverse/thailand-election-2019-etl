@@ -50,12 +50,13 @@ export async function etlMapData() {
 
     const partySeats = calculateSeats(scoresByZone)
     const parties = partySeats.map(seats => {
-        const { name, codeEN } = partyData[`${seats[0].partyId}`]
+        const { name, codeEN, colorCode } = partyData[`${seats[0].partyId}`]
 
         return {
             partyName: name,
             partyCode: codeEN,
             partyPic: `${CDN_IMGURL}/parties/${codeEN}.png`,
+            color: `#${colorCode}`,
             seats: seats.length,
         }
     })
@@ -74,19 +75,22 @@ export async function etlMapData() {
 
 function mapCandidate(item: IScore) {
     const { provinceId, zone } = item
-    const { name, codeEN } = partyData[`${item.partyId}`]
+    const { name, codeEN, colorCode } = partyData[`${item.partyId}`]
     const province = provinceData[`${provinceId}`].name
     const tempParty = item.lastName === 'นวะกิจโลหะกูล' ? 'พลังไทยรักไทย' : name
-    const guid: string =
-        constituencyData[`${province}:${zone}:${tempParty}`].GUID
+    const constituency = constituencyData[`${province}:${zone}:${tempParty}`]
+    const imgName: string = constituency
+        ? `${constituency.GUID}.jpg`
+        : 'placeholder.png'
 
     return {
         partyName: tempParty,
         partyCode: codeEN,
         partyPic: `${CDN_IMGURL}/parties/${codeEN}.png`,
+        color: `#${colorCode}`,
         candidate: `${item.title} ${item.firstName} ${item.lastName}`,
         score: item.score,
-        picture: `${CDN_IMGURL}/candidates/${guid.toLowerCase()}.jpg`,
+        picture: `${CDN_IMGURL}/candidates/${imgName.toLowerCase()}`,
     }
 }
 

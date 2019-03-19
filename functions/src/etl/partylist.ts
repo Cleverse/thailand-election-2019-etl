@@ -60,10 +60,11 @@ export async function etlPartylistData() {
     return calculatePartyList(partylists)
         .filter(p => p.id !== 'dummy')
         .map(partylist => {
-            const { codeEN, name } = partyData[partylist.id]
+            const { codeEN, name, colorCode } = partyData[partylist.id]
             return {
                 partyCode: codeEN,
                 partyName: name,
+                color: `#${colorCode}`,
                 picture: `${CDN_IMGURL}/parties/${codeEN}.png`,
                 seats: partylist.partyListMemberCount as number,
             }
