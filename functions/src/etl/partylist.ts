@@ -2,16 +2,20 @@ import { calculatePartyList, Party } from 'partylist-calculator'
 
 import { sortScores, calculateSeatMap } from './map'
 import { newFakeMapper } from '../mapper/FakeMapper'
+import { CDN_IMGURL } from '../constants'
 
 import * as tempPartyList from '../masterData/partyToPartylistMembersMap.json'
 import * as tempParties from '../masterData/idToPartyMap.json'
+import * as tempConstituency from '../masterData/uniqueKeyToConstituencyMemberMap.json'
 
 const partylistData: any = tempPartyList
 const partyData: any = tempParties
+const constituencyData: any = tempConstituency
 
 // remove key `default` from importing using *
 delete partylistData.default
 delete partyData.default
+delete constituencyData.default
 
 export async function etlPartylistData() {
     const mapper = newFakeMapper()
@@ -55,11 +59,11 @@ export async function etlPartylistData() {
     return calculatePartyList(partylists)
         .filter(p => p.id !== 'dummy')
         .map(partylist => {
-            const { codeEN, name, logoUrl } = partyData[partylist.id]
+            const { codeEN, name } = partyData[partylist.id]
             return {
                 partyCode: codeEN,
                 partyName: name,
-                picture: logoUrl,
+                picture: `${CDN_IMGURL}/parties/${codeEN}.png`,
                 seats: partylist.partyListMemberCount as number,
             }
         })

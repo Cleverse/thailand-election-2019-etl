@@ -1,16 +1,20 @@
 import { newFakeMapper } from '../mapper/FakeMapper'
 import { sortScores, calculateSeats } from './map'
 import { etlPartylistData } from './partylist'
+import { CDN_IMGURL } from '../constants'
 
 import * as tempParties from '../masterData/idToPartyMap.json'
 import * as tempProvinces from '../masterData/idToProvinceMap.json'
+import * as tempConstituency from '../masterData/uniqueKeyToConstituencyMemberMap.json'
 
 const provinceData: any = tempProvinces
 const partyData: any = tempParties
+const constituencyData: any = tempConstituency
 
 // remove key `default` from importing using *
 delete partyData.default
 delete provinceData.default
+delete constituencyData.default
 
 export async function etlOverallData() {
     const mapper = newFakeMapper()
@@ -23,28 +27,27 @@ export async function etlOverallData() {
 
     return partySeats
         .map(seats => {
-            const { codeEN, name, logoUrl } = partyData[`${seats[0].partyId}`]
+            const { codeEN, name } = partyData[`${seats[0].partyId}`]
             const partylist = partylistMap[name]
             const constituencyCandidates = seats.map(seat => {
-                const {
-                    title,
-                    firstName,
-                    lastName,
-                    zone,
-                    provinceId,
-                    id,
-                } = seat
+                const { title, firstName, lastName, zone, provinceId } = seat
+                const { code, name: provinceName } = provinceData[
+                    `${provinceId}`
+                ]
+                const guid =
+                    constituencyData[`${provinceName}:${zone}:${name}`].GUID
+
                 return {
                     candidate: `${title} ${firstName} ${lastName}`,
-                    picture: `https://cdn.vote.phantompage.com/images/partylist/${id.toLowerCase()}.jpg`,
-                    zone: `${provinceData[`${provinceId}`].code}:${zone}`,
+                    picture: `${CDN_IMGURL}/candidates/${guid}.jpg`,
+                    zone: `${code}:${zone}`,
                 }
             })
 
             return {
                 partyCode: codeEN,
                 partyName: name,
-                picture: logoUrl,
+                picture: `${CDN_IMGURL}/parties/${codeEN}.png`,
                 partylistSeats: partylist ? partylist.seats : 0,
                 constituencySeats: constituencyCandidates.length,
                 constituencyCandidates,

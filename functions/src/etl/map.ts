@@ -1,15 +1,19 @@
 import { newFakeMapper } from '../mapper/FakeMapper'
 import { IScore } from '../mapper/IMapper'
+import { CDN_IMGURL } from '../constants'
 
 import * as tempParties from '../masterData/idToPartyMap.json'
 import * as tempProvinces from '../masterData/idToProvinceMap.json'
+import * as tempConstituency from '../masterData/uniqueKeyToConstituencyMemberMap.json'
 
 const partyData: any = tempParties
 const provinceData: any = tempProvinces
+const constituencyData: any = tempConstituency
 
 // remove key `default` from importing using *
 delete partyData.default
 delete provinceData.default
+delete constituencyData.default
 
 export async function etlMapData() {
     const mapper = newFakeMapper()
@@ -47,12 +51,12 @@ export async function etlMapData() {
 
     const partySeats = calculateSeats(scoresByZone)
     const parties = partySeats.map(seats => {
-        const { name, codeEN, logoUrl } = partyData[`${seats[0].partyId}`]
+        const { name, codeEN } = partyData[`${seats[0].partyId}`]
 
         return {
             partyName: name,
             partyCode: codeEN,
-            partyPic: logoUrl,
+            partyPic: `${CDN_IMGURL}/parties/${codeEN}.png`,
             seats: seats.length,
         }
     })
@@ -63,21 +67,23 @@ export async function etlMapData() {
 
 function mapCandidate(item: IScore) {
     // ID is null!?
-    const { name, codeEN, logoUrl } = item.partyId
+    const { provinceId, zone } = item
+    const { name, codeEN } = item.partyId
         ? partyData[`${item.partyId}`]
         : {
               name: '???',
               codeEN: '???',
-              logoUrl: '???',
           }
+    const province = provinceData[`${provinceId}`].name
+    const guid = constituencyData[`${province}:${zone}:${name}`].GUID
 
     return {
         partyName: name,
         partyCode: codeEN,
-        partyPic: logoUrl,
+        partyPic: `${CDN_IMGURL}/parties/${codeEN}.png`,
         candidate: `${item.title} ${item.firstName} ${item.lastName}`,
         score: item.score,
-        picture: `https://cdn.vote.phantompage.com/images/partylist/${item.id.toLowerCase()}.jpg`,
+        picture: `${CDN_IMGURL}/candidates/${guid}.jpg`,
     }
 }
 
