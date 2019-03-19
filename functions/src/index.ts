@@ -21,7 +21,7 @@ export const main = https.onRequest(async (_, res) => {
         gzip: true,
         resumable: false,
         metadata: {
-            cacheControl: 'public, max-age=3600',
+            cacheControl: 'public, max-age=300',
         },
     }
     const file = storage
