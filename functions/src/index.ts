@@ -36,18 +36,16 @@ export const main = https.onRequest(async (_, res) => {
         .file(`data/latest.json`)
         .createWriteStream(options)
 
-    const { counted, totalVotes } = mapData.overview
-    const countedPercentage = (counted / totalVotes) * 100
-
+    const { percentage } = mapData.overview
     const jsonResponse = JSON.stringify({
         map: mapData,
         partylist: partylistData,
         overall: overallData,
         timestamp: now,
         partylistHidden:
-            Boolean(process.env.FORCE_PRE70PERCENT) || countedPercentage < 70,
+            process.env.FORCE_PRE70PERCENT === 'true' || percentage < 70,
         pre70Overall:
-            Boolean(process.env.FORCE_PRE70PERCENT) || countedPercentage < 70
+            process.env.FORCE_PRE70PERCENT === 'true' || percentage < 70
                 ? await roughlyEstimateOverall()
                 : null,
     })
