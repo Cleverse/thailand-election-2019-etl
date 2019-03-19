@@ -1,5 +1,5 @@
-import axios from 'axios'
 import { IMapper, IProvince, IScore, IParty } from './IMapper'
+import { client } from '../util/client'
 
 interface Response {
     total: number
@@ -30,9 +30,7 @@ class FakeMapper implements IMapper {
     }
 
     public async fetchScores(): Promise<IScore[]> {
-        const response = await axios.get(
-            'https://election.dttpool.com/api/score?format=json&fields=all&p=all'
-        )
+        const response = await client.get('/score?format=json&fields=all&p=all')
         const data = response.data as IScoreResponse
         this.cachedScores = data.items
         return this.cachedScores
@@ -46,9 +44,7 @@ class FakeMapper implements IMapper {
     }
 
     public async fetchParties(): Promise<IParty[]> {
-        const response = await axios.get(
-            'https://election.dttpool.com/api/party?format=json&fields=all&p=all'
-        )
+        const response = await axios.get('/party?format=json&fields=all&p=all')
         const data = response.data as IPartyResponse
         this.cachedParties = data.items
         return this.cachedParties
@@ -63,7 +59,7 @@ class FakeMapper implements IMapper {
 
     public async fetchProvinces(): Promise<IProvince[]> {
         const response = await axios.get(
-            'https://election.dttpool.com/api/province?format=json&fields=all&p=all'
+            '/province?format=json&fields=all&p=all'
         )
         const data = response.data as IProvinceResponse
         return data.items
