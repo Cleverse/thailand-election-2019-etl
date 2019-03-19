@@ -40,14 +40,13 @@ export async function etlMapData() {
     })
 
     const fetchedProvinces = await mapper.fetchProvinces()
-    const overview = fetchedProvinces.reduce(
-        (ov, p) => {
-            ov.counted += p.badVotes + p.goodVotes + p.noVotes
-            ov.totalVotes += p.votesTotal
-            return ov
-        },
-        { counted: 0, totalVotes: 0 } as any
-    )
+    const fetchedParties = await mapper.fetchParties()
+
+    const counted =
+        fetchedProvinces.reduce((sum, province) => {
+            const { badVotes, noVotes } = province
+            return badVotes + noVotes + sum
+        }, 0) + fetchedParties.reduce((sum, party) => sum + party.votesTotal, 0)
 
     const partySeats = calculateSeats(scoresByZone)
     const parties = partySeats.map(seats => {
@@ -61,8 +60,16 @@ export async function etlMapData() {
         }
     })
 
-    overview.ranking = parties
-    return { provinces, overview }
+    const totalVotes = parseInt(process.env.TOTAL_VOTES || '0')
+    return {
+        provinces,
+        overview: {
+            counted,
+            totalVotes,
+            percentage: (counted / totalVotes) * 100,
+        },
+        ranking: parties,
+    }
 }
 
 function mapCandidate(item: IScore) {

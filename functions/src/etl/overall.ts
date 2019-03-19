@@ -70,3 +70,23 @@ function listToMap(list: any[], key: string) {
         {} as any
     )
 }
+
+export async function roughlyEstimateOverall() {
+    const mapper = newFakeMapper()
+    const parties = await mapper.fetchParties()
+
+    return parties
+        .map(party => {
+            const { codeEN, name, votesTotal } = party
+            return {
+                partyCode: codeEN,
+                partyName: name,
+                picture: `${CDN_IMGURL}/parties/${codeEN}.png`,
+                seats: Math.floor(
+                    votesTotal /
+                        (parseInt(process.env.TOTAL_VOTES || '0') / 500)
+                ),
+            }
+        })
+        .sort((a, b) => b.seats - a.seats)
+}

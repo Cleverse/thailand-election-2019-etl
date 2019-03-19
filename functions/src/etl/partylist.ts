@@ -42,10 +42,11 @@ export async function etlPartylistData() {
         })
     })
 
-    const remainingVotes = provinces.reduce((remaining, province) => {
-        const { goodVotes, badVotes, noVotes, votesTotal } = province
-        return remaining + votesTotal - (goodVotes + badVotes + noVotes)
-    }, 0)
+    const remainingVotes =
+        provinces.reduce((remaining, province) => {
+            const { badVotes, noVotes, votesTotal } = province
+            return remaining + votesTotal - (badVotes + noVotes)
+        }, 0) - partylists.reduce((sum, p) => sum + p.voteCount, 0)
 
     partylists.push(
         new Party({

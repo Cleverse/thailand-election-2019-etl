@@ -15,6 +15,7 @@
         "axios": "^0.18.0",
         "axios-https-proxy-fix": "^0.17.1",
         "csv-parse": "^4.3.4",
+        "dotenv": "^7.0.0",
         "firebase-admin": "~7.0.0",
         "firebase-functions": "^2.2.0",
         "fs": "^0.0.1-security",
@@ -22,6 +23,7 @@
         "partylist-calculator": "https://github.com/Cleverse/thailand-party-list-calculator"
     },
     "devDependencies": {
+        "@types/dotenv": "^6.1.0",
         "@types/node": "^11.11.3",
         "ts-node": "^8.0.3",
         "tslint": "^5.12.0",
