@@ -16,13 +16,23 @@ export const main = https.onRequest(async (_, res) => {
     ])
 
     const now = Date.now()
-    const file = storage.bucket(bucketName).file(`data/${now}.json`)
-
-    const writeStream = file.createWriteStream({
+    const options = {
         contentType: 'application/json',
         gzip: true,
         resumable: false,
-    })
+        metadata: {
+            cacheControl: 'public, max-age=3600',
+        },
+    }
+    const file = storage
+        .bucket(bucketName)
+        .file(`data/${now}.json`)
+        .createWriteStream(options)
+    const latest = storage
+        .bucket(bucketName)
+        .file(`data/latest.json`)
+        .createWriteStream(options)
+
     const jsonResponse = JSON.stringify({
         map: mapData,
         partylist: partylistData,
@@ -30,13 +40,15 @@ export const main = https.onRequest(async (_, res) => {
         timestamp: Date.now,
     })
 
-    await writeAsync(writeStream, jsonResponse)
-    writeStream.end(() => {
-        res.status(200)
-        res.type('application/json')
-        res.write(jsonResponse)
-        res.end()
-    })
+    await Promise.all([
+        writeAsync(file, jsonResponse).then(() => endAsync(file)),
+        writeAsync(latest, jsonResponse).then(() => endAsync(latest)),
+    ])
+
+    res.status(200)
+    res.type('application/json')
+    res.write(jsonResponse)
+    res.end()
 })
 
 export const map = https.onRequest(async (_, res) => {
@@ -74,6 +86,14 @@ async function writeAsync(stream: NodeJS.WritableStream, json: string) {
             } else {
                 resolve()
             }
+        })
+    })
+}
+
+async function endAsync(stream: NodeJS.WritableStream) {
+    return new Promise(resolve => {
+        stream.end(() => {
+            resolve()
         })
     })
 }
