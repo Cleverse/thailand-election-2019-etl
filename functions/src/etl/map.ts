@@ -42,26 +42,53 @@ export async function etlMapData() {
     const fetchedProvinces = await mapper.fetchProvinces()
     const fetchedParties = await mapper.fetchParties()
 
+    const sumVotes = fetchedParties.reduce(
+        (sum, party) => sum + party.votesTotal,
+        0
+    )
     const counted =
+        sumVotes +
         fetchedProvinces.reduce((sum, province) => {
             const { badVotes, noVotes } = province
             return badVotes + noVotes + sum
-        }, 0) + fetchedParties.reduce((sum, party) => sum + party.votesTotal, 0)
+        }, 0)
+
+    const partyMap = fetchedParties.reduce(
+        (map, party) => {
+            map[`${party.id}`] = party
+            return map
+        },
+        {} as any
+    )
 
     const partySeats = calculateSeats(scoresByZone)
     const parties = partySeats.map(seats => {
-        const { name, codeEN, colorCode } = partyData[`${seats[0].partyId}`]
+        const { name, codeEN, colorCode, votesTotal } = partyMap[
+            `${seats[0].partyId}`
+        ]
+
+        const percentage = sumVotes
+            ? Math.round((votesTotal / sumVotes) * 100 * 10) / 10
+            : 0
 
         return {
             partyName: name,
             partyCode: codeEN,
-            partyPic: `${CDN_IMGURL}/parties/${codeEN}.png`,
+            partyPic: `${CDN_IMGURL}/parties/${name}.png`,
             color: `#${colorCode}`,
             seats: seats.length,
+            votes: votesTotal,
+            percentage,
         }
     })
 
-    const totalVotes = parseInt(process.env.TOTAL_VOTES || '0')
+    const totalVotes =
+        parseInt(process.env.TOTAL_VOTES as string) ||
+        fetchedProvinces.reduce((sum, province) => {
+            const { badVotes, noVotes } = province
+            return sum + badVotes + noVotes
+        }, 0) + fetchedParties.reduce((sum, p) => sum + p.votesTotal, 0)
+
     return {
         provinces,
         overview: {
@@ -86,7 +113,7 @@ function mapCandidate(item: IScore) {
     return {
         partyName: tempParty,
         partyCode: codeEN,
-        partyPic: `${CDN_IMGURL}/parties/${codeEN}.png`,
+        partyPic: `${CDN_IMGURL}/parties/${name}.png`,
         color: `#${colorCode}`,
         candidate: `${item.title} ${item.firstName} ${item.lastName}`,
         score: item.score,

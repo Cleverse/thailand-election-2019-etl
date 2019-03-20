@@ -65,7 +65,7 @@ export async function etlPartylistData() {
                 partyCode: codeEN,
                 partyName: name,
                 color: `#${colorCode}`,
-                picture: `${CDN_IMGURL}/parties/${codeEN}.png`,
+                picture: `${CDN_IMGURL}/parties/${name}.png`,
                 seats: partylist.partyListMemberCount as number,
             }
         })

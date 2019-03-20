@@ -51,7 +51,7 @@ export async function etlOverallData() {
                 partyCode: codeEN,
                 partyName: name,
                 color: `#${colorCode}`,
-                picture: `${CDN_IMGURL}/parties/${codeEN}.png`,
+                picture: `${CDN_IMGURL}/parties/${name}.png`,
                 partylistSeats: partylist ? partylist.seats : 0,
                 constituencySeats: constituencyCandidates.length,
                 constituencyCandidates,
@@ -78,19 +78,24 @@ function listToMap(list: any[], key: string) {
 export async function roughlyEstimateOverall() {
     const mapper = newFakeMapper()
     const parties = await mapper.fetchParties()
+    const provinces = await mapper.fetchProvinces()
 
     return parties
         .map(party => {
             const { codeEN, name, votesTotal, colorCode } = party
+            const totalVotes =
+                parseInt(process.env.TOTAL_VOTES as string) ||
+                provinces.reduce((sum, province) => {
+                    const { badVotes, noVotes } = province
+                    return sum + badVotes + noVotes
+                }, 0) + parties.reduce((sum, p) => sum + p.votesTotal, 0)
+
             return {
                 partyCode: codeEN,
                 partyName: name,
                 color: `#${colorCode}`,
-                picture: `${CDN_IMGURL}/parties/${codeEN}.png`,
-                seats: Math.floor(
-                    votesTotal /
-                        (parseInt(process.env.TOTAL_VOTES || '0') / 500)
-                ),
+                picture: `${CDN_IMGURL}/parties/${name}.png`,
+                seats: Math.floor(votesTotal / (totalVotes / 500)),
             }
         })
         .sort((a, b) => b.seats - a.seats)
