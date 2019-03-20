@@ -15,6 +15,17 @@ delete partyData.default
 delete provinceData.default
 delete constituencyData.default
 
+interface IRanking {
+    partyName: string
+    partyCode: string
+    partyPic: string
+    color: string
+    seats: number
+    votes: number
+    percentage: number
+    rank: number
+}
+
 export async function etlMapData() {
     const mapper = newFakeMapper()
     const scoresByZone = await mapper.scores().then(sortScores)
@@ -62,25 +73,39 @@ export async function etlMapData() {
     )
 
     const partySeats = calculateSeats(scoresByZone)
-    const parties = partySeats.map(seats => {
-        const { name, codeEN, colorCode, votesTotal } = partyMap[
-            `${seats[0].partyId}`
-        ]
+    const parties = partySeats
+        .map(seats => {
+            const { name, codeEN, colorCode, votesTotal } = partyMap[
+                `${seats[0].partyId}`
+            ]
 
-        const percentage = sumVotes
-            ? Math.round((votesTotal / sumVotes) * 100 * 10) / 10
-            : 0
+            const percentage = sumVotes
+                ? Math.round((votesTotal / sumVotes) * 100 * 10) / 10
+                : 0
 
-        return {
-            partyName: name,
-            partyCode: codeEN,
-            partyPic: `${CDN_IMGURL}/parties/${name}.png`,
-            color: `#${colorCode}`,
-            seats: seats.length,
-            votes: votesTotal,
-            percentage,
-        }
-    })
+            return {
+                partyName: name,
+                partyCode: codeEN,
+                partyPic: `${CDN_IMGURL}/parties/${name}.png`,
+                color: `#${colorCode}`,
+                seats: seats.length,
+                votes: votesTotal,
+                percentage,
+                rank: 0,
+            }
+        })
+        .reduce(
+            (arr, party) => {
+                const { seats, rank } = arr[arr.length - 1] || {
+                    seats: 0,
+                    rank: 1,
+                }
+                party.rank = seats === party.seats ? rank : arr.length + 1
+                arr.push(party)
+                return arr
+            },
+            [] as IRanking[]
+        )
 
     const totalVotes =
         parseInt(process.env.TOTAL_VOTES as string) ||
