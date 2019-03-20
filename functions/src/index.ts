@@ -12,11 +12,9 @@ const bucketName = 'thailand-election-2019.appspot.com'
 const storage = new Storage()
 
 export const main = https.onRequest(async (_, res) => {
-    const [mapData, partylistData, overallData] = await Promise.all([
-        etlMapData(),
-        etlPartylistData(),
-        etlOverallData(),
-    ])
+    const mapData = await etlMapData()
+    const partylistData = await etlPartylistData()
+    const overallData = await etlOverallData()
 
     const now = Date.now()
     const options = {
