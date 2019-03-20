@@ -42,10 +42,9 @@ export const main = https.onRequest(async (_, res) => {
         partylist: partylistData,
         overall: overallData,
         timestamp: now,
-        partylistHidden:
-            process.env.FORCE_PRE70PERCENT === 'true' || percentage < 70,
+        partylistHidden: process.env.FORCE_PRE70PERCENT || percentage < 70,
         pre70Overall:
-            process.env.FORCE_PRE70PERCENT === 'true' || percentage < 70
+            process.env.FORCE_PRE70PERCENT || percentage < 70
                 ? await roughlyEstimateOverall()
                 : null,
     })
