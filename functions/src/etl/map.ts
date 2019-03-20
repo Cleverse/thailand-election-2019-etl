@@ -90,9 +90,13 @@ export async function etlMapData() {
 
     const counted = sumVotes + invalidVotes
 
-    const totalVotes =
-        parseInt(process.env.TOTAL_VOTES as string) ||
-        fetchedProvinces.reduce((sum, province) => sum + province.votesTotal, 0)
+    const TOTAL_VOTES = parseInt(process.env.TOTAL_VOTES as string)
+    const totalVotes = TOTAL_VOTES
+        ? TOTAL_VOTES + invalidVotes
+        : fetchedProvinces.reduce(
+              (sum, province) => sum + province.votesTotal,
+              0
+          )
 
     return {
         provinces,

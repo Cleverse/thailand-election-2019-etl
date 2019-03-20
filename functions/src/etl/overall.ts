@@ -81,16 +81,19 @@ export async function roughlyEstimateOverall() {
     const scores = await mapper.scores()
     const partySeats = calculateSeats(sortScores(scores))
 
+    const invalidVotes = provinces.reduce((sum, province) => {
+        const { badVotes, noVotes } = province
+        return badVotes + noVotes + sum
+    }, 0)
+    const TOTAL_VOTES = parseInt(process.env.TOTAL_VOTES as string)
+    const totalVotes = TOTAL_VOTES
+        ? TOTAL_VOTES + invalidVotes
+        : provinces.reduce((sum, province) => sum + province.votesTotal, 0)
+
     return partySeats
         .map(seats => {
             const { codeEN, name, colorCode } = partyData[`${seats[0].partyId}`]
             const votes = seats.reduce((sum, seat) => sum + seat.score, 0)
-            const totalVotes =
-                parseInt(process.env.TOTAL_VOTES as string) ||
-                provinces.reduce(
-                    (sum, province) => sum + province.votesTotal,
-                    0
-                )
 
             return {
                 partyCode: codeEN,
