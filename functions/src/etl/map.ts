@@ -75,9 +75,8 @@ export async function etlMapData() {
     const partySeats = calculateSeats(scoresByZone)
     const parties = partySeats
         .map(seats => {
-            const { name, codeEN, colorCode, votesTotal } = partyMap[
-                `${seats[0].partyId}`
-            ]
+            const { name, codeEN, colorCode } = partyData[`${seats[0].partyId}`]
+            const { votesTotal } = partyMap[`${seats[0].partyId}`]
 
             const percentage = sumVotes
                 ? Math.round((votesTotal / sumVotes) * 100 * 10) / 10

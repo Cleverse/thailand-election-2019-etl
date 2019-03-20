@@ -6,8 +6,9 @@
     "codeEN": "DP",
     "logoUrl": "/images/party/1.png",
     "votesTotal": 0,
-    "colorCode": "0099ff",
-    "partylist": 150
+    "colorCode": "34bced",
+    "partylist": 150,
+    "ts": null
   },
   "2": {
     "id": 2,
@@ -16,8 +17,9 @@
     "codeEN": "TCP",
     "logoUrl": "/images/party/2.png",
     "votesTotal": 0,
-    "colorCode": "00009b",
-    "partylist": 18
+    "colorCode": "52545b",
+    "partylist": 18,
+    "ts": null
   },
   "3": {
     "id": 3,
@@ -26,8 +28,9 @@
     "codeEN": "MCP",
     "logoUrl": "/images/party/3.png",
     "votesTotal": 0,
-    "colorCode": "ed419c",
-    "partylist": 11
+    "colorCode": "52545b",
+    "partylist": 11,
+    "ts": null
   },
   "4": {
     "id": 4,
@@ -36,8 +39,9 @@
     "codeEN": "KT",
     "logoUrl": "/images/party/4.png",
     "votesTotal": 0,
-    "colorCode": "13366c",
-    "partylist": 1
+    "colorCode": "52545b",
+    "partylist": 1,
+    "ts": null
   },
   "5": {
     "id": 5,
@@ -46,8 +50,9 @@
     "codeEN": "FHAE",
     "logoUrl": "/images/party/5.png",
     "votesTotal": 0,
-    "colorCode": "f5f31a",
-    "partylist": 0
+    "colorCode": "52545b",
+    "partylist": 0,
+    "ts": null
   },
   "6": {
     "id": 6,
@@ -56,8 +61,9 @@
     "codeEN": "NAP",
     "logoUrl": "/images/party/6.png",
     "votesTotal": 0,
-    "colorCode": "3371a8",
-    "partylist": 13
+    "colorCode": "52545b",
+    "partylist": 13,
+    "ts": null
   },
   "7": {
     "id": 7,
@@ -66,8 +72,9 @@
     "codeEN": "FNTP",
     "logoUrl": "/images/party/7.png",
     "votesTotal": 0,
-    "colorCode": "1d2a63",
-    "partylist": 9
+    "colorCode": "52545b",
+    "partylist": 9,
+    "ts": null
   },
   "8": {
     "id": 8,
@@ -76,8 +83,9 @@
     "codeEN": "PT",
     "logoUrl": "/images/party/8.png",
     "votesTotal": 0,
-    "colorCode": "ff0000",
-    "partylist": 97
+    "colorCode": "e01e2c",
+    "partylist": 97,
+    "ts": null
   },
   "9": {
     "id": 9,
@@ -86,8 +94,9 @@
     "codeEN": "PP",
     "logoUrl": "/images/party/9.png",
     "votesTotal": 0,
-    "colorCode": "ff0000",
-    "partylist": 28
+    "colorCode": "52545b",
+    "partylist": 28,
+    "ts": null
   },
   "10": {
     "id": 10,
@@ -96,8 +105,9 @@
     "codeEN": "CPN",
     "logoUrl": "/images/party/10.png",
     "votesTotal": 0,
-    "colorCode": "f6941d",
-    "partylist": 56
+    "colorCode": "94877f",
+    "partylist": 56,
+    "ts": null
   },
   "11": {
     "id": 11,
@@ -106,8 +116,9 @@
     "codeEN": "TKP",
     "logoUrl": "/images/party/11.png",
     "votesTotal": 0,
-    "colorCode": "ff0000",
-    "partylist": 12
+    "colorCode": "52545b",
+    "partylist": 12,
+    "ts": null
   },
   "12": {
     "id": 12,
@@ -116,8 +127,9 @@
     "codeEN": "CP",
     "logoUrl": "/images/party/12.png",
     "votesTotal": 0,
-    "colorCode": "e64f8b",
-    "partylist": 67
+    "colorCode": "eb2490",
+    "partylist": 67,
+    "ts": null
   },
   "13": {
     "id": 13,
@@ -126,8 +138,9 @@
     "codeEN": "TF",
     "logoUrl": "/images/party/13.png",
     "votesTotal": 0,
-    "colorCode": "ff0000",
-    "partylist": 0
+    "colorCode": "52545b",
+    "partylist": 0,
+    "ts": null
   },
   "14": {
     "id": 14,
@@ -136,8 +149,9 @@
     "codeEN": "GGSP",
     "logoUrl": "/images/party/14.png",
     "votesTotal": 0,
-    "colorCode": "ffff00",
-    "partylist": 0
+    "colorCode": "52545b",
+    "partylist": 0,
+    "ts": null
   },
   "15": {
     "id": 15,
@@ -146,8 +160,9 @@
     "codeEN": "BJT",
     "logoUrl": "/images/party/15.png",
     "votesTotal": 0,
-    "colorCode": "132e86",
-    "partylist": 150
+    "colorCode": "192953",
+    "partylist": 150,
+    "ts": null
   },
   "16": {
     "id": 16,
@@ -156,8 +171,9 @@
     "codeEN": "PCT",
     "logoUrl": "/images/party/16.png",
     "votesTotal": 0,
-    "colorCode": "71d220",
-    "partylist": 0
+    "colorCode": "52545b",
+    "partylist": 0,
+    "ts": null
   },
   "17": {
     "id": 17,
@@ -166,8 +182,9 @@
     "codeEN": "TSDP",
     "logoUrl": "/images/party/17.png",
     "votesTotal": 0,
-    "colorCode": "ff0000",
-    "partylist": 6
+    "colorCode": "52545b",
+    "partylist": 6,
+    "ts": null
   },
   "18": {
     "id": 18,
@@ -176,8 +193,9 @@
     "codeEN": "TSN",
     "logoUrl": "/images/party/18.png",
     "votesTotal": 0,
-    "colorCode": "ff0000",
-    "partylist": 108
+    "colorCode": "52545b",
+    "partylist": 108,
+    "ts": null
   },
   "19": {
     "id": 19,
@@ -186,8 +204,9 @@
     "codeEN": "SPOT",
     "logoUrl": "/images/party/19.png",
     "votesTotal": 0,
-    "colorCode": "ff7323",
-    "partylist": 0
+    "colorCode": "52545b",
+    "partylist": 0,
+    "ts": null
   },
   "20": {
     "id": 20,
@@ -196,8 +215,9 @@
     "codeEN": "RTLP",
     "logoUrl": "/images/party/20.png",
     "votesTotal": 0,
-    "colorCode": "000000",
-    "partylist": 0
+    "colorCode": "52545b",
+    "partylist": 0,
+    "ts": null
   },
   "21": {
     "id": 21,
@@ -206,8 +226,9 @@
     "codeEN": "HPP",
     "logoUrl": "/images/party/21.png",
     "votesTotal": 0,
-    "colorCode": "f96406",
-    "partylist": 0
+    "colorCode": "52545b",
+    "partylist": 0,
+    "ts": null
   },
   "22": {
     "id": 22,
@@ -216,8 +237,9 @@
     "codeEN": "TMRP",
     "logoUrl": "/images/party/22.png",
     "votesTotal": 0,
-    "colorCode": "374387",
-    "partylist": 0
+    "colorCode": "52545b",
+    "partylist": 0,
+    "ts": null
   },
   "23": {
     "id": 23,
@@ -226,8 +248,9 @@
     "codeEN": "PHT",
     "logoUrl": "/images/party/23.png",
     "votesTotal": 0,
-    "colorCode": "ff0000",
-    "partylist": 22
+    "colorCode": "52545b",
+    "partylist": 22,
+    "ts": null
   },
   "24": {
     "id": 24,
@@ -236,8 +259,9 @@
     "codeEN": "NDP",
     "logoUrl": "/images/party/24.png",
     "votesTotal": 0,
-    "colorCode": "f04336",
-    "partylist": 41
+    "colorCode": "52545b",
+    "partylist": 41,
+    "ts": null
   },
   "25": {
     "id": 25,
@@ -246,8 +270,9 @@
     "codeEN": "RSP",
     "logoUrl": "/images/party/25.png",
     "votesTotal": 0,
-    "colorCode": "63ba46",
-    "partylist": 0
+    "colorCode": "52545b",
+    "partylist": 0,
+    "ts": null
   },
   "26": {
     "id": 26,
@@ -256,8 +281,9 @@
     "codeEN": "PC",
     "logoUrl": "/images/party/26.png",
     "votesTotal": 0,
-    "colorCode": "0422ff",
-    "partylist": 0
+    "colorCode": "52545b",
+    "partylist": 0,
+    "ts": null
   },
   "27": {
     "id": 27,
@@ -266,8 +292,9 @@
     "codeEN": "ST",
     "logoUrl": "/images/party/27.png",
     "votesTotal": 0,
-    "colorCode": "ff0000",
-    "partylist": 0
+    "colorCode": "52545b",
+    "partylist": 0,
+    "ts": null
   },
   "28": {
     "id": 28,
@@ -276,8 +303,9 @@
     "codeEN": "TR",
     "logoUrl": "/images/party/28.png",
     "votesTotal": 0,
-    "colorCode": "339c4e",
-    "partylist": 4
+    "colorCode": "52545b",
+    "partylist": 4,
+    "ts": null
   },
   "29": {
     "id": 29,
@@ -286,8 +314,9 @@
     "codeEN": "TTPP",
     "logoUrl": "/images/party/29.png",
     "votesTotal": 0,
-    "colorCode": "de5e26",
-    "partylist": 82
+    "colorCode": "52545b",
+    "partylist": 82,
+    "ts": null
   },
   "30": {
     "id": 30,
@@ -296,8 +325,9 @@
     "codeEN": "COP",
     "logoUrl": "/images/party/30.png",
     "votesTotal": 0,
-    "colorCode": "f65f2a",
-    "partylist": 4
+    "colorCode": "52545b",
+    "partylist": 4,
+    "ts": null
   },
   "31": {
     "id": 31,
@@ -306,8 +336,9 @@
     "codeEN": "TLP",
     "logoUrl": "/images/party/31.png",
     "votesTotal": 0,
-    "colorCode": "29c555",
-    "partylist": 78
+    "colorCode": "40af49",
+    "partylist": 78,
+    "ts": null
   },
   "32": {
     "id": 32,
@@ -316,8 +347,9 @@
     "codeEN": "PNP",
     "logoUrl": "/images/party/32.png",
     "votesTotal": 0,
-    "colorCode": "f0711d",
-    "partylist": 0
+    "colorCode": "52545b",
+    "partylist": 0,
+    "ts": null
   },
   "33": {
     "id": 33,
@@ -326,8 +358,9 @@
     "codeEN": "TKCV",
     "logoUrl": "/images/party/33.png",
     "votesTotal": 0,
-    "colorCode": "af2c5b",
-    "partylist": 8
+    "colorCode": "52545b",
+    "partylist": 8,
+    "ts": null
   },
   "34": {
     "id": 34,
@@ -336,8 +369,9 @@
     "codeEN": "FCP",
     "logoUrl": "/images/party/34.png",
     "votesTotal": 0,
-    "colorCode": "96bf64",
-    "partylist": 16
+    "colorCode": "006152",
+    "partylist": 16,
+    "ts": null
   },
   "35": {
     "id": 35,
@@ -346,8 +380,9 @@
     "codeEN": "PDN",
     "logoUrl": "/images/party/35.png",
     "votesTotal": 0,
-    "colorCode": "fd6807",
-    "partylist": 0
+    "colorCode": "52545b",
+    "partylist": 0,
+    "ts": null
   },
   "36": {
     "id": 36,
@@ -356,8 +391,9 @@
     "codeEN": "PSTP",
     "logoUrl": "/images/party/36.png",
     "votesTotal": 0,
-    "colorCode": "83943b",
-    "partylist": 0
+    "colorCode": "52545b",
+    "partylist": 0,
+    "ts": null
   },
   "37": {
     "id": 37,
@@ -366,8 +402,9 @@
     "codeEN": "PPTT",
     "logoUrl": "/images/party/37.png",
     "votesTotal": 0,
-    "colorCode": "ff0000",
-    "partylist": 0
+    "colorCode": "52545b",
+    "partylist": 0,
+    "ts": null
   },
   "38": {
     "id": 38,
@@ -376,8 +413,9 @@
     "codeEN": "TT",
     "logoUrl": "/images/party/38.png",
     "votesTotal": 0,
-    "colorCode": "f754c6",
-    "partylist": 148
+    "colorCode": "52545b",
+    "partylist": 148,
+    "ts": null
   },
   "39": {
     "id": 39,
@@ -386,8 +424,9 @@
     "codeEN": "TLP",
     "logoUrl": "/images/party/39.png",
     "votesTotal": 0,
-    "colorCode": "000082",
-    "partylist": 100
+    "colorCode": "f7e23a",
+    "partylist": 100,
+    "ts": null
   },
   "40": {
     "id": 40,
@@ -396,8 +435,9 @@
     "codeEN": "RT",
     "logoUrl": "/images/party/40.png",
     "votesTotal": 0,
-    "colorCode": "30318b",
-    "partylist": 0
+    "colorCode": "52545b",
+    "partylist": 0,
+    "ts": null
   },
   "41": {
     "id": 41,
@@ -406,8 +446,9 @@
     "codeEN": "RPT",
     "logoUrl": "/images/party/41.png",
     "votesTotal": 0,
-    "colorCode": "ff0000",
-    "partylist": 0
+    "colorCode": "52545b",
+    "partylist": 0,
+    "ts": null
   },
   "42": {
     "id": 42,
@@ -416,8 +457,9 @@
     "codeEN": "PC",
     "logoUrl": "/images/party/42.png",
     "votesTotal": 0,
-    "colorCode": "ff0000",
-    "partylist": 150
+    "colorCode": "a71f23",
+    "partylist": 150,
+    "ts": null
   },
   "43": {
     "id": 43,
@@ -426,8 +468,9 @@
     "codeEN": "FTEP",
     "logoUrl": "/images/party/43.png",
     "votesTotal": 0,
-    "colorCode": "23adc5",
-    "partylist": 0
+    "colorCode": "52545b",
+    "partylist": 0,
+    "ts": null
   },
   "44": {
     "id": 44,
@@ -436,8 +479,9 @@
     "codeEN": "PTK",
     "logoUrl": "/images/party/44.png",
     "votesTotal": 0,
-    "colorCode": "297763",
-    "partylist": 0
+    "colorCode": "52545b",
+    "partylist": 0,
+    "ts": null
   },
   "45": {
     "id": 45,
@@ -446,8 +490,9 @@
     "codeEN": "CSP",
     "logoUrl": "/images/party/45.png",
     "votesTotal": 0,
-    "colorCode": "03adf0",
-    "partylist": 0
+    "colorCode": "52545b",
+    "partylist": 0,
+    "ts": null
   },
   "46": {
     "id": 46,
@@ -456,8 +501,9 @@
     "codeEN": "DF",
     "logoUrl": "/images/party/46.png",
     "votesTotal": 0,
-    "colorCode": "bf4834",
-    "partylist": 14
+    "colorCode": "52545b",
+    "partylist": 14,
+    "ts": null
   },
   "47": {
     "id": 47,
@@ -466,8 +512,9 @@
     "codeEN": "PDP",
     "logoUrl": "/images/party/47.png",
     "votesTotal": 0,
-    "colorCode": "03792e",
-    "partylist": 14
+    "colorCode": "52545b",
+    "partylist": 14,
+    "ts": null
   },
   "48": {
     "id": 48,
@@ -476,8 +523,9 @@
     "codeEN": "PTRC",
     "logoUrl": "/images/party/48.png",
     "votesTotal": 0,
-    "colorCode": "80c241",
-    "partylist": 12
+    "colorCode": "52545b",
+    "partylist": 12,
+    "ts": null
   },
   "49": {
     "id": 49,
@@ -486,8 +534,9 @@
     "codeEN": "MKR",
     "logoUrl": "/images/party/49.png",
     "votesTotal": 0,
-    "colorCode": "1c5b2d",
-    "partylist": 0
+    "colorCode": "52545b",
+    "partylist": 0,
+    "ts": null
   },
   "50": {
     "id": 50,
@@ -496,8 +545,9 @@
     "codeEN": "PCM",
     "logoUrl": "/images/party/50.png",
     "votesTotal": 0,
-    "colorCode": "ff0000",
-    "partylist": 3
+    "colorCode": "52545b",
+    "partylist": 3,
+    "ts": null
   },
   "51": {
     "id": 51,
@@ -506,8 +556,9 @@
     "codeEN": "PWP",
     "logoUrl": "/images/party/51.png",
     "votesTotal": 0,
-    "colorCode": "9204bd",
-    "partylist": 0
+    "colorCode": "52545b",
+    "partylist": 0,
+    "ts": null
   },
   "52": {
     "id": 52,
@@ -516,8 +567,9 @@
     "codeEN": "TRF",
     "logoUrl": "/images/party/52.png",
     "votesTotal": 0,
-    "colorCode": "039fd2",
-    "partylist": 0
+    "colorCode": "52545b",
+    "partylist": 0,
+    "ts": null
   },
   "53": {
     "id": 53,
@@ -526,8 +578,9 @@
     "codeEN": "CPT",
     "logoUrl": "/images/party/53.png",
     "votesTotal": 0,
-    "colorCode": "fb8515",
-    "partylist": 2
+    "colorCode": "52545b",
+    "partylist": 2,
+    "ts": null
   },
   "54": {
     "id": 54,
@@ -536,8 +589,9 @@
     "codeEN": "RTT",
     "logoUrl": "/images/party/54.png",
     "votesTotal": 0,
-    "colorCode": "c4475b",
-    "partylist": 0
+    "colorCode": "52545b",
+    "partylist": 0,
+    "ts": null
   },
   "55": {
     "id": 55,
@@ -546,8 +600,9 @@
     "codeEN": "PKP",
     "logoUrl": "/images/party/55.png",
     "votesTotal": 0,
-    "colorCode": "3f946b",
-    "partylist": 0
+    "colorCode": "52545b",
+    "partylist": 0,
+    "ts": null
   },
   "56": {
     "id": 56,
@@ -556,8 +611,9 @@
     "codeEN": "RPCT",
     "logoUrl": "/images/party/56.png",
     "votesTotal": 0,
-    "colorCode": "ff0000",
-    "partylist": 0
+    "colorCode": "52545b",
+    "partylist": 0,
+    "ts": null
   },
   "57": {
     "id": 57,
@@ -566,8 +622,9 @@
     "codeEN": "MP",
     "logoUrl": "/images/party/57.png",
     "votesTotal": 0,
-    "colorCode": "000cfe",
-    "partylist": 0
+    "colorCode": "52545b",
+    "partylist": 0,
+    "ts": null
   },
   "58": {
     "id": 58,
@@ -576,8 +633,9 @@
     "codeEN": "PST",
     "logoUrl": "/images/party/58.png",
     "votesTotal": 0,
-    "colorCode": "f57e20",
-    "partylist": 2
+    "colorCode": "52545b",
+    "partylist": 2,
+    "ts": null
   },
   "59": {
     "id": 59,
@@ -586,8 +644,9 @@
     "codeEN": "TID",
     "logoUrl": "/images/party/59.png",
     "votesTotal": 0,
-    "colorCode": "071bd8",
-    "partylist": 0
+    "colorCode": "52545b",
+    "partylist": 0,
+    "ts": null
   },
   "60": {
     "id": 60,
@@ -596,8 +655,9 @@
     "codeEN": "DFP",
     "logoUrl": "/images/party/60.png",
     "votesTotal": 0,
-    "colorCode": "a1423f",
-    "partylist": 3
+    "colorCode": "52545b",
+    "partylist": 3,
+    "ts": null
   },
   "61": {
     "id": 61,
@@ -606,8 +666,9 @@
     "codeEN": "NEWA",
     "logoUrl": "/images/party/61.png",
     "votesTotal": 0,
-    "colorCode": "006aee",
-    "partylist": 13
+    "colorCode": "52545b",
+    "partylist": 13,
+    "ts": null
   },
   "62": {
     "id": 62,
@@ -616,8 +677,9 @@
     "codeEN": "PVP",
     "logoUrl": "/images/party/62.png",
     "votesTotal": 0,
-    "colorCode": "2c3691",
-    "partylist": 1
+    "colorCode": "52545b",
+    "partylist": 1,
+    "ts": null
   },
   "63": {
     "id": 63,
@@ -626,8 +688,9 @@
     "codeEN": "PRA",
     "logoUrl": "/images/party/63.png",
     "votesTotal": 0,
-    "colorCode": "186633",
-    "partylist": 129
+    "colorCode": "52545b",
+    "partylist": 129,
+    "ts": null
   },
   "64": {
     "id": 64,
@@ -636,8 +699,9 @@
     "codeEN": "PONT",
     "logoUrl": "/images/party/64.png",
     "votesTotal": 0,
-    "colorCode": "242b7d",
-    "partylist": 18
+    "colorCode": "52545b",
+    "partylist": 18,
+    "ts": null
   },
   "65": {
     "id": 65,
@@ -646,8 +710,9 @@
     "codeEN": "RJP",
     "logoUrl": "/images/party/65.png",
     "votesTotal": 0,
-    "colorCode": "2f2e94",
-    "partylist": 9
+    "colorCode": "52545b",
+    "partylist": 9,
+    "ts": null
   },
   "66": {
     "id": 66,
@@ -656,8 +721,9 @@
     "codeEN": "NPD",
     "logoUrl": "/images/party/66.png",
     "votesTotal": 0,
-    "colorCode": "2c3991",
-    "partylist": 24
+    "colorCode": "52545b",
+    "partylist": 24,
+    "ts": null
   },
   "67": {
     "id": 67,
@@ -666,8 +732,9 @@
     "codeEN": "PPR",
     "logoUrl": "/images/party/67.png",
     "votesTotal": 0,
-    "colorCode": "2b2796",
-    "partylist": 40
+    "colorCode": "2e3389",
+    "partylist": 40,
+    "ts": null
   },
   "68": {
     "id": 68,
@@ -676,8 +743,9 @@
     "codeEN": "FWP",
     "logoUrl": "/images/party/68.png",
     "votesTotal": 0,
-    "colorCode": "f47933",
-    "partylist": 124
+    "colorCode": "f36e23",
+    "partylist": 124,
+    "ts": null
   },
   "69": {
     "id": 69,
@@ -686,8 +754,9 @@
     "codeEN": "THMP",
     "logoUrl": "/images/party/69.png",
     "votesTotal": 0,
-    "colorCode": "f4760a",
-    "partylist": 9
+    "colorCode": "52545b",
+    "partylist": 9,
+    "ts": null
   },
   "70": {
     "id": 70,
@@ -696,8 +765,9 @@
     "codeEN": "TF",
     "logoUrl": "/images/party/70.png",
     "votesTotal": 0,
-    "colorCode": "bf1d1d",
-    "partylist": 52
+    "colorCode": "52545b",
+    "partylist": 52,
+    "ts": null
   },
   "71": {
     "id": 71,
@@ -706,8 +776,9 @@
     "codeEN": "TCL",
     "logoUrl": "/images/party/71.png",
     "votesTotal": 0,
-    "colorCode": "00529c",
-    "partylist": 26
+    "colorCode": "52545b",
+    "partylist": 26,
+    "ts": null
   },
   "72": {
     "id": 72,
@@ -716,8 +787,9 @@
     "codeEN": "ACT",
     "logoUrl": "/images/party/72.png",
     "votesTotal": 0,
-    "colorCode": "2d398f",
-    "partylist": 150
+    "colorCode": "6d97cf",
+    "partylist": 150,
+    "ts": null
   },
   "73": {
     "id": 73,
@@ -726,8 +798,9 @@
     "codeEN": "SD",
     "logoUrl": "/images/party/73.png",
     "votesTotal": 0,
-    "colorCode": "ff0000",
-    "partylist": 14
+    "colorCode": "52545b",
+    "partylist": 14,
+    "ts": null
   },
   "74": {
     "id": 74,
@@ -736,8 +809,9 @@
     "codeEN": "PKTP",
     "logoUrl": "/images/party/74.png",
     "votesTotal": 0,
-    "colorCode": "62384",
-    "partylist": 19
+    "colorCode": "52545b",
+    "partylist": 19,
+    "ts": null
   },
   "75": {
     "id": 75,
@@ -746,8 +820,9 @@
     "codeEN": "PLPT",
     "logoUrl": "/images/party/75.png",
     "votesTotal": 0,
-    "colorCode": "ff0000",
-    "partylist": 62
+    "colorCode": "52545b",
+    "partylist": 62,
+    "ts": null
   },
   "76": {
     "id": 76,
@@ -756,8 +831,9 @@
     "codeEN": "PTRT",
     "logoUrl": "/images/party/76.png",
     "votesTotal": 0,
-    "colorCode": "3e9cd7",
-    "partylist": 30
+    "colorCode": "52545b",
+    "partylist": 30,
+    "ts": null
   },
   "77": {
     "id": 77,
@@ -766,8 +842,9 @@
     "codeEN": "TNPP",
     "logoUrl": "/images/party/77.png",
     "votesTotal": 0,
-    "colorCode": "f132a3",
-    "partylist": 77
+    "colorCode": "52545b",
+    "partylist": 77,
+    "ts": null
   },
   "78": {
     "id": 78,
@@ -776,8 +853,9 @@
     "codeEN": "PCC",
     "logoUrl": "/images/party/78.png",
     "votesTotal": 0,
-    "colorCode": "f49341",
-    "partylist": 58
+    "colorCode": "a35826",
+    "partylist": 58,
+    "ts": null
   },
   "79": {
     "id": 79,
@@ -786,8 +864,9 @@
     "codeEN": "LDHP",
     "logoUrl": "/images/party/79.png",
     "votesTotal": 0,
-    "colorCode": "fff101",
-    "partylist": 24
+    "colorCode": "52545b",
+    "partylist": 24,
+    "ts": null
   },
   "80": {
     "id": 80,
@@ -796,8 +875,9 @@
     "codeEN": "KTP",
     "logoUrl": "/images/party/80.png",
     "votesTotal": 0,
-    "colorCode": "026cb8",
-    "partylist": 27
+    "colorCode": "52545b",
+    "partylist": 27,
+    "ts": null
   },
   "81": {
     "id": 81,
@@ -806,8 +886,9 @@
     "codeEN": "TPJ",
     "logoUrl": "/images/party/81.png",
     "votesTotal": 0,
-    "colorCode": "ff0000",
-    "partylist": 61
+    "colorCode": "52545b",
+    "partylist": 61,
+    "ts": null
   },
   "82": {
     "id": 82,
@@ -816,8 +897,9 @@
     "codeEN": "PYP",
     "logoUrl": "/images/party/82.png",
     "votesTotal": 0,
-    "colorCode": "ff0000",
-    "partylist": 112
+    "colorCode": "52545b",
+    "partylist": 112,
+    "ts": null
   },
   "83": {
     "id": 83,
@@ -826,8 +908,9 @@
     "codeEN": "PPRP",
     "logoUrl": "/images/party/83.png",
     "votesTotal": 0,
-    "colorCode": "4061a6",
-    "partylist": 120
+    "colorCode": "3e61a7",
+    "partylist": 120,
+    "ts": null
   },
   "84": {
     "id": 84,
@@ -836,8 +919,9 @@
     "codeEN": "NEP",
     "logoUrl": "/images/party/84.png",
     "votesTotal": 0,
-    "colorCode": "ff0000",
-    "partylist": 81
+    "colorCode": "642e91",
+    "partylist": 81,
+    "ts": null
   },
   "85": {
     "id": 85,
@@ -846,8 +930,9 @@
     "codeEN": "TRRP",
     "logoUrl": "/images/party/85.png",
     "votesTotal": 0,
-    "colorCode": "6c2f92",
-    "partylist": 7
+    "colorCode": "52545b",
+    "partylist": 7,
+    "ts": null
   },
   "86": {
     "id": 86,
@@ -856,8 +941,9 @@
     "codeEN": "PFL",
     "logoUrl": "/images/party/86.png",
     "votesTotal": 0,
-    "colorCode": "2aa9eb",
-    "partylist": 6
+    "colorCode": "52545b",
+    "partylist": 6,
+    "ts": null
   },
   "87": {
     "id": 87,
@@ -866,8 +952,9 @@
     "codeEN": "TEP",
     "logoUrl": "/images/party/87.png",
     "votesTotal": 0,
-    "colorCode": "1074bd",
-    "partylist": 15
+    "colorCode": "52545b",
+    "partylist": 15,
+    "ts": null
   },
   "88": {
     "id": 88,
@@ -876,8 +963,9 @@
     "codeEN": "BKTP",
     "logoUrl": "/images/party/88.png",
     "votesTotal": 0,
-    "colorCode": "119647",
-    "partylist": 5
+    "colorCode": "52545b",
+    "partylist": 5,
+    "ts": null
   },
   "89": {
     "id": 89,
@@ -886,8 +974,9 @@
     "codeEN": "PPS",
     "logoUrl": "/images/party/89.png",
     "votesTotal": 0,
-    "colorCode": "f58820",
-    "partylist": 15
+    "colorCode": "52545b",
+    "partylist": 15,
+    "ts": null
   },
   "90": {
     "id": 90,
@@ -896,8 +985,9 @@
     "codeEN": "TPLP",
     "logoUrl": "/images/party/90.png",
     "votesTotal": 0,
-    "colorCode": "003e66",
-    "partylist": 6
+    "colorCode": "52545b",
+    "partylist": 6,
+    "ts": null
   },
   "91": {
     "id": 91,
@@ -906,8 +996,9 @@
     "codeEN": "PBN",
     "logoUrl": "/images/party/91.png",
     "votesTotal": 0,
-    "colorCode": "d3849e",
-    "partylist": 12
+    "colorCode": "52545b",
+    "partylist": 12,
+    "ts": null
   },
   "92": {
     "id": 92,
@@ -916,8 +1007,9 @@
     "codeEN": "POFP",
     "logoUrl": "/images/party/92.png",
     "votesTotal": 0,
-    "colorCode": "129549",
-    "partylist": 8
+    "colorCode": "52545b",
+    "partylist": 8,
+    "ts": null
   },
   "93": {
     "id": 93,
@@ -926,8 +1018,9 @@
     "codeEN": "PPDT",
     "logoUrl": "/images/party/93.png",
     "votesTotal": 0,
-    "colorCode": "fff300",
-    "partylist": 6
+    "colorCode": "52545b",
+    "partylist": 6,
+    "ts": null
   },
   "94": {
     "id": 94,
@@ -936,8 +1029,9 @@
     "codeEN": "GP",
     "logoUrl": "/images/party/94.png",
     "votesTotal": 0,
-    "colorCode": "34498b",
-    "partylist": 6
+    "colorCode": "52545b",
+    "partylist": 6,
+    "ts": null
   },
   "95": {
     "id": 95,
@@ -946,8 +1040,9 @@
     "codeEN": "PWTP",
     "logoUrl": "/images/party/95.png",
     "votesTotal": 0,
-    "colorCode": "ff0000",
-    "partylist": 0
+    "colorCode": "52545b",
+    "partylist": 0,
+    "ts": null
   },
   "96": {
     "id": 96,
@@ -956,8 +1051,9 @@
     "codeEN": "TPPTP",
     "logoUrl": "/images/party/96.png",
     "votesTotal": 0,
-    "colorCode": "292679",
-    "partylist": 18
+    "colorCode": "52545b",
+    "partylist": 18,
+    "ts": null
   },
   "97": {
     "id": 97,
@@ -966,8 +1062,9 @@
     "codeEN": "GREEN",
     "logoUrl": "/images/party/97.png",
     "votesTotal": 0,
-    "colorCode": "66cd00",
-    "partylist": 15
+    "colorCode": "52545b",
+    "partylist": 15,
+    "ts": null
   },
   "98": {
     "id": 98,
@@ -976,8 +1073,9 @@
     "codeEN": "TDPT",
     "logoUrl": "/images/party/98.png",
     "votesTotal": 0,
-    "colorCode": "ff0000",
-    "partylist": 2
+    "colorCode": "52545b",
+    "partylist": 2,
+    "ts": null
   },
   "99": {
     "id": 99,
@@ -986,8 +1084,9 @@
     "codeEN": "FDP",
     "logoUrl": "/images/party/99.png",
     "votesTotal": 0,
-    "colorCode": "0056a0",
-    "partylist": 14
+    "colorCode": "52545b",
+    "partylist": 14,
+    "ts": null
   },
   "100": {
     "id": 100,
@@ -996,8 +1095,9 @@
     "codeEN": "CMP",
     "logoUrl": "/images/party/100.png",
     "votesTotal": 0,
-    "colorCode": "ff0000",
-    "partylist": 6
+    "colorCode": "52545b",
+    "partylist": 6,
+    "ts": null
   },
   "101": {
     "id": 101,
@@ -1006,8 +1106,9 @@
     "codeEN": "TTP",
     "logoUrl": "/images/party/101.png",
     "votesTotal": 0,
-    "colorCode": "1d32a6",
-    "partylist": 6
+    "colorCode": "52545b",
+    "partylist": 6,
+    "ts": null
   },
   "102": {
     "id": 102,
@@ -1016,8 +1117,9 @@
     "codeEN": "THN",
     "logoUrl": "/images/party/102.png",
     "votesTotal": 0,
-    "colorCode": "f05e22",
-    "partylist": 24
+    "colorCode": "52545b",
+    "partylist": 24,
+    "ts": null
   },
   "103": {
     "id": 103,
@@ -1026,8 +1128,9 @@
     "codeEN": "TDPP",
     "logoUrl": "/images/party/103.png",
     "votesTotal": 0,
-    "colorCode": "88c540",
-    "partylist": 6
+    "colorCode": "52545b",
+    "partylist": 6,
+    "ts": null
   },
   "104": {
     "id": 104,
@@ -1036,8 +1139,9 @@
     "codeEN": "PHTP",
     "logoUrl": "/images/party/104.png",
     "votesTotal": 0,
-    "colorCode": "ff0000",
-    "partylist": 12
+    "colorCode": "52545b",
+    "partylist": 12,
+    "ts": null
   },
   "108": {
     "id": 108,
@@ -1046,8 +1150,9 @@
     "codeEN": "NTD",
     "logoUrl": "/images/party/108.png",
     "votesTotal": 0,
-    "colorCode": "2e307b",
-    "partylist": 0
+    "colorCode": "52545b",
+    "partylist": 0,
+    "ts": null
   },
   "109": {
     "id": 109,
@@ -1056,8 +1161,9 @@
     "codeEN": "TWP",
     "logoUrl": "/images/party/109.png",
     "votesTotal": 0,
-    "colorCode": "971a1a",
-    "partylist": 1
+    "colorCode": "52545b",
+    "partylist": 1,
+    "ts": null
   },
   "110": {
     "id": 110,
@@ -1066,7 +1172,8 @@
     "codeEN": "PL",
     "logoUrl": "/images/party/110.png",
     "votesTotal": 0,
-    "colorCode": "f27407",
-    "partylist": 18
+    "colorCode": "52545b",
+    "partylist": 18,
+    "ts": null
   }
 }
