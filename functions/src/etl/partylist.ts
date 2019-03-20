@@ -1,6 +1,6 @@
 import { calculatePartyList, Party } from 'partylist-calculator'
 
-import { sortScores, calculateSeatMap } from './map'
+import { sortScores, calculateSeats, calculatePartyScores } from './map'
 import { newFakeMapper } from '../mapper/FakeMapper'
 import { CDN_IMGURL } from '../constants'
 
@@ -20,33 +20,35 @@ delete constituencyData.default
 export async function etlPartylistData() {
     const mapper = newFakeMapper()
     const scores = await mapper.scores()
-    const seats = calculateSeatMap(sortScores(scores))
-    const provinces = await mapper.provinces()
+    const partySeats = calculateSeats(sortScores(scores))
+    const partyScores = calculatePartyScores(partySeats)
 
-    const parties = await mapper.parties()
-    const partylists = parties.map(party => {
-        const { id, votesTotal, name } = party
-        const partyId = `${id}`
-
+    const partylists = partySeats.map((seats, index) => {
+        const { partyId } = seats[0]
+        const partyIdStr = `${partyId}`
+        const { name } = partyData[partyIdStr]
         const partylist = partylistData[name]
-        const numSeats = seats[partyId] ? seats[partyId].length : 0
+
+        const numSeats = seats.length
+        const votesTotal = partyScores[index]
         const numCandidates: number = partylist
             ? partylist.candidates.length
             : 0
 
         return new Party({
-            id: partyId,
-            electedMemberCount: numSeats as number,
+            id: partyIdStr,
+            electedMemberCount: numSeats,
             voteCount: votesTotal,
             partyListCandidateCount: numCandidates,
         })
     })
 
+    const provinces = await mapper.provinces()
     const remainingVotes =
         provinces.reduce((remaining, province) => {
             const { badVotes, noVotes, votesTotal } = province
             return remaining + votesTotal - (badVotes + noVotes)
-        }, 0) - partylists.reduce((sum, p) => sum + p.voteCount, 0)
+        }, 0) - partyScores.reduce((sum, votes) => sum + votes, 0)
 
     partylists.push(
         new Party({
