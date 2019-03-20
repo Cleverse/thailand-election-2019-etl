@@ -6,6 +6,7 @@ import { CDN_IMGURL } from '../constants'
 import * as tempParties from '../masterData/idToPartyMap.json'
 import * as tempProvinces from '../masterData/idToProvinceMap.json'
 import * as tempConstituency from '../masterData/uniqueKeyToConstituencyMemberMap.json'
+import { IParty } from '../mapper/IMapper'
 
 const provinceData: any = tempProvinces
 const partyData: any = tempParties
@@ -77,18 +78,17 @@ function listToMap(list: any[], key: string) {
 
 export async function roughlyEstimateOverall() {
     const mapper = newFakeMapper()
-    const parties = await mapper.parties()
     const provinces = await mapper.provinces()
 
-    return parties
+    return Object.values(partyData)
         .map(party => {
-            const { codeEN, name, votesTotal, colorCode } = party
+            const { codeEN, name, votesTotal, colorCode } = party as IParty
             const totalVotes =
                 parseInt(process.env.TOTAL_VOTES as string) ||
-                provinces.reduce((sum, province) => {
-                    const { badVotes, noVotes } = province
-                    return sum + badVotes + noVotes
-                }, 0) + parties.reduce((sum, p) => sum + p.votesTotal, 0)
+                provinces.reduce(
+                    (sum, province) => sum + province.votesTotal,
+                    0
+                )
 
             return {
                 partyCode: codeEN,
