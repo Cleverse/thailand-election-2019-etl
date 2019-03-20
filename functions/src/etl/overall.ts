@@ -79,10 +79,13 @@ function listToMap(list: any[], key: string) {
 export async function roughlyEstimateOverall() {
     const mapper = newFakeMapper()
     const provinces = await mapper.provinces()
+    const scores = await mapper.scores()
+    const partySeats = calculateSeats(sortScores(scores))
 
-    return Object.values(partyData)
-        .map(party => {
-            const { codeEN, name, votesTotal, colorCode } = party as IParty
+    return partySeats
+        .map(seats => {
+            const { codeEN, name, colorCode } = partyData[`${seats[0].partyId}`]
+            const votes = seats.reduce((sum, seat) => sum + seat.score, 0)
             const totalVotes =
                 parseInt(process.env.TOTAL_VOTES as string) ||
                 provinces.reduce(
@@ -95,7 +98,7 @@ export async function roughlyEstimateOverall() {
                 partyName: name,
                 color: `#${colorCode}`,
                 picture: `${CDN_IMGURL}/parties/${name}.png`,
-                seats: Math.floor(votesTotal / (totalVotes / 500)),
+                seats: Math.floor(votes / (totalVotes / 500)),
             }
         })
         .sort((a, b) => b.seats - a.seats)
