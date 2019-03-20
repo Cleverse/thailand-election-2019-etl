@@ -6,7 +6,6 @@ import { CDN_IMGURL } from '../constants'
 import * as tempParties from '../masterData/idToPartyMap.json'
 import * as tempProvinces from '../masterData/idToProvinceMap.json'
 import * as tempConstituency from '../masterData/uniqueKeyToConstituencyMemberMap.json'
-import { IParty } from '../mapper/IMapper'
 
 const provinceData: any = tempProvinces
 const partyData: any = tempParties
