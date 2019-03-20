@@ -19,11 +19,11 @@ delete constituencyData.default
 
 export async function etlPartylistData() {
     const mapper = newFakeMapper()
-    const scores = await mapper.fetchScores()
+    const scores = await mapper.scores()
     const seats = calculateSeatMap(sortScores(scores))
-    const provinces = await mapper.fetchProvinces()
+    const provinces = await mapper.provinces()
 
-    const parties = await mapper.fetchParties()
+    const parties = await mapper.parties()
     const partylists = parties.map(party => {
         const { id, votesTotal, name } = party
         const partyId = `${id}`

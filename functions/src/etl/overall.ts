@@ -18,7 +18,7 @@ delete constituencyData.default
 
 export async function etlOverallData() {
     const mapper = newFakeMapper()
-    const scores = await mapper.fetchScores()
+    const scores = await mapper.scores()
     const partySeats = calculateSeats(sortScores(scores))
 
     const partylistMap = await etlPartylistData().then(list =>
@@ -77,8 +77,8 @@ function listToMap(list: any[], key: string) {
 
 export async function roughlyEstimateOverall() {
     const mapper = newFakeMapper()
-    const parties = await mapper.fetchParties()
-    const provinces = await mapper.fetchProvinces()
+    const parties = await mapper.parties()
+    const provinces = await mapper.provinces()
 
     return parties
         .map(party => {

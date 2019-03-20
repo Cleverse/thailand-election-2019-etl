@@ -17,7 +17,7 @@ delete constituencyData.default
 
 export async function etlMapData() {
     const mapper = newFakeMapper()
-    const scoresByZone = await mapper.fetchScores().then(sortScores)
+    const scoresByZone = await mapper.scores().then(sortScores)
     const provinceMap = scoresByZone.reduce(
         (map, scores) => {
             const { provinceId, zone } = scores[0]
@@ -39,8 +39,8 @@ export async function etlMapData() {
         }
     })
 
-    const fetchedProvinces = await mapper.fetchProvinces()
-    const fetchedParties = await mapper.fetchParties()
+    const fetchedProvinces = await mapper.provinces()
+    const fetchedParties = await mapper.parties()
 
     const sumVotes = fetchedParties.reduce(
         (sum, party) => sum + party.votesTotal,

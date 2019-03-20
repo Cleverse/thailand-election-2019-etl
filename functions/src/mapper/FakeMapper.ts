@@ -22,11 +22,17 @@ class FakeMapper implements IMapper {
     private cachedScores: IScore[] | null
     private cachedParties: IParty[] | null
     private cachedProvinces: IProvince[] | null
+    private cachedScoresTimestamp: number
+    private cachedPartiesTimestamp: number
+    private cachedProvincesTimestamp: number
 
     constructor() {
         this.cachedScores = null
         this.cachedParties = null
         this.cachedProvinces = null
+        this.cachedScoresTimestamp = 0
+        this.cachedPartiesTimestamp = 0
+        this.cachedProvincesTimestamp = 0
     }
 
     public async fetchScores(): Promise<IScore[]> {
@@ -37,8 +43,13 @@ class FakeMapper implements IMapper {
     }
 
     public async scores(): Promise<IScore[]> {
-        if (!this.cachedScores) {
+        if (
+            !this.cachedScores ||
+            Date.now() - this.cachedScoresTimestamp > 20000
+        ) {
             this.cachedScores = await this.fetchScores()
+            this.cachedScoresTimestamp = Date.now()
+            console.log('cache score')
         }
         return this.cachedScores
     }
@@ -51,8 +62,13 @@ class FakeMapper implements IMapper {
     }
 
     public async parties(): Promise<IParty[]> {
-        if (!this.cachedParties) {
+        if (
+            !this.cachedParties ||
+            Date.now() - this.cachedPartiesTimestamp > 20000
+        ) {
             this.cachedParties = await this.fetchParties()
+            this.cachedPartiesTimestamp = Date.now()
+            console.log('cache party')
         }
         return this.cachedParties
     }
@@ -66,8 +82,13 @@ class FakeMapper implements IMapper {
     }
 
     public async provinces(): Promise<IProvince[]> {
-        if (!this.cachedProvinces) {
+        if (
+            !this.cachedProvinces ||
+            Date.now() - this.cachedProvincesTimestamp > 20000
+        ) {
             this.cachedProvinces = await this.fetchProvinces()
+            this.cachedProvincesTimestamp = Date.now()
+            console.log('cache province')
         }
         return this.cachedProvinces
     }
