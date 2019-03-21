@@ -12,6 +12,20 @@ const partyData: any = tempParties
 const provinceData: any = tempProvinces
 const constituencyData: any = tempConstituency
 
+interface IZoneInfo {
+    province: string
+    zone: number
+    areas: Array<{
+        area: string
+        interior: string[]
+        exterior: string[]
+        subinterior: string[]
+    }>
+    prefixes: {
+        area: string
+        sub_area: string
+    }
+}
 interface IRanking {
     partyName: string
     partyCode: string
@@ -132,9 +146,10 @@ function mapZone(zone: any) {
     const candidates = items.slice(0, 3).map(mapCandidate)
     const { zone: zoneNo, provinceId } = items[0]
     const province = provinceData[`${provinceId}`].name
+    const zoneInfo: IZoneInfo = zoneData[`${province}:${zoneNo}`]
     return {
         zoneNo,
-        info: zoneData[`${province}:${zoneNo}`],
+        zoneDesc: stringifyZone(zoneInfo),
         first3Candidates: candidates,
     }
 }
@@ -181,4 +196,19 @@ export function calculateSeatMap(zones: Array<IScore[]>) {
         },
         {} as any
     )
+}
+
+function stringifyZone(zone: IZoneInfo) {
+    const { area: areaUnit, sub_area: subUnit } = zone.prefixes
+    return zone.areas.map(area => {
+        const interior = concatXerior(area.interior)
+        const exterior = concatXerior(area.exterior)
+        return `${areaUnit} ${area.area}${
+            interior ? ` เฉพาะ ${subUnit} ${interior}` : ''
+        }${exterior ? ` ยกเว้น ${subUnit} ${exterior}` : ''}`
+    })
+}
+
+function concatXerior(arr: string[]) {
+    return arr.reduce((str, subArea) => `${str} ${subArea},`, '').slice(1, -1)
 }
