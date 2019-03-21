@@ -3,6 +3,7 @@ import { calculatePartyList, Party } from 'partylist-calculator'
 import { sortScores, calculateSeats, calculatePartyScores } from './map'
 import { newFakeMapper } from '../mapper/FakeMapper'
 import { CDN_IMGURL } from '../constants'
+import { calculateInvalidVotes, calculateTotalVotes } from '../util'
 
 import tempPartyList from '../masterData/partyToPartylistMembersMap.json'
 import tempParties from '../masterData/idToPartyMap.json'
@@ -36,12 +37,14 @@ export async function etlPartylistData() {
         })
     })
 
-    const provinces = await mapper.provinces()
+    const totalVotes = await calculateTotalVotes()
+    const invalidVotes = await calculateInvalidVotes()
     const remainingVotes =
-        provinces.reduce((remaining, province) => {
-            const { badVotes, noVotes, votesTotal } = province
-            return remaining + votesTotal - (badVotes + noVotes)
-        }, 0) - partyScores.reduce((sum, votes) => sum + votes, 0)
+        totalVotes -
+        invalidVotes -
+        partyScores.reduce((sum, votes) => sum + votes, 0)
+
+    console.log('Remaining', remainingVotes)
 
     partylists.push(
         new Party({

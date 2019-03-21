@@ -1,6 +1,7 @@
 import { newFakeMapper } from '../mapper/FakeMapper'
 import { IScore } from '../mapper/IMapper'
 import { CDN_IMGURL } from '../constants'
+import { calculateTotalVotes, calculateInvalidVotes } from '../util'
 
 import tempZones from '../masterData/idToZoneMap.json'
 import tempParties from '../masterData/idToPartyMap.json'
@@ -93,21 +94,9 @@ export async function etlMapData() {
         [] as IRanking[]
     )
 
-    const fetchedProvinces = await mapper.provinces()
-    const invalidVotes = fetchedProvinces.reduce((sum, province) => {
-        const { badVotes, noVotes } = province
-        return badVotes + noVotes + sum
-    }, 0)
-
+    const invalidVotes = await calculateInvalidVotes()
     const counted = sumVotes + invalidVotes
-
-    const TOTAL_VOTES = parseInt(process.env.TOTAL_VOTES as string)
-    const totalVotes = TOTAL_VOTES
-        ? TOTAL_VOTES + invalidVotes
-        : fetchedProvinces.reduce(
-              (sum, province) => sum + province.votesTotal,
-              0
-          )
+    const totalVotes = await calculateTotalVotes()
 
     return {
         provinces,

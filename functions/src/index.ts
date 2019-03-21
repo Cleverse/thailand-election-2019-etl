@@ -22,7 +22,7 @@ export const main = https.onRequest(async (_, res) => {
         gzip: true,
         resumable: false,
         metadata: {
-            cacheControl: 'public, max-age=300',
+            cacheControl: 'public, max-age=30',
         },
     }
     const file = storage
