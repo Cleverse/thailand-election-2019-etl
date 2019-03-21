@@ -1,5 +1,4 @@
 import { newFakeMapper } from '../mapper/FakeMapper'
-import { etlOverallData } from '../etl/overall'
 
 let totalVotes: number | null = null
 let invalidVotes: number | null = null
