@@ -120,37 +120,51 @@ export async function etlMapData() {
     }
 }
 
-function mapCandidate(item: IScore) {
-    const { provinceId, zone } = item
-    const { name, codeEN, colorCode } = partyData[`${item.partyId}`]
-    const province = provinceData[`${provinceId}`].name
-    const tempParty = item.lastName === 'นวะกิจโลหะกูล' ? 'พลังไทยรักไทย' : name
-    const constituency = constituencyData[`${province}:${zone}:${tempParty}`]
-    const imgName: string = constituency
-        ? `${constituency.GUID}.jpg`
-        : 'placeholder.png'
+function mapCandidate(sumVotes: number) {
+    return (item: IScore) => {
+        const {
+            provinceId,
+            zone,
+            score,
+            title,
+            firstName,
+            lastName,
+            partyId,
+        } = item
 
-    return {
-        partyName: tempParty,
-        partyCode: codeEN,
-        partyPic: `${CDN_IMGURL}/parties/${name}.png`,
-        color: `#${colorCode}`,
-        candidate: `${item.title} ${item.firstName} ${item.lastName}`,
-        score: item.score,
-        picture: `${CDN_IMGURL}/candidates/${imgName.toLowerCase()}`,
+        const { name, codeEN, colorCode } = partyData[`${partyId}`]
+        const province = provinceData[`${provinceId}`].name
+        const tempParty = lastName === 'นวะกิจโลหะกูล' ? 'พลังไทยรักไทย' : name
+        const constituency =
+            constituencyData[`${province}:${zone}:${tempParty}`]
+        const imgName: string = constituency
+            ? `${constituency.GUID}.jpg`
+            : 'placeholder.png'
+
+        return {
+            partyName: tempParty,
+            partyCode: codeEN,
+            partyPic: `${CDN_IMGURL}/parties/${name}.png`,
+            color: `#${colorCode}`,
+            candidate: `${title} ${firstName} ${lastName}`,
+            score,
+            percentage: Math.round((score / sumVotes) * 100 * 100) / 100,
+            picture: `${CDN_IMGURL}/candidates/${imgName.toLowerCase()}`,
+        }
     }
 }
 
 function mapZone(zone: any) {
-    const items: IScore[] = zone
-    const candidates = items.slice(0, 3).map(mapCandidate)
-    const { zone: zoneNo, provinceId } = items[0]
+    const scores: IScore[] = zone
+    const sumVotes = scores.reduce((sum, score) => sum + score.score, 0)
+    const candidates = scores.slice(0, 5).map(mapCandidate(sumVotes))
+    const { zone: zoneNo, provinceId } = scores[0]
     const province = provinceData[`${provinceId}`].name
     const zoneInfo: IZoneInfo = zoneData[`${province}:${zoneNo}`]
     return {
         zoneNo,
         zoneDesc: stringifyZone(zoneInfo),
-        first3Candidates: candidates,
+        topCandidates: candidates,
     }
 }
 
