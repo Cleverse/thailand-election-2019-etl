@@ -44,8 +44,6 @@ export async function etlPartylistData() {
         invalidVotes -
         partyScores.reduce((sum, votes) => sum + votes, 0)
 
-    console.log('Remaining', remainingVotes)
-
     partylists.push(
         new Party({
             id: 'dummy',
