@@ -2,18 +2,15 @@ import { newFakeMapper } from '../mapper/FakeMapper'
 import { IScore } from '../mapper/IMapper'
 import { CDN_IMGURL } from '../constants'
 
-import * as tempParties from '../masterData/idToPartyMap.json'
-import * as tempProvinces from '../masterData/idToProvinceMap.json'
-import * as tempConstituency from '../masterData/uniqueKeyToConstituencyMemberMap.json'
+import tempZones from '../masterData/idToZoneMap.json'
+import tempParties from '../masterData/idToPartyMap.json'
+import tempProvinces from '../masterData/idToProvinceMap.json'
+import tempConstituency from '../masterData/uniqueKeyToConstituencyMemberMap.json'
 
+const zoneData: any = tempZones
 const partyData: any = tempParties
 const provinceData: any = tempProvinces
 const constituencyData: any = tempConstituency
-
-// remove key `default` from importing using *
-delete partyData.default
-delete provinceData.default
-delete constituencyData.default
 
 interface IRanking {
     partyName: string
@@ -133,8 +130,11 @@ function mapCandidate(item: IScore) {
 function mapZone(zone: any) {
     const items: IScore[] = zone
     const candidates = items.slice(0, 3).map(mapCandidate)
+    const { zone: zoneNo, provinceId } = items[0]
+    const province = provinceData[`${provinceId}`].name
     return {
-        zoneNo: items[0].zone,
+        zoneNo,
+        info: zoneData[`${province}:${zoneNo}`],
         first3Candidates: candidates,
     }
 }

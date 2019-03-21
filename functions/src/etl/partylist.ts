@@ -4,18 +4,11 @@ import { sortScores, calculateSeats, calculatePartyScores } from './map'
 import { newFakeMapper } from '../mapper/FakeMapper'
 import { CDN_IMGURL } from '../constants'
 
-import * as tempPartyList from '../masterData/partyToPartylistMembersMap.json'
-import * as tempParties from '../masterData/idToPartyMap.json'
-import * as tempConstituency from '../masterData/uniqueKeyToConstituencyMemberMap.json'
+import tempPartyList from '../masterData/partyToPartylistMembersMap.json'
+import tempParties from '../masterData/idToPartyMap.json'
 
 const partylistData: any = tempPartyList
 const partyData: any = tempParties
-const constituencyData: any = tempConstituency
-
-// remove key `default` from importing using *
-delete partylistData.default
-delete partyData.default
-delete constituencyData.default
 
 export async function etlPartylistData() {
     const mapper = newFakeMapper()
