@@ -164,6 +164,7 @@ function mapZone(zone: any) {
     return {
         zoneNo,
         zoneDesc: stringifyZone(zoneInfo),
+        keywords: extractKeywords(zoneInfo),
         topCandidates: candidates,
     }
 }
@@ -225,4 +226,16 @@ function stringifyZone(zone: IZoneInfo) {
 
 function concatXerior(arr: string[]) {
     return arr.reduce((str, subArea) => `${str} ${subArea},`, '').slice(1, -1)
+}
+
+function extractKeywords(zone: IZoneInfo) {
+    return zone.areas.reduce(
+        (keywords, area) =>
+            keywords
+                .concat(area.interior)
+                .concat(area.exterior)
+                .concat(area.subinterior)
+                .concat([area.area]),
+        [] as string[]
+    )
 }
