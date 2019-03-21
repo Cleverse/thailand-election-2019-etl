@@ -36,5 +36,3 @@ export async function calculateInvalidVotes() {
 
     return invalidVotes
 }
-
-etlOverallData()
