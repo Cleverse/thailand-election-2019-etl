@@ -68,18 +68,15 @@ export const main = https.onRequest(async (_, res) => {
     const versionStream = versionFile.createWriteStream(buildOptions(0))
     const jsonVersion = JSON.stringify({ hash: newHash, timestamp: now })
 
-    const promises = [
-        writeAsync(versionStream, jsonVersion).then(endAsync),
-    ].concat(
-        version.hash === newHash
-            ? []
-            : [
-                  writeAsync(fileStream, jsonResponse).then(endAsync),
-                  writeAsync(latestStream, jsonResponse).then(endAsync),
-              ]
-    )
+    if (version.hash !== newHash) {
+        await Promise.all([
+            writeAsync(fileStream, jsonResponse).then(endAsync),
+            writeAsync(latestStream, jsonResponse).then(endAsync),
+        ])
+        await invalidateCache()
+    }
 
-    await Promise.all(promises)
+    await writeAsync(versionStream, jsonVersion).then(endAsync)
 
     if (version.hash !== newHash) {
         await invalidateCache()
