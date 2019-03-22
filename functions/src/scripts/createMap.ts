@@ -1,7 +1,7 @@
 import { writeFileSync } from 'fs'
 import { newEctMapper } from '../mapper/EctMapper'
 
-async function main() {
+export async function main() {
     const mapper = newEctMapper()
     const provinces = await mapper.fetchProvinces()
 
@@ -15,5 +15,3 @@ async function main() {
 
     writeFileSync('test.json', JSON.stringify(scoreMap, undefined, 2))
 }
-
-main()
