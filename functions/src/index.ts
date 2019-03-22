@@ -37,12 +37,13 @@ export const main = https.onRequest(async (_, res) => {
         map: mapData,
         partylist: partylistData,
         overall: overallData,
-        timestamp: now,
         partylistHidden: process.env.FORCE_PRE70PERCENT || percentage < 70,
         pre70Overall:
             process.env.FORCE_PRE70PERCENT || percentage < 70
                 ? await roughlyEstimateOverall()
                 : null,
+        timestamp: now,
+        hash: '',
     }
 
     const versionFile = await storage
@@ -57,9 +58,11 @@ export const main = https.onRequest(async (_, res) => {
         excludeKeys: key =>
             key === 'timestamp' ||
             key === 'partylistHidden' ||
-            key === 'pre70Overall',
+            key === 'pre70Overall' ||
+            key === 'hash',
     })
 
+    response.hash = newHash
     const jsonResponse = JSON.stringify(response)
     const versionStream = versionFile.createWriteStream(buildOptions(0))
     const jsonVersion = JSON.stringify({ hash: newHash, timestamp: now })
