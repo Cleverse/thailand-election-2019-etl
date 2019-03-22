@@ -43,22 +43,21 @@ export async function etlOverallData() {
                 }
             })
 
+            const partylistSeats = partylist ? partylist.seats : 0
+            const constituencySeats = constituencyCandidates.length
+
             return {
                 partyCode: codeEN,
                 partyName: name,
                 color: `#${colorCode}`,
                 picture: `${CDN_IMGURL}/parties/${name}.png`,
-                partylistSeats: partylist ? partylist.seats : 0,
-                constituencySeats: constituencyCandidates.length,
+                seats: partylistSeats + constituencySeats,
+                partylistSeats,
+                constituencySeats,
                 constituencyCandidates,
             }
         })
-        .sort(
-            (a, b) =>
-                b.constituencySeats +
-                b.partylistSeats -
-                (a.constituencySeats + a.partylistSeats)
-        )
+        .sort((a, b) => b.seats - a.seats)
 }
 
 function listToMap(list: any[], key: string) {
@@ -88,6 +87,9 @@ export async function roughlyEstimateOverall() {
                 color: `#${colorCode}`,
                 picture: `${CDN_IMGURL}/parties/${name}.png`,
                 seats: Math.floor(votes / (totalVotes / 500)),
+                partylistSeats: 0,
+                constituencySeats: 0,
+                constituencyCandidates: [],
             }
         })
         .sort((a, b) => b.seats - a.seats)
