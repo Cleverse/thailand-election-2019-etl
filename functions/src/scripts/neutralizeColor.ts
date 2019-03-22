@@ -1,8 +1,8 @@
-import { newFakeMapper } from '../mapper/FakeMapper'
+import { newEctMapper } from '../mapper/EctMapper'
 import { writeFileSync } from 'fs'
 
 export default async function main() {
-    const mapper = newFakeMapper()
+    const mapper = newEctMapper()
     const parties = await mapper.fetchParties()
 
     const partyMap = parties.reduce(

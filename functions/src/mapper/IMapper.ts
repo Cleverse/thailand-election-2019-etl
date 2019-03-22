@@ -1,3 +1,6 @@
+import { newFakeMapper } from './FakeMapper'
+import { newEctMapper } from './EctMapper'
+
 export interface IMapper {
     fetchScores(): Promise<IScore[]>
     scores(): Promise<IScore[]>
@@ -21,6 +24,7 @@ export interface IScore {
     education: string
     occupation: string
     rank: any
+    ts: string
 }
 
 export interface IProvince {
@@ -29,6 +33,7 @@ export interface IProvince {
     regionId: number
     zone: number
     code: string
+    units: number
     eligible: any
     votesTotal: any
     votesM: any
@@ -36,6 +41,8 @@ export interface IProvince {
     goodVotes: any
     badVotes: any
     noVotes: any
+    progress: number
+    ts: string
 }
 export interface IParty {
     id: number
@@ -45,4 +52,8 @@ export interface IParty {
     logoUrl: string
     votesTotal: number
     colorCode: any
+}
+
+export function newMapper() {
+    return process.env.TEST_ENV ? newFakeMapper() : newEctMapper()
 }

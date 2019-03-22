@@ -1,5 +1,4 @@
-import { newFakeMapper } from '../mapper/FakeMapper'
-import { IScore } from '../mapper/IMapper'
+import { IScore, newMapper } from '../mapper/IMapper'
 import { CDN_IMGURL } from '../constants'
 import { calculateTotalVotes, calculateInvalidVotes } from '../util'
 
@@ -39,7 +38,7 @@ interface IRanking {
 }
 
 export async function etlMapData() {
-    const mapper = newFakeMapper()
+    const mapper = newMapper()
     const scoresByZone = await mapper.scores().then(sortScores)
     const provinceMap = scoresByZone.reduce(
         (map, scores) => {

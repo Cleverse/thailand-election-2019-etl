@@ -1,18 +1,19 @@
 import { writeFileSync } from 'fs'
-import tempParties from '../masterData/idToPartyMap.json'
+import { newEctMapper } from '../mapper/EctMapper'
 
-const partyData: any = tempParties
+async function main() {
+    const mapper = newEctMapper()
+    const provinces = await mapper.fetchProvinces()
 
-function main() {
-    const partyMap = Object.values(partyData).reduce(
-        (map, party: any) => {
-            map[party.name] = party
+    const scoreMap = provinces.reduce(
+        (map, province) => {
+            map[`${province.id}`] = province
             return map
         },
         {} as any
     )
 
-    writeFileSync('test.json', JSON.stringify(partyMap, undefined, 2))
+    writeFileSync('test.json', JSON.stringify(scoreMap, undefined, 2))
 }
 
 main()

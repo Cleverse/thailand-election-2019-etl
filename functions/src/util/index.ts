@@ -1,7 +1,7 @@
-import { newFakeMapper } from '../mapper/FakeMapper'
+import { newMapper } from '../mapper/IMapper'
 
 export async function calculateTotalVotes() {
-    const mapper = newFakeMapper()
+    const mapper = newMapper()
     const provinces = await mapper.provinces()
     const theInvalidVotes = await calculateInvalidVotes()
     const TOTAL_VOTES = parseInt(process.env.TOTAL_VOTES as string)
@@ -12,7 +12,7 @@ export async function calculateTotalVotes() {
 }
 
 export async function calculateInvalidVotes() {
-    const mapper = newFakeMapper()
+    const mapper = newMapper()
     const provinces = await mapper.provinces()
 
     return provinces.reduce((sum, province) => {

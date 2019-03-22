@@ -1,18 +1,18 @@
 import { calculatePartyList, Party } from 'partylist-calculator'
 
 import { sortScores, calculateSeats, calculatePartyScores } from './map'
-import { newFakeMapper } from '../mapper/FakeMapper'
 import { CDN_IMGURL } from '../constants'
 import { calculateInvalidVotes, calculateTotalVotes } from '../util'
 
 import tempPartyList from '../masterData/partyToPartylistMembersMap.json'
 import tempParties from '../masterData/idToPartyMap.json'
+import { newMapper } from '../mapper/IMapper'
 
 const partylistData: any = tempPartyList
 const partyData: any = tempParties
 
 export async function etlPartylistData() {
-    const mapper = newFakeMapper()
+    const mapper = newMapper()
     const scores = await mapper.scores()
     const partySeats = calculateSeats(sortScores(scores))
     const partyScores = calculatePartyScores(partySeats)

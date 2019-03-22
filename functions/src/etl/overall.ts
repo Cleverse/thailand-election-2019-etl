@@ -1,4 +1,3 @@
-import { newFakeMapper } from '../mapper/FakeMapper'
 import { sortScores, calculateSeats } from './map'
 import { etlPartylistData } from './partylist'
 import { CDN_IMGURL } from '../constants'
@@ -7,13 +6,14 @@ import { calculateTotalVotes } from '../util'
 import tempParties from '../masterData/idToPartyMap.json'
 import tempProvinces from '../masterData/idToProvinceMap.json'
 import tempConstituency from '../masterData/uniqueKeyToConstituencyMemberMap.json'
+import { newMapper } from '../mapper/IMapper'
 
 const provinceData: any = tempProvinces
 const partyData: any = tempParties
 const constituencyData: any = tempConstituency
 
 export async function etlOverallData() {
-    const mapper = newFakeMapper()
+    const mapper = newMapper()
     const scores = await mapper.scores()
     const partySeats = calculateSeats(sortScores(scores))
 
@@ -72,7 +72,7 @@ function listToMap(list: any[], key: string) {
 }
 
 export async function roughlyEstimateOverall() {
-    const mapper = newFakeMapper()
+    const mapper = newMapper()
     const scores = await mapper.scores()
     const partySeats = calculateSeats(sortScores(scores))
     const totalVotes = await calculateTotalVotes()
