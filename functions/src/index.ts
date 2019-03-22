@@ -23,22 +23,14 @@ export const main = https.onRequest(async (_, res) => {
     const overallData = await etlOverallData()
 
     const now = Date.now()
-    const options = {
-        contentType: 'application/json',
-        gzip: true,
-        resumable: false,
-        metadata: {
-            cacheControl: 'public, max-age=30',
-        },
-    }
     const fileStream = storage
         .bucket(bucketName)
         .file(`data/${now}.json`)
-        .createWriteStream(options)
+        .createWriteStream(buildOptions(3600))
     const latestStream = storage
         .bucket(bucketName)
         .file(`data/latest.json`)
-        .createWriteStream(options)
+        .createWriteStream(buildOptions(60))
 
     const { percentage } = mapData.overview
     const response = {
@@ -69,7 +61,7 @@ export const main = https.onRequest(async (_, res) => {
     })
 
     const jsonResponse = JSON.stringify(response)
-    const versionStream = versionFile.createWriteStream(options)
+    const versionStream = versionFile.createWriteStream(buildOptions(0))
     const jsonVersion = JSON.stringify({ hash: newHash, timestamp: now })
 
     const promises = [
@@ -136,4 +128,15 @@ async function endAsync(stream: NodeJS.WritableStream) {
             resolve(stream)
         })
     })
+}
+
+function buildOptions(expireSec: number) {
+    return {
+        contentType: 'application/json',
+        gzip: true,
+        resumable: false,
+        metadata: {
+            cacheControl: `public, max-age=${expireSec}`,
+        },
+    }
 }
