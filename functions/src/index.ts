@@ -1,10 +1,16 @@
 import dotenv from 'dotenv'
 import { https } from 'firebase-functions'
 import { Storage } from '@google-cloud/storage'
+import hash from 'object-hash'
 
 import { etlMapData } from './etl/map'
 import { etlPartylistData } from './etl/partylist'
 import { etlOverallData, roughlyEstimateOverall } from './etl/overall'
+
+interface IVersion {
+    hash: string
+    timestamp: number
+}
 
 dotenv.config()
 
@@ -25,17 +31,17 @@ export const main = https.onRequest(async (_, res) => {
             cacheControl: 'public, max-age=30',
         },
     }
-    const file = storage
+    const fileStream = storage
         .bucket(bucketName)
         .file(`data/${now}.json`)
         .createWriteStream(options)
-    const latest = storage
+    const latestStream = storage
         .bucket(bucketName)
         .file(`data/latest.json`)
         .createWriteStream(options)
 
     const { percentage } = mapData.overview
-    const jsonResponse = JSON.stringify({
+    const response = {
         map: mapData,
         partylist: partylistData,
         overall: overallData,
@@ -45,12 +51,39 @@ export const main = https.onRequest(async (_, res) => {
             process.env.FORCE_PRE70PERCENT || percentage < 70
                 ? await roughlyEstimateOverall()
                 : null,
+    }
+
+    const versionFile = await storage
+        .bucket(bucketName)
+        .file('data/version.json')
+
+    const version: IVersion = await versionFile
+        .download()
+        .then(buffer => JSON.parse(buffer.toString()))
+
+    const newHash = hash(response, {
+        excludeKeys: key =>
+            key === 'timestamp' ||
+            key === 'partylistHidden' ||
+            key === 'pre70Overall',
     })
 
-    await Promise.all([
-        writeAsync(file, jsonResponse).then(() => endAsync(file)),
-        writeAsync(latest, jsonResponse).then(() => endAsync(latest)),
-    ])
+    const jsonResponse = JSON.stringify(response)
+    const versionStream = versionFile.createWriteStream(options)
+    const jsonVersion = JSON.stringify({ hash: newHash, timestamp: now })
+
+    const promises = [
+        writeAsync(versionStream, jsonVersion).then(endAsync),
+    ].concat(
+        version.hash === newHash
+            ? []
+            : [
+                  writeAsync(fileStream, jsonResponse).then(endAsync),
+                  writeAsync(latestStream, jsonResponse).then(endAsync),
+              ]
+    )
+
+    await Promise.all(promises)
 
     res.status(200)
     res.type('application/json')
@@ -86,12 +119,12 @@ export const overall = https.onRequest(async (_, res) => {
 })
 
 async function writeAsync(stream: NodeJS.WritableStream, json: string) {
-    return new Promise((resolve, reject) => {
+    return new Promise<NodeJS.WritableStream>((resolve, reject) => {
         stream.write(json, err => {
             if (err) {
                 reject(err)
             } else {
-                resolve()
+                resolve(stream)
             }
         })
     })
@@ -100,7 +133,7 @@ async function writeAsync(stream: NodeJS.WritableStream, json: string) {
 async function endAsync(stream: NodeJS.WritableStream) {
     return new Promise(resolve => {
         stream.end(() => {
-            resolve()
+            resolve(stream)
         })
     })
 }
