@@ -1,23 +1,18 @@
-// import { writeFileSync } from 'fs'
-import zoneData from '../masterData/election-zones.json'
+import { writeFileSync } from 'fs'
+import tempParties from '../masterData/idToPartyMap.json'
+
+const partyData: any = tempParties
 
 function main() {
-    // const zoneMap = zoneData.reduce(
-    //     (map, zone) => {
-    //         map[`${zone.province}:${zone.zone}`] = zone
-    //         return map
-    //     },
-    //     {} as any
-    // )
-    zoneData.map(zone => {
-        ;(<any[]>zone.areas).map(area => {
-            if (area.subinterior.length > 0) {
-                console.log(area.subinterior)
-            }
-        })
-    })
+    const partyMap = Object.values(partyData).reduce(
+        (map, party: any) => {
+            map[party.name] = party
+            return map
+        },
+        {} as any
+    )
 
-    // writeFileSync('test.json', JSON.stringify(zoneMap, undefined, 2))
+    writeFileSync('test.json', JSON.stringify(partyMap, undefined, 2))
 }
 
 main()
