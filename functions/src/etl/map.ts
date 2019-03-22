@@ -152,6 +152,7 @@ function mapZone(zone: any) {
     const zoneInfo: IZoneInfo = zoneData[`${province}:${zoneNo}`]
     return {
         zoneNo,
+        totalScore: sumVotes,
         zoneDesc: stringifyZone(zoneInfo),
         keywords: extractKeywords(zoneInfo),
         topCandidates: candidates,
