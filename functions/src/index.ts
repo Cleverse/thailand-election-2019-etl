@@ -3,6 +3,7 @@ import { https } from 'firebase-functions'
 import { Storage } from '@google-cloud/storage'
 import hash from 'object-hash'
 
+import { invalidateCache } from './util/cache'
 import { etlMapData } from './etl/map'
 import { etlPartylistData } from './etl/partylist'
 import { etlOverallData, roughlyEstimateOverall } from './etl/overall'
@@ -79,6 +80,10 @@ export const main = https.onRequest(async (_, res) => {
     )
 
     await Promise.all(promises)
+
+    if (version.hash !== newHash) {
+        await invalidateCache()
+    }
 
     res.status(200)
     res.type('application/json')
