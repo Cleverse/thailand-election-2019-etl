@@ -126,7 +126,7 @@ function mapCandidate(sumVotes: number) {
         const constituency =
             constituencyData[`${province}:${zone}:${tempParty}`]
         const imgName: string = constituency
-            ? `${constituency.GUID}.jpg`
+            ? `${constituency.guid}.jpg`
             : 'placeholder.png'
 
         return {

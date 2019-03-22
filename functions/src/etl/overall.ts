@@ -33,7 +33,7 @@ export async function etlOverallData() {
                 const constituency =
                     constituencyData[`${provinceName}:${zone}:${name}`]
                 const imgName: string = constituency
-                    ? `${constituency.GUID}.jpg`
+                    ? `${constituency.guid}.jpg`
                     : 'placeholder.png'
 
                 return {

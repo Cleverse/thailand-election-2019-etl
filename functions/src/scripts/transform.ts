@@ -1,7 +1,7 @@
 import * as fs from 'fs'
 import { Parser } from 'csv-parse'
 
-const content = fs.createReadStream('partylist.csv')
+const content = fs.createReadStream('constituency.csv')
 const parser = new Parser({})
 
 const output: Array<string[]> = []
@@ -19,34 +19,49 @@ parser.on('error', err => {
 })
 
 parser.on('end', () => {
-    const records = output.slice(1).filter(record => record !== null)
+    const records = output
+        .slice(1)
+        .filter(record => record && record[11] === 'ประกาศ')
     console.log('length', records.length)
-    const partyListMap = records.reduce(
+    const constituencyMap = records.reduce(
         (map, record) => {
-            const name = record[1]
-            map[name] = map[name] || {
-                name,
-                candidates: [] as any,
-            }
+            const [
+                guid,
+                province,
+                zone,
+                no,
+                title,
+                firstName,
+                lastName,
+                partyName,
+                age,
+                education,
+                occupation,
+                voteable,
+            ] = record
 
-            map[name].candidates.push({
-                id: record[0],
-                no: parseInt(record[5]),
-                title: record[2],
-                firstName: record[3],
-                lastName: record[4],
-                votable: record[9] === 'ประกาศ',
-            })
+            const key = `${province}:${zone}:${partyName}`
+            map[key] = {
+                guid,
+                province,
+                zone,
+                no,
+                title,
+                firstName,
+                lastName,
+                partyName,
+                age,
+                education,
+                occupation,
+                voteable,
+            }
 
             return map
         },
         {} as any
     )
 
-    fs.writeFileSync(
-        'partylistMap.json',
-        JSON.stringify(partyListMap, undefined, 2)
-    )
+    fs.writeFileSync('test.json', JSON.stringify(constituencyMap, undefined, 2))
 })
 
 content.pipe(parser)
