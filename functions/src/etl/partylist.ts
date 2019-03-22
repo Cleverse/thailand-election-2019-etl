@@ -39,16 +39,14 @@ export async function etlPartylistData() {
 
     const totalVotes = await calculateTotalVotes()
     const invalidVotes = await calculateInvalidVotes()
-    const remainingVotes =
-        totalVotes -
-        invalidVotes -
-        partyScores.reduce((sum, votes) => sum + votes, 0)
+    const goodVotes = partyScores.reduce((sum, votes) => sum + votes, 0)
+    const remainingVotes = totalVotes - invalidVotes - goodVotes
 
     partylists.push(
         new Party({
             id: 'dummy',
             electedMemberCount: 0,
-            voteCount: remainingVotes,
+            voteCount: remainingVotes < 0 ? 0 : remainingVotes,
             partyListCandidateCount: 150,
         })
     )
