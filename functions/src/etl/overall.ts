@@ -6,12 +6,14 @@ import { calculateTotalVotes } from '../util'
 import tempParties from '../masterData/idToPartyMap.json'
 import tempPartylist from '../masterData/partyToPartylistMembersMap.json'
 import tempProvinces from '../masterData/idToProvinceMap.json'
+import tempPartylistId from '../masterData/uniqueKeyToPartylistMemberMap.json'
 import tempConstituency from '../masterData/uniqueKeyToConstituencyMemberMap.json'
 import { newMapper } from '../mapper/IMapper'
 
 const partyData: any = tempParties
 const provinceData: any = tempProvinces
 const partylistData: any = tempPartylist
+const partylistId: any = tempPartylistId
 const constituencyData: any = tempConstituency
 
 export async function etlOverallData() {
@@ -34,7 +36,7 @@ export async function etlOverallData() {
                 ]
                 const constituency =
                     constituencyData[`${provinceName}:${zone}:${name}`]
-                const imgName: string = constituency
+                const imgName = constituency
                     ? `${constituency.guid}.jpg`
                     : 'placeholder.png'
 
@@ -51,11 +53,13 @@ export async function etlOverallData() {
                 ? partylistData[name].candidates.slice(0, partylistSeats)
                 : []
             ).map((c: any) => {
-                const { title, firstName, lastName, id } = c
+                const { title, firstName, lastName, no } = c
+                const pl = partylistId[`${name}:${no}`]
+                const imgName = pl ? `${pl.guid}.jpg` : 'placeholder.png'
 
                 return {
                     candidate: `${title} ${firstName} ${lastName}`,
-                    picture: `${CDN_IMGURL}/partylist/${id.toLowerCase()}.jpg`,
+                    picture: `${CDN_IMGURL}/partylist/${imgName.toLowerCase()}`,
                 }
             })
 
