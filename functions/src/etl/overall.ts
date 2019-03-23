@@ -4,12 +4,14 @@ import { CDN_IMGURL } from '../constants'
 import { calculateTotalVotes } from '../util'
 
 import tempParties from '../masterData/idToPartyMap.json'
+import tempPartylist from '../masterData/partyToPartylistMembersMap.json'
 import tempProvinces from '../masterData/idToProvinceMap.json'
 import tempConstituency from '../masterData/uniqueKeyToConstituencyMemberMap.json'
 import { newMapper } from '../mapper/IMapper'
 
-const provinceData: any = tempProvinces
 const partyData: any = tempParties
+const provinceData: any = tempProvinces
+const partylistData: any = tempPartylist
 const constituencyData: any = tempConstituency
 
 export async function etlOverallData() {
@@ -43,8 +45,19 @@ export async function etlOverallData() {
                 }
             })
 
-            const partylistSeats = partylist ? partylist.seats : 0
             const constituencySeats = constituencyCandidates.length
+            const partylistSeats = partylist ? partylist.seats : 0
+            const partylistCandidates = (partylistSeats
+                ? partylistData[name].candidates.slice(0, partylistSeats)
+                : []
+            ).map((c: any) => {
+                const { title, firstName, lastName, id } = c
+
+                return {
+                    candidate: `${title} ${firstName} ${lastName}`,
+                    picture: `${CDN_IMGURL}/partylist/${id.toLowerCase()}.jpg`,
+                }
+            })
 
             return {
                 partyCode: codeEN,
@@ -55,6 +68,7 @@ export async function etlOverallData() {
                 partylistSeats,
                 constituencySeats,
                 constituencyCandidates,
+                partylistCandidates,
             }
         })
         .sort((a, b) => b.seats - a.seats)
