@@ -1,14 +1,19 @@
 import { newMapper } from '../mapper/IMapper'
 
 export async function calculateTotalVotes() {
-    const mapper = newMapper()
-    const zones = await mapper.zones()
     const theInvalidVotes = await calculateInvalidVotes()
     const TOTAL_VOTES = parseInt(process.env.TOTAL_VOTES as string)
 
     return process.env.USE_SUM_ZONE
-        ? zones.reduce((sum, zone) => sum + zone.votesTotal, 0)
+        ? await calculateTotalVotesFromEct()
         : TOTAL_VOTES || 40 * Math.pow(10, 6) + theInvalidVotes
+}
+
+export async function calculateTotalVotesFromEct() {
+    const mapper = newMapper()
+    const zones = await mapper.zones()
+
+    return zones.reduce((sum, zone) => sum + zone.votesTotal, 0)
 }
 
 export async function calculateInvalidVotes() {

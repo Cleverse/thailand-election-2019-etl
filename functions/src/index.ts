@@ -3,6 +3,7 @@ import { https } from 'firebase-functions'
 import { Storage } from '@google-cloud/storage'
 import hash from 'object-hash'
 
+import { calculateTotalVotesFromEct } from './util'
 import { invalidateCache } from './util/cache'
 import { etlMapData } from './etl/map'
 import { etlPartylistData } from './etl/partylist'
@@ -34,6 +35,7 @@ export const main = https.onRequest(async (_, res) => {
         .createWriteStream(buildOptions(60))
 
     const { percentage } = mapData.overview
+    const totalVotesFromEct = await calculateTotalVotesFromEct()
     const response = {
         map: mapData,
         partylist: partylistData,
@@ -45,6 +47,7 @@ export const main = https.onRequest(async (_, res) => {
                 : null,
         timestamp: now,
         hash: '',
+        totalVotesFromEct,
     }
 
     const versionFile = await storage
