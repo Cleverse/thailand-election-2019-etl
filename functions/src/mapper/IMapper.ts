@@ -10,6 +10,7 @@ export interface IMapper {
     provinces(): Promise<IProvince[]>
     fetchParties(): Promise<IParty[]>
     parties(): Promise<IParty[]>
+    getScoresByZone(): Promise<Array<IScore[]>>
 }
 
 export interface IScore {

@@ -1,9 +1,4 @@
-import {
-    sortScores,
-    calculateSeats,
-    calculatePartyScoresMap,
-    calculateSeatMap,
-} from './map'
+import { calculateSeatsMap, calculatePartyScores } from './map'
 import { etlPartylistData } from './partylist'
 import { CDN_IMGURL } from '../constants'
 import { calculateTotalVotes, listToMap } from '../util'
@@ -23,17 +18,16 @@ const constituencyData: any = tempConstituency
 
 export async function etlOverallData() {
     const mapper = newMapper()
-    const scoresByZone = await mapper.scores().then(sortScores)
-    const partySeatsMap = calculateSeatMap(scoresByZone)
-    const partyScoresMap = calculatePartyScoresMap(scoresByZone)
+    const scoresByZone = await mapper.getScoresByZone()
+    const partySeatsMap = calculateSeatsMap(scoresByZone)
+    const partyScores = calculatePartyScores(scoresByZone)
 
     const partylistMap = await etlPartylistData().then(list =>
         listToMap(list, 'partyName')
     )
 
-    return Object.values(partyScoresMap)
-        .map((s: any) => {
-            const scores: IScore[] = s
+    return partyScores
+        .map(scores => {
             const partyId = `${scores[0].partyId}`
             const { codeEN, name, colorCode } = partyData[partyId]
             const seats: IScore[] = partySeatsMap[partyId]
@@ -99,19 +93,15 @@ export async function etlOverallData() {
 
 export async function roughlyEstimateOverall() {
     const mapper = newMapper()
-    const scoresByZone = await mapper.scores().then(sortScores)
-    const partySeats = calculateSeats(scoresByZone)
-    const partyScoresMap = calculatePartyScoresMap(scoresByZone)
+    const scoresByZone = await mapper.getScoresByZone()
+    const partyScores = calculatePartyScores(scoresByZone)
     const totalVotes = await calculateTotalVotes()
 
-    return partySeats
-        .map(seats => {
-            const partyId = `${seats[0].partyId}`
+    return partyScores
+        .map(scores => {
+            const partyId = `${scores[0].partyId}`
             const { codeEN, name, colorCode } = partyData[partyId]
-            const votes = partyScoresMap[partyId].reduce(
-                (sum: number, score: any) => sum + score.score,
-                0
-            )
+            const votes = scores.reduce((sum, score) => sum + score.score, 0)
 
             return {
                 partyCode: codeEN,

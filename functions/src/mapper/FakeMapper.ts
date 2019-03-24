@@ -41,6 +41,26 @@ export class FakeMapper implements IMapper {
     public async provinces(): Promise<IProvince[]> {
         return this.fetchProvinces()
     }
+
+    public async getScoresByZone() {
+        const scores = await this.scores()
+        const zoneMap = scores.reduce(
+            (map, s) => {
+                const key = `${s.provinceId}:${s.zone}`
+
+                map[key] = map[key] || []
+                map[key].push(s)
+                return map
+            },
+            {} as any
+        )
+
+        return (<Array<IScore[]>>(
+            Object.values(zoneMap).map((zone: any) =>
+                zone.sort((a: any, b: any) => b.score - a.score)
+            )
+        )).filter(e => e[0].score > 0)
+    }
 }
 
 let mapper: FakeMapper | null = null

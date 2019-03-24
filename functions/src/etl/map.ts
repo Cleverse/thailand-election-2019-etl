@@ -39,7 +39,7 @@ interface IRanking {
 
 export async function etlMapData() {
     const mapper = newMapper()
-    const scoresByZone = await mapper.scores().then(sortScores)
+    const scoresByZone = await mapper.getScoresByZone()
     const zoneMap = await mapper.zones().then(zones =>
         zones.reduce(
             (map, zone) => {
@@ -77,44 +77,46 @@ export async function etlMapData() {
         }
     })
 
-    const partySeats = calculateSeats(scoresByZone)
-    const partyScoresMap = calculatePartyScoresMap(scoresByZone)
-    const sumVotes = calculatePartyScores(partyScoresMap).reduce(
-        (sum, votes) => sum + votes,
+    const partySeatsMap = calculateSeatsMap(scoresByZone)
+    const partyScores = calculatePartyScores(scoresByZone)
+    const sumVotes = partyScores.reduce(
+        (psum, p) => psum + p.reduce((sum, s) => sum + s.score, 0),
         0
     )
 
-    const parties = partySeats.reduce(
-        (arr, seats) => {
-            const partyId = `${seats[0].partyId}`
+    const parties = partyScores
+        .map(scores => {
+            const partyId = `${scores[0].partyId}`
             const { name, codeEN, colorCode } = partyData[partyId]
-            const votes: number = partyScoresMap[partyId].reduce(
-                (sum: number, score: any) => sum + score.score,
-                0
-            )
+            const votes = scores.reduce((sum, score) => sum + score.score, 0)
             const percentage = Math.round((votes / sumVotes) * 100 * 10) / 10
+            const partySeats: IScore[] = partySeatsMap[partyId]
 
-            const { seats: prevSeats, rank: prevRank } = arr[
-                arr.length - 1
-            ] || {
-                seats: 0,
-                rank: 1,
-            }
-
-            arr.push({
+            return {
                 partyName: name,
                 partyCode: codeEN,
                 partyPic: `${CDN_IMGURL}/parties/${name}.png`,
                 color: `#${colorCode}`,
-                seats: votes ? seats.length : 0,
+                seats: partySeats ? partySeats.length : 0,
                 votes,
                 percentage,
-                rank: seats.length === prevSeats ? prevRank : arr.length + 1,
-            })
-            return arr
-        },
-        [] as IRanking[]
-    )
+                rank: 0,
+            }
+        })
+        .sort((a, b) => b.seats - a.seats)
+        .reduce(
+            (arr, p, index) => {
+                const prev = arr[index - 1]
+                p.rank = prev
+                    ? prev.seats === p.seats
+                        ? prev.rank
+                        : index + 1
+                    : 1
+                arr.push(p)
+                return arr
+            },
+            [] as IRanking[]
+        )
 
     const counted = provinces.reduce(
         (psum, p) => psum + p.zones.reduce((zsum, z) => zsum + z.totalVotes, 0),
@@ -189,36 +191,8 @@ function mapZone(invalidVotes: number, timestamp: number) {
     }
 }
 
-export function sortScores(scores: IScore[]) {
-    const zoneMap = scores.reduce(
-        (map, s) => {
-            const key = `${s.provinceId}:${s.zone}`
-
-            map[key] = map[key] || []
-            map[key].push(s)
-            return map
-        },
-        {} as any
-    )
-
-    return (<Array<IScore[]>>(
-        Object.values(zoneMap).map((zone: any) =>
-            zone.sort((a: any, b: any) => b.score - a.score)
-        )
-    )).filter(e => e[0].score > 0)
-}
-
-export function calculatePartyScores(partyScoresMap: any) {
-    return Object.values(partyScoresMap)
-        .map((s: any) => {
-            const scores: IScore[] = s
-            return scores.reduce((sum, score) => sum + score.score, 0)
-        })
-        .sort((a, b) => b - a)
-}
-
-export function calculatePartyScoresMap(zones: Array<IScore[]>) {
-    return zones.reduce(
+export function calculatePartyScores(zones: IScore[][]) {
+    const partyScoresMap = zones.reduce(
         (map, zone) => {
             zone.map(score => {
                 const partyId = `${score.partyId}`
@@ -229,17 +203,21 @@ export function calculatePartyScoresMap(zones: Array<IScore[]>) {
         },
         {} as any
     )
+
+    return Object.values(partyScoresMap)
+        .map((s: any) => {
+            const scores: IScore[] = s
+            return scores.sort((a, b) => b.score - a.score)
+        })
+        .filter(scores => scores[0].score > 0)
+        .sort((a, b) => {
+            const scoreA = a.reduce((sum, s) => sum + s.score, 0)
+            const scoreB = b.reduce((sum, s) => sum + s.score, 0)
+            return scoreB - scoreA
+        })
 }
 
-export function calculateSeats(zones: Array<IScore[]>) {
-    const seatMap = calculateSeatMap(zones)
-
-    return Object.values(seatMap).sort(
-        (a: any, b: any) => b.length - a.length
-    ) as Array<IScore[]>
-}
-
-export function calculateSeatMap(zones: Array<IScore[]>) {
+export function calculateSeatsMap(zones: Array<IScore[]>) {
     return zones.reduce(
         (map, zone) => {
             const winner = zone[0]
