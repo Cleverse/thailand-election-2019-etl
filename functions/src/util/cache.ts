@@ -10,7 +10,7 @@ export async function invalidateCache() {
 
     const response = await submitAsync(
         formData,
-        'https://fleet.byteark.com/purge/889/zeQMsjv0L4LG7Qdi'
+        'https://fleet.byteark.com/purge/888/Zgm1eSy4vSEmb6JU'
     )
 
     if (response.statusCode !== 200) {
