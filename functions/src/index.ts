@@ -9,11 +9,6 @@ import { etlMapData } from './etl/map'
 import { etlPartylistData } from './etl/partylist'
 import { etlOverallData, roughlyEstimateOverall } from './etl/overall'
 
-interface IVersion {
-    hash: string
-    timestamp: number
-}
-
 dotenv.config()
 
 const bucketName = 'thailand-election-2019.appspot.com'
@@ -53,10 +48,6 @@ export const main = https.onRequest(async (_, res) => {
     const versionFile = await storage
         .bucket(bucketName)
         .file('data/version.json')
-
-    const version: IVersion = await versionFile
-        .download()
-        .then(buffer => JSON.parse(buffer.toString()))
 
     const newHash = hash(response, {
         excludeKeys: key =>
