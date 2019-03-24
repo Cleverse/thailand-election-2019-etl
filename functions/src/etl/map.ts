@@ -1,6 +1,6 @@
 import { IScore, newMapper } from '../mapper/IMapper'
 import { CDN_IMGURL } from '../constants'
-import { calculateTotalVotes, calculateInvalidVotes } from '../util'
+import { calculateTotalVotes } from '../util'
 
 import tempZones from '../masterData/idToElectZoneMap.json'
 import tempParties from '../masterData/idToPartyMap.json'
@@ -71,7 +71,9 @@ export async function etlMapData() {
         return {
             provinceCode: code,
             provinceName: name,
-            zones: Object.values(province).map(mapZone(invalidVotes, ts)),
+            zones: Object.values(province).map(
+                mapZone(invalidVotes, Date.parse(ts))
+            ),
         }
     })
 
@@ -107,8 +109,10 @@ export async function etlMapData() {
         [] as IRanking[]
     )
 
-    const totalInvalidVotes = await calculateInvalidVotes()
-    const counted = sumVotes + totalInvalidVotes
+    const counted = provinces.reduce(
+        (psum, p) => psum + p.zones.reduce((zsum, z) => zsum + z.totalVotes, 0),
+        0
+    )
     const totalVotes = await calculateTotalVotes()
 
     return {
@@ -156,11 +160,13 @@ function mapCandidate(sumVotes: number) {
     }
 }
 
-function mapZone(invalidVotes: number, ts: string) {
+function mapZone(invalidVotes: number, timestamp: number) {
     return (zone: any) => {
         const scores: IScore[] = zone
         const sumScores = scores.reduce((sum, score) => sum + score.score, 0)
-        const candidates = scores.slice(0, 5).map(mapCandidate(sumScores))
+        const topCandidates = sumScores
+            ? scores.slice(0, 5).map(mapCandidate(sumScores))
+            : []
         const { zone: zoneNo, provinceId } = scores[0]
         const province = provinceData[`${provinceId}`].name
         const zoneInfo: IZoneInfo = zoneData[`${province}:${zoneNo}`]
@@ -170,8 +176,8 @@ function mapZone(invalidVotes: number, ts: string) {
             totalVotes: sumScores + invalidVotes,
             zoneDesc: stringifyZone(zoneInfo),
             keywords: extractKeywords(zoneInfo),
-            timestamp: Date.parse(ts),
-            topCandidates: candidates,
+            timestamp,
+            topCandidates,
         }
     }
 }
