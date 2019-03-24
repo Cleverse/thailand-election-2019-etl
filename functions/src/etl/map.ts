@@ -40,6 +40,17 @@ interface IRanking {
 export async function etlMapData() {
     const mapper = newMapper()
     const scoresByZone = await mapper.scores().then(sortScores)
+    const zoneMap = await mapper.zones().then(zones =>
+        zones.reduce(
+            (map, zone) => {
+                const { provinceId, no } = zone
+                map[`${provinceId}:${no}`] = zone
+                return map
+            },
+            {} as any
+        )
+    )
+
     const provinceMap = scoresByZone.reduce(
         (map, scores) => {
             const { provinceId, zone } = scores[0]
@@ -52,12 +63,15 @@ export async function etlMapData() {
 
     const provinces = Object.values(provinceMap).map((province: any) => {
         const zones: Array<IScore[]> = Object.values(province)
-        const { code, name } = provinceData[`${zones[0][0].provinceId}`]
+        const { provinceId, zone } = zones[0][0]
+        const { code, name } = provinceData[`${provinceId}`]
+        const { badVotes, noVotes, ts } = zoneMap[`${provinceId}:${zone}`]
+        const invalidVotes = badVotes + noVotes
 
         return {
             provinceCode: code,
             provinceName: name,
-            zones: Object.values(province).map(mapZone),
+            zones: Object.values(province).map(mapZone(invalidVotes, ts)),
         }
     })
 
@@ -93,8 +107,8 @@ export async function etlMapData() {
         [] as IRanking[]
     )
 
-    const invalidVotes = await calculateInvalidVotes()
-    const counted = sumVotes + invalidVotes
+    const totalInvalidVotes = await calculateInvalidVotes()
+    const counted = sumVotes + totalInvalidVotes
     const totalVotes = await calculateTotalVotes()
 
     return {
@@ -142,19 +156,23 @@ function mapCandidate(sumVotes: number) {
     }
 }
 
-function mapZone(zone: any) {
-    const scores: IScore[] = zone
-    const sumVotes = scores.reduce((sum, score) => sum + score.score, 0)
-    const candidates = scores.slice(0, 5).map(mapCandidate(sumVotes))
-    const { zone: zoneNo, provinceId } = scores[0]
-    const province = provinceData[`${provinceId}`].name
-    const zoneInfo: IZoneInfo = zoneData[`${province}:${zoneNo}`]
-    return {
-        zoneNo,
-        totalScore: sumVotes,
-        zoneDesc: stringifyZone(zoneInfo),
-        keywords: extractKeywords(zoneInfo),
-        topCandidates: candidates,
+function mapZone(invalidVotes: number, ts: string) {
+    return (zone: any) => {
+        const scores: IScore[] = zone
+        const sumScores = scores.reduce((sum, score) => sum + score.score, 0)
+        const candidates = scores.slice(0, 5).map(mapCandidate(sumScores))
+        const { zone: zoneNo, provinceId } = scores[0]
+        const province = provinceData[`${provinceId}`].name
+        const zoneInfo: IZoneInfo = zoneData[`${province}:${zoneNo}`]
+        return {
+            zoneNo,
+            totalScore: sumScores,
+            totalVotes: sumScores + invalidVotes,
+            zoneDesc: stringifyZone(zoneInfo),
+            keywords: extractKeywords(zoneInfo),
+            timestamp: Date.parse(ts),
+            topCandidates: candidates,
+        }
     }
 }
 

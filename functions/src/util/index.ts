@@ -20,3 +20,13 @@ export async function calculateInvalidVotes() {
         return badVotes + noVotes + sum
     }, 0)
 }
+
+export function listToMap(list: any[], key: string) {
+    return list.reduce(
+        (map, elem) => {
+            map[elem[key]] = elem
+            return map
+        },
+        {} as any
+    )
+}

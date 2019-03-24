@@ -1,7 +1,7 @@
 import { sortScores, calculateSeats } from './map'
 import { etlPartylistData } from './partylist'
 import { CDN_IMGURL } from '../constants'
-import { calculateTotalVotes } from '../util'
+import { calculateTotalVotes, listToMap } from '../util'
 
 import tempParties from '../masterData/idToPartyMap.json'
 import tempPartylist from '../masterData/partyToPartylistMembersMap.json'
@@ -76,16 +76,6 @@ export async function etlOverallData() {
             }
         })
         .sort((a, b) => b.seats - a.seats)
-}
-
-function listToMap(list: any[], key: string) {
-    return list.reduce(
-        (map, elem) => {
-            map[elem[key]] = elem
-            return map
-        },
-        {} as any
-    )
 }
 
 export async function roughlyEstimateOverall() {
