@@ -1,4 +1,4 @@
-import { sortScores, calculateSeats } from './map'
+import { sortScores, calculateSeats, calculatePartyScoresMap } from './map'
 import { etlPartylistData } from './partylist'
 import { CDN_IMGURL } from '../constants'
 import { calculateTotalVotes, listToMap } from '../util'
@@ -80,14 +80,19 @@ export async function etlOverallData() {
 
 export async function roughlyEstimateOverall() {
     const mapper = newMapper()
-    const scores = await mapper.scores()
-    const partySeats = calculateSeats(sortScores(scores))
+    const scoresByZone = await mapper.scores().then(sortScores)
+    const partySeats = calculateSeats(scoresByZone)
+    const partyScoresMap = calculatePartyScoresMap(scoresByZone)
     const totalVotes = await calculateTotalVotes()
 
     return partySeats
         .map(seats => {
-            const { codeEN, name, colorCode } = partyData[`${seats[0].partyId}`]
-            const votes = seats.reduce((sum, seat) => sum + seat.score, 0)
+            const partyId = `${seats[0].partyId}`
+            const { codeEN, name, colorCode } = partyData[partyId]
+            const votes = partyScoresMap[partyId].reduce(
+                (sum: number, score: any) => sum + score.score,
+                0
+            )
 
             return {
                 partyCode: codeEN,
