@@ -32,7 +32,7 @@ export const main = https.onRequest(async (_, res) => {
     const latestStream = storage
         .bucket(bucketName)
         .file(`data/latest.json`)
-        .createWriteStream(buildOptions(60))
+        .createWriteStream(buildOptions(30))
 
     const { percentage } = mapData.overview
     const totalVotesFromEct = await calculateTotalVotesFromEct()
@@ -71,19 +71,12 @@ export const main = https.onRequest(async (_, res) => {
     const versionStream = versionFile.createWriteStream(buildOptions(0))
     const jsonVersion = JSON.stringify({ hash: newHash, timestamp: now })
 
-    if (version.hash !== newHash) {
-        await Promise.all([
-            writeAsync(fileStream, jsonResponse).then(endAsync),
-            writeAsync(latestStream, jsonResponse).then(endAsync),
-        ])
-        await invalidateCache()
-    }
-
+    await Promise.all([
+        writeAsync(fileStream, jsonResponse).then(endAsync),
+        writeAsync(latestStream, jsonResponse).then(endAsync),
+    ])
+    await invalidateCache()
     await writeAsync(versionStream, jsonVersion).then(endAsync)
-
-    if (version.hash !== newHash) {
-        await invalidateCache()
-    }
 
     res.status(200)
     res.type('application/json')
