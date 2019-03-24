@@ -1,9 +1,11 @@
-import { newFakeMapper } from './FakeMapper'
-import { newEctMapper } from './EctMapper'
+import { FakeMapper } from './FakeMapper'
+import { EctMapper } from './EctMapper'
 
 export interface IMapper {
     fetchScores(): Promise<IScore[]>
     scores(): Promise<IScore[]>
+    fetchZones(): Promise<IZone[]>
+    zones(): Promise<IZone[]>
     fetchProvinces(): Promise<IProvince[]>
     provinces(): Promise<IProvince[]>
     fetchParties(): Promise<IParty[]>
@@ -44,6 +46,24 @@ export interface IProvince {
     progress: number
     ts: string
 }
+
+export interface IZone {
+    provinceId: number
+    no: number
+    units: number
+    eligible: number
+    details: string
+    tags: any
+    votesTotal: number
+    votesM: number
+    votesF: number
+    goodVotes: number
+    badVotes: number
+    noVotes: number
+    progress: number
+    ts: string
+}
+
 export interface IParty {
     id: number
     name: string
@@ -54,6 +74,9 @@ export interface IParty {
     colorCode: any
 }
 
+let mapper: IMapper | null = null
+
 export function newMapper() {
-    return process.env.TEST_ENV ? newFakeMapper() : newEctMapper()
+    mapper = mapper || process.env.TEST_ENV ? new FakeMapper() : new EctMapper()
+    return mapper
 }

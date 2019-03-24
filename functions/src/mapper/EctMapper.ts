@@ -1,4 +1,4 @@
-import { IMapper, IProvince, IScore, IParty } from './IMapper'
+import { IMapper, IProvince, IScore, IParty, IZone } from './IMapper'
 import { client } from '../util/client'
 
 interface Response {
@@ -10,6 +10,10 @@ interface IScoreResponse extends Response {
     items: IScore[]
 }
 
+interface IZoneResponse extends Response {
+    items: IZone[]
+}
+
 interface IProvinceResponse extends Response {
     items: IProvince[]
 }
@@ -18,18 +22,22 @@ interface IPartyResponse extends Response {
     items: IParty[]
 }
 
-class EctMapper implements IMapper {
+export class EctMapper implements IMapper {
+    private cachedZones: IZone[] | null
     private cachedScores: IScore[] | null
     private cachedParties: IParty[] | null
     private cachedProvinces: IProvince[] | null
+    private cachedZonesTimestamp: number
     private cachedScoresTimestamp: number
     private cachedPartiesTimestamp: number
     private cachedProvincesTimestamp: number
 
     constructor() {
+        this.cachedZones = null
         this.cachedScores = null
         this.cachedParties = null
         this.cachedProvinces = null
+        this.cachedZonesTimestamp = 0
         this.cachedScoresTimestamp = 0
         this.cachedPartiesTimestamp = 0
         this.cachedProvincesTimestamp = 0
@@ -73,6 +81,24 @@ class EctMapper implements IMapper {
         return this.cachedParties
     }
 
+    public async fetchZones(): Promise<IZone[]> {
+        const response = await client.get('/zone?format=json&fields=all&p=all')
+        const data = response.data as IZoneResponse
+        return data.items
+    }
+
+    public async zones(): Promise<IZone[]> {
+        if (
+            !this.cachedZones ||
+            Date.now() - this.cachedZonesTimestamp > 20000
+        ) {
+            this.cachedZones = await this.fetchZones()
+            this.cachedZonesTimestamp = Date.now()
+            console.log('cache province')
+        }
+        return this.cachedZones
+    }
+
     public async fetchProvinces(): Promise<IProvince[]> {
         const response = await client.get(
             '/province?format=json&fields=all&p=all'
@@ -92,14 +118,4 @@ class EctMapper implements IMapper {
         }
         return this.cachedProvinces
     }
-}
-
-let mapper: EctMapper | null = null
-
-export function newEctMapper(): IMapper {
-    if (!mapper) {
-        mapper = new EctMapper()
-    }
-
-    return mapper
 }

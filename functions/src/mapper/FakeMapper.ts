@@ -1,13 +1,15 @@
-import { IMapper, IProvince, IScore, IParty } from './IMapper'
+import { IMapper, IProvince, IScore, IParty, IZone } from './IMapper'
+import tempZones from '../masterData/idToZoneMap.json'
 import tempParties from '../masterData/idToPartyMap.json'
 import tempProvinces from '../masterData/idToProvinceMap.json'
 import tempCandidates from '../masterData/idToCandidateMap.json'
 
+const zoneData: any = tempZones
 const partyData: any = tempParties
 const provinceData: any = tempProvinces
 const candidateData: any = tempCandidates
 
-class FakeMapper implements IMapper {
+export class FakeMapper implements IMapper {
     public async fetchScores(): Promise<IScore[]> {
         return Object.values(candidateData)
     }
@@ -24,6 +26,14 @@ class FakeMapper implements IMapper {
         return this.fetchParties()
     }
 
+    public async fetchZones(): Promise<IZone[]> {
+        return Object.values(zoneData)
+    }
+
+    public async zones(): Promise<IZone[]> {
+        return this.fetchZones()
+    }
+
     public async fetchProvinces(): Promise<IProvince[]> {
         return Object.values(provinceData)
     }
@@ -31,14 +41,4 @@ class FakeMapper implements IMapper {
     public async provinces(): Promise<IProvince[]> {
         return this.fetchProvinces()
     }
-}
-
-let mapper: FakeMapper | null = null
-
-export function newFakeMapper(): IMapper {
-    if (!mapper) {
-        mapper = new FakeMapper()
-    }
-
-    return mapper
 }

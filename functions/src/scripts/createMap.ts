@@ -1,17 +1,18 @@
 import { writeFileSync } from 'fs'
-import { newEctMapper } from '../mapper/EctMapper'
+import { EctMapper } from '../mapper/EctMapper'
 
 export async function main() {
-    const mapper = newEctMapper()
-    const provinces = await mapper.fetchProvinces()
+    const mapper = new EctMapper()
+    const zones = await mapper.fetchZones()
 
-    const scoreMap = provinces.reduce(
-        (map, province) => {
-            map[`${province.id}`] = province
+    const zoneMap = zones.reduce(
+        (map, zone) => {
+            const { provinceId, no } = zone
+            map[`${provinceId}:${no}`] = zone
             return map
         },
         {} as any
     )
 
-    writeFileSync('test.json', JSON.stringify(scoreMap, undefined, 2))
+    writeFileSync('test.json', JSON.stringify(zoneMap, undefined, 2))
 }

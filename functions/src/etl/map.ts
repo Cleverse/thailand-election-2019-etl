@@ -2,7 +2,7 @@ import { IScore, newMapper } from '../mapper/IMapper'
 import { CDN_IMGURL } from '../constants'
 import { calculateTotalVotes, calculateInvalidVotes } from '../util'
 
-import tempZones from '../masterData/idToZoneMap.json'
+import tempZones from '../masterData/idToElectZoneMap.json'
 import tempParties from '../masterData/idToPartyMap.json'
 import tempProvinces from '../masterData/idToProvinceMap.json'
 import tempConstituency from '../masterData/uniqueKeyToConstituencyMemberMap.json'
