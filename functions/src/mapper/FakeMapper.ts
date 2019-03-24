@@ -42,3 +42,13 @@ export class FakeMapper implements IMapper {
         return this.fetchProvinces()
     }
 }
+
+let mapper: FakeMapper | null = null
+
+export function newFakeMapper(): IMapper {
+    if (!mapper) {
+        mapper = new FakeMapper()
+    }
+
+    return mapper
+}

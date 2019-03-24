@@ -119,3 +119,13 @@ export class EctMapper implements IMapper {
         return this.cachedProvinces
     }
 }
+
+let mapper: EctMapper | null = null
+
+export function newEctMapper(): IMapper {
+    if (!mapper) {
+        mapper = new EctMapper()
+    }
+
+    return mapper
+}

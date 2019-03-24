@@ -1,5 +1,5 @@
-import { FakeMapper } from './FakeMapper'
-import { EctMapper } from './EctMapper'
+import { newFakeMapper } from './FakeMapper'
+import { newEctMapper } from './EctMapper'
 
 export interface IMapper {
     fetchScores(): Promise<IScore[]>
@@ -74,9 +74,6 @@ export interface IParty {
     colorCode: any
 }
 
-let mapper: IMapper | null = null
-
 export function newMapper() {
-    mapper = mapper || process.env.TEST_ENV ? new FakeMapper() : new EctMapper()
-    return mapper
+    return process.env.TEST_ENV ? newFakeMapper() : newEctMapper()
 }
