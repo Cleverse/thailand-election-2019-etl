@@ -3,7 +3,10 @@ import { IncomingMessage } from 'http'
 
 export async function invalidateCache() {
     const formData = new FormData()
-    formData.append('url', 'https://cdn.vote.phantompage.com/data/latest.json')
+    formData.append(
+        'url',
+        'https://cdn.vote.workpointnews.com/data/latest.json'
+    )
 
     const response = await submitAsync(
         formData,
