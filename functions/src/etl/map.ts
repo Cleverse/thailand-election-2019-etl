@@ -83,7 +83,7 @@ export async function etlMapData() {
                 partyCode: codeEN,
                 partyPic: `${CDN_IMGURL}/parties/${name}.png`,
                 color: `#${colorCode}`,
-                seats: seats.length,
+                seats: votes ? seats.length : 0,
                 votes,
                 percentage,
                 rank: seats.length === prevSeats ? prevRank : arr.length + 1,
