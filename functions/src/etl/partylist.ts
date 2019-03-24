@@ -1,6 +1,11 @@
 import { calculatePartyList, Party } from 'partylist-calculator'
 
-import { sortScores, calculateSeats, calculatePartyScores } from './map'
+import {
+    sortScores,
+    calculateSeats,
+    calculatePartyScores,
+    calculatePartyScoresMap,
+} from './map'
 import { CDN_IMGURL } from '../constants'
 import { calculateInvalidVotes, calculateTotalVotes } from '../util'
 
@@ -13,18 +18,21 @@ const partyData: any = tempParties
 
 export async function etlPartylistData() {
     const mapper = newMapper()
-    const scores = await mapper.scores()
-    const partySeats = calculateSeats(sortScores(scores))
-    const partyScores = calculatePartyScores(partySeats)
+    const scoresByZone = await mapper.scores().then(sortScores)
+    const partySeats = calculateSeats(scoresByZone)
+    const partyScoresMap = calculatePartyScoresMap(scoresByZone)
 
-    const partylists = partySeats.map((seats, index) => {
+    const partylists = partySeats.map(seats => {
         const { partyId } = seats[0]
         const partyIdStr = `${partyId}`
         const { name } = partyData[partyIdStr]
         const partylist = partylistData[name]
 
         const numSeats = seats.length
-        const votesTotal = partyScores[index]
+        const votesTotal = partyScoresMap[partyIdStr].reduce(
+            (sum: number, score: any) => sum + score.score,
+            0
+        )
         const numCandidates: number = partylist
             ? partylist.candidates.length
             : 0
@@ -39,7 +47,10 @@ export async function etlPartylistData() {
 
     const totalVotes = await calculateTotalVotes()
     const invalidVotes = await calculateInvalidVotes()
-    const goodVotes = partyScores.reduce((sum, votes) => sum + votes, 0)
+    const goodVotes = calculatePartyScores(partyScoresMap).reduce(
+        (sum, votes) => sum + votes,
+        0
+    )
     const remainingVotes = totalVotes - invalidVotes - goodVotes
 
     partylists.push(

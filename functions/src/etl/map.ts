@@ -78,13 +78,20 @@ export async function etlMapData() {
     })
 
     const partySeats = calculateSeats(scoresByZone)
-    const partyScores = calculatePartyScores(partySeats)
-    const sumVotes = partyScores.reduce((sum, votes) => sum + votes, 0)
+    const partyScoresMap = calculatePartyScoresMap(scoresByZone)
+    const sumVotes = calculatePartyScores(partyScoresMap).reduce(
+        (sum, votes) => sum + votes,
+        0
+    )
 
     const parties = partySeats.reduce(
-        (arr, seats, index) => {
-            const { name, codeEN, colorCode } = partyData[`${seats[0].partyId}`]
-            const votes = partyScores[index]
+        (arr, seats) => {
+            const partyId = `${seats[0].partyId}`
+            const { name, codeEN, colorCode } = partyData[partyId]
+            const votes: number = partyScoresMap[partyId].reduce(
+                (sum: number, score: any) => sum + score.score,
+                0
+            )
             const percentage = Math.round((votes / sumVotes) * 100 * 10) / 10
 
             const { seats: prevSeats, rank: prevRank } = arr[
@@ -201,9 +208,26 @@ export function sortScores(scores: IScore[]) {
     )).filter(e => e[0].score > 0)
 }
 
-export function calculatePartyScores(partySeats: Array<IScore[]>) {
-    return partySeats.map(scores =>
-        scores.reduce((sum, score) => sum + score.score, 0)
+export function calculatePartyScores(partyScoresMap: any) {
+    return Object.values(partyScoresMap)
+        .map((s: any) => {
+            const scores: IScore[] = s
+            return scores.reduce((sum, score) => sum + score.score, 0)
+        })
+        .sort((a, b) => b - a)
+}
+
+export function calculatePartyScoresMap(zones: Array<IScore[]>) {
+    return zones.reduce(
+        (map, zone) => {
+            zone.map(score => {
+                const partyId = `${score.partyId}`
+                map[partyId] = map[partyId] || []
+                map[partyId].push(score)
+            })
+            return map
+        },
+        {} as any
     )
 }
 
