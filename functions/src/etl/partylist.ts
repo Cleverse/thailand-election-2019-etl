@@ -23,8 +23,7 @@ export async function etlPartylistData() {
     const partyScoresMap = calculatePartyScoresMap(scoresByZone)
 
     const partylists = partySeats.map(seats => {
-        const { partyId } = seats[0]
-        const partyIdStr = `${partyId}`
+        const partyIdStr = `${seats[0].partyId}`
         const { name } = partyData[partyIdStr]
         const partylist = partylistData[name]
 
