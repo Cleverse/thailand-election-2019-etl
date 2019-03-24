@@ -194,9 +194,11 @@ export function sortScores(scores: IScore[]) {
         {} as any
     )
 
-    return Object.values(zoneMap).map((zone: any) =>
-        zone.sort((a: any, b: any) => b.score - a.score)
-    ) as Array<IScore[]>
+    return (<Array<IScore[]>>(
+        Object.values(zoneMap).map((zone: any) =>
+            zone.sort((a: any, b: any) => b.score - a.score)
+        )
+    )).filter(e => e[0].score > 0 || [8, 1, 83, 68].includes(e[0].partyId))
 }
 
 export function calculatePartyScores(partySeats: Array<IScore[]>) {
