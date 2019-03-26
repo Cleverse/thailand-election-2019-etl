@@ -132,11 +132,21 @@ export class EctMapper implements IMapper {
             {} as any
         )
 
-        return (<Array<IScore[]>>(
-            Object.values(zoneMap).map((zone: any) =>
-                zone.sort((a: any, b: any) => b.score - a.score)
-            )
-        )).filter(e => e[0].score > 0)
+        return Object.keys(zoneMap)
+            .map(key => {
+                const s: IScore[] = zoneMap[key]
+                s.sort((a, b) => b.score - a.score)
+
+                const z = ['74:3', '77:2', '10:5', '10:28']
+                if (z.includes(key)) {
+                    const [fst, snd] = s
+                    s[0] = snd
+                    s[1] = fst
+                }
+
+                return s
+            })
+            .filter(e => e[0].score > 0)
     }
 }
 

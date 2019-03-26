@@ -179,6 +179,7 @@ function mapZone(invalidVotes: number, timestamp: number) {
         const { zone: zoneNo, provinceId } = scores[0]
         const province = provinceData[`${provinceId}`].name
         const zoneInfo: IZoneInfo = zoneData[`${province}:${zoneNo}`]
+        const z = ['74:3', '77:2', '10:5', '10:28']
         return {
             zoneNo,
             totalScore: sumScores,
@@ -187,6 +188,7 @@ function mapZone(invalidVotes: number, timestamp: number) {
             keywords: extractKeywords(zoneInfo),
             timestamp,
             topCandidates,
+            overidden: z.includes(`${provinceId}:${zoneNo}`),
         }
     }
 }
