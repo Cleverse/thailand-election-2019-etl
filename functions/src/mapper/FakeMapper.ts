@@ -3,13 +3,14 @@ import tempZones from '../masterData/idToZoneMap.json'
 import tempParties from '../masterData/idToPartyMap.json'
 import tempProvinces from '../masterData/idToProvinceMap.json'
 import tempCandidates from '../masterData/idToCandidateMap.json'
+import { BaseMapper } from './BaseMapper'
 
 const zoneData: any = tempZones
 const partyData: any = tempParties
 const provinceData: any = tempProvinces
 const candidateData: any = tempCandidates
 
-export class FakeMapper implements IMapper {
+export class FakeMapper extends BaseMapper {
     public async fetchScores(): Promise<IScore[]> {
         return Object.values(candidateData)
     }
@@ -40,26 +41,6 @@ export class FakeMapper implements IMapper {
 
     public async provinces(): Promise<IProvince[]> {
         return this.fetchProvinces()
-    }
-
-    public async getScoresByZone() {
-        const scores = await this.scores()
-        const zoneMap = scores.reduce(
-            (map, s) => {
-                const key = `${s.provinceId}:${s.zone}`
-
-                map[key] = map[key] || []
-                map[key].push(s)
-                return map
-            },
-            {} as any
-        )
-
-        return (<Array<IScore[]>>(
-            Object.values(zoneMap).map((zone: any) =>
-                zone.sort((a: any, b: any) => b.score - a.score)
-            )
-        )).filter(e => e[0].score > 0)
     }
 }
 

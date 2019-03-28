@@ -1,5 +1,6 @@
 import { IMapper, IProvince, IScore, IParty, IZone } from './IMapper'
 import { client } from '../util/client'
+import { BaseMapper } from './BaseMapper'
 
 interface Response {
     total: number
@@ -22,7 +23,7 @@ interface IPartyResponse extends Response {
     items: IParty[]
 }
 
-export class EctMapper implements IMapper {
+export class EctMapper extends BaseMapper {
     private cachedZones: IZone[] | null
     private cachedScores: IScore[] | null
     private cachedParties: IParty[] | null
@@ -33,6 +34,8 @@ export class EctMapper implements IMapper {
     private cachedProvincesTimestamp: number
 
     constructor() {
+        super()
+
         this.cachedZones = null
         this.cachedScores = null
         this.cachedParties = null
@@ -117,26 +120,6 @@ export class EctMapper implements IMapper {
             console.log('cache province')
         }
         return this.cachedProvinces
-    }
-
-    public async getScoresByZone() {
-        const scores = await this.scores()
-        const zoneMap = scores.reduce(
-            (map, s) => {
-                const key = `${s.provinceId}:${s.zone}`
-
-                map[key] = map[key] || []
-                map[key].push(s)
-                return map
-            },
-            {} as any
-        )
-
-        return (<Array<IScore[]>>(
-            Object.values(zoneMap).map((zone: any) =>
-                zone.sort((a: any, b: any) => b.score - a.score)
-            )
-        )).filter(e => e[0].score > 0)
     }
 }
 
