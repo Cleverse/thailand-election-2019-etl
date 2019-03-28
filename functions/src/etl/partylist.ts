@@ -1,21 +1,19 @@
 import { calculatePartyList, Party } from 'partylist-calculator'
 
-import { calculatePartyScores, calculateSeatsMap } from './map'
+import { Aggregator } from './Aggregator'
 import { CDN_IMGURL } from '../constants'
 import { calculateInvalidVotes, calculateTotalVotes } from '../util'
 
 import tempPartyList from '../masterData/partyToPartylistMembersMap.json'
 import tempParties from '../masterData/idToPartyMap.json'
-import { newMapper } from '../mapper/IMapper'
 
 const partylistData: any = tempPartyList
 const partyData: any = tempParties
 
 export async function etlPartylistData() {
-    const mapper = newMapper()
-    const scoresByZone = await mapper.getScoresByZone()
-    const partySeatsMap = calculateSeatsMap(scoresByZone)
-    const partyScores = calculatePartyScores(scoresByZone)
+    const aggregator = new Aggregator()
+    const partySeatsMap = await aggregator.seatsMap()
+    const partyScores = await aggregator.scoresByParty()
 
     const partylists = partyScores.map(scores => {
         const partyIdStr = `${scores[0].partyId}`

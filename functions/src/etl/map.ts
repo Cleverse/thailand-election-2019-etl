@@ -6,6 +6,7 @@ import tempZones from '../masterData/idToElectZoneMap.json'
 import tempParties from '../masterData/idToPartyMap.json'
 import tempProvinces from '../masterData/idToProvinceMap.json'
 import tempConstituency from '../masterData/uniqueKeyToConstituencyMemberMap.json'
+import { Aggregator } from './Aggregator'
 
 const zoneData: any = tempZones
 const partyData: any = tempParties
@@ -39,7 +40,6 @@ interface IRanking {
 
 export async function etlMapData() {
     const mapper = newMapper()
-    const scoresByZone = await mapper.getScoresByZone()
     const zoneMap = await mapper.zones().then(zones =>
         zones.reduce(
             (map, zone) => {
@@ -51,6 +51,8 @@ export async function etlMapData() {
         )
     )
 
+    const aggregator = new Aggregator()
+    const scoresByZone = await aggregator.scoresByZone()
     const provinceMap = scoresByZone.reduce(
         (map, scores) => {
             const { provinceId, zone } = scores[0]
@@ -77,8 +79,8 @@ export async function etlMapData() {
         }
     })
 
-    const partySeatsMap = calculateSeatsMap(scoresByZone)
-    const partyScores = calculatePartyScores(scoresByZone)
+    const partySeatsMap = await aggregator.seatsMap()
+    const partyScores = await aggregator.scoresByParty()
     const sumVotes = partyScores.reduce(
         (psum, p) => psum + p.reduce((sum, s) => sum + s.score, 0),
         0
@@ -189,45 +191,6 @@ function mapZone(invalidVotes: number, timestamp: number) {
             topCandidates,
         }
     }
-}
-
-export function calculatePartyScores(zones: IScore[][]) {
-    const partyScoresMap = zones.reduce(
-        (map, zone) => {
-            zone.map(score => {
-                const partyId = `${score.partyId}`
-                map[partyId] = map[partyId] || []
-                map[partyId].push(score)
-            })
-            return map
-        },
-        {} as any
-    )
-
-    return Object.values(partyScoresMap)
-        .map((s: any) => {
-            const scores: IScore[] = s
-            return scores.sort((a, b) => b.score - a.score)
-        })
-        .filter(scores => scores[0].score > 0)
-        .sort((a, b) => {
-            const scoreA = a.reduce((sum, s) => sum + s.score, 0)
-            const scoreB = b.reduce((sum, s) => sum + s.score, 0)
-            return scoreB - scoreA
-        })
-}
-
-export function calculateSeatsMap(zones: Array<IScore[]>) {
-    return zones.reduce(
-        (map, zone) => {
-            const winner = zone[0]
-            const partyId = `${winner.partyId}`
-            map[partyId] = map[partyId] || []
-            map[partyId].push(winner)
-            return map
-        },
-        {} as any
-    )
 }
 
 function stringifyZone(zone: IZoneInfo) {

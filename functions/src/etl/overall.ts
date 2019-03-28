@@ -1,4 +1,3 @@
-import { calculateSeatsMap, calculatePartyScores } from './map'
 import { etlPartylistData } from './partylist'
 import { CDN_IMGURL } from '../constants'
 import { calculateTotalVotes, listToMap } from '../util'
@@ -8,7 +7,8 @@ import tempPartylist from '../masterData/partyToPartylistMembersMap.json'
 import tempProvinces from '../masterData/idToProvinceMap.json'
 import tempPartylistId from '../masterData/uniqueKeyToPartylistMemberMap.json'
 import tempConstituency from '../masterData/uniqueKeyToConstituencyMemberMap.json'
-import { newMapper, IScore } from '../mapper/IMapper'
+import { IScore } from '../mapper/IMapper'
+import { Aggregator } from './Aggregator'
 
 const partyData: any = tempParties
 const provinceData: any = tempProvinces
@@ -17,10 +17,9 @@ const partylistId: any = tempPartylistId
 const constituencyData: any = tempConstituency
 
 export async function etlOverallData() {
-    const mapper = newMapper()
-    const scoresByZone = await mapper.getScoresByZone()
-    const partySeatsMap = calculateSeatsMap(scoresByZone)
-    const partyScores = calculatePartyScores(scoresByZone)
+    const aggregator = new Aggregator()
+    const partySeatsMap = await aggregator.seatsMap()
+    const partyScores = await aggregator.scoresByParty()
 
     const partylistMap = await etlPartylistData().then(list =>
         listToMap(list, 'partyName')
@@ -92,9 +91,8 @@ export async function etlOverallData() {
 }
 
 export async function roughlyEstimateOverall() {
-    const mapper = newMapper()
-    const scoresByZone = await mapper.getScoresByZone()
-    const partyScores = calculatePartyScores(scoresByZone)
+    const aggregator = new Aggregator()
+    const partyScores = await aggregator.scoresByParty()
     const totalVotes = await calculateTotalVotes()
 
     return partyScores

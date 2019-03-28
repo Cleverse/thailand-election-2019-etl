@@ -3,14 +3,13 @@ import tempZones from '../masterData/idToZoneMap.json'
 import tempParties from '../masterData/idToPartyMap.json'
 import tempProvinces from '../masterData/idToProvinceMap.json'
 import tempCandidates from '../masterData/idToCandidateMap.json'
-import { BaseMapper } from './BaseMapper'
 
 const zoneData: any = tempZones
 const partyData: any = tempParties
 const provinceData: any = tempProvinces
 const candidateData: any = tempCandidates
 
-export class FakeMapper extends BaseMapper {
+export class FakeMapper implements IMapper {
     public async fetchScores(): Promise<IScore[]> {
         return Object.values(candidateData)
     }

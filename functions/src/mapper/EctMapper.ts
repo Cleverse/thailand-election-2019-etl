@@ -1,6 +1,5 @@
 import { IMapper, IProvince, IScore, IParty, IZone } from './IMapper'
 import { client } from '../util/client'
-import { BaseMapper } from './BaseMapper'
 
 interface Response {
     total: number
@@ -23,7 +22,7 @@ interface IPartyResponse extends Response {
     items: IParty[]
 }
 
-export class EctMapper extends BaseMapper {
+export class EctMapper implements IMapper {
     private cachedZones: IZone[] | null
     private cachedScores: IScore[] | null
     private cachedParties: IParty[] | null
@@ -34,8 +33,6 @@ export class EctMapper extends BaseMapper {
     private cachedProvincesTimestamp: number
 
     constructor() {
-        super()
-
         this.cachedZones = null
         this.cachedScores = null
         this.cachedParties = null
